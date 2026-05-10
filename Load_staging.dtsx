@@ -12,8 +12,8 @@
   DTS:LocaleID="1036"
   DTS:ObjectName="Staging_Load"
   DTS:PackageType="5"
-  DTS:VersionBuild="121"
-  DTS:VersionGUID="{5BF96018-13E5-4B5B-A58D-428ABC97BAC2}">
+  DTS:VersionBuild="124"
+  DTS:VersionGUID="{AC7B44A6-0824-4B00-AF33-2AFE63CB75AB}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1847,10 +1847,10 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data] WITH (NOLOCK)</property>
                   name="Entrée de colonne dérivée">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\ETL_Visibility_Staging\Colonne dérivée.Inputs[Entrée de colonne dérivée].Columns[visibility_value]"
+                      refId="Package\ETL_Visibility_Staging\Colonne dérivée.Inputs[Entrée de colonne dérivée].Columns[visibility_value_unmapped]"
                       cachedDataType="r8"
-                      cachedName="visibility_value"
-                      lineageId="Package\ETL_Visibility_Staging\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[visibility_value]" />
+                      cachedName="visibility_value_unmapped"
+                      lineageId="Package\ETL_Visibility_Staging\82:invalid" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -1877,7 +1877,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data] WITH (NOLOCK)</property>
                           containsID="true"
                           dataType="System.String"
                           description="Expression de colonne dérivée"
-                          name="Expression">#{Package\ETL_Visibility_Staging\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[visibility_value]} &lt;= 0.25 ? (DT_STR,50,1252)"Extrêmement Faible" : (#{Package\ETL_Visibility_Staging\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[visibility_value]} &lt;= 1.0 ? (DT_STR,50,1252)"Faible" : (#{Package\ETL_Visibility_Staging\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[visibility_value]} &lt;= 3.0 ? (DT_STR,50,1252)"Moyenne" : (#{Package\ETL_Visibility_Staging\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[visibility_value]} &lt;= 10.0 ? (DT_STR,50,1252)"Bonne" : (DT_STR,50,1252)"Excellente")))</property>
+                          name="Expression">#{Package\ETL_Visibility_Staging\82:invalid} &lt;= 0.25 ? (DT_STR,50,1252)"Extrêmement Faible" : (#{Package\ETL_Visibility_Staging\82:invalid} &lt;= 1.0 ? (DT_STR,50,1252)"Faible" : (#{Package\ETL_Visibility_Staging\82:invalid} &lt;= 3.0 ? (DT_STR,50,1252)"Moyenne" : (#{Package\ETL_Visibility_Staging\82:invalid} &lt;= 10.0 ? (DT_STR,50,1252)"Bonne" : (DT_STR,50,1252)"Excellente")))</property>
                         <property
                           containsID="true"
                           dataType="System.String"
@@ -1931,7 +1931,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data] WITH (NOLOCK)</property>
                       refId="Package\ETL_Visibility_Staging\Colonne dérivée 1.Inputs[Entrée de colonne dérivée].Columns[vis_num_safe]"
                       cachedDataType="r8"
                       cachedName="vis_num_safe"
-                      lineageId="Package\ETL_Visibility_Staging\SRC_Visibility.Outputs[Sortie de source OLE DB].Columns[vis_num_safe]" />
+                      lineageId="Package\ETL_Visibility_Staging\66:invalid" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -1957,7 +1957,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data] WITH (NOLOCK)</property>
                           containsID="true"
                           dataType="System.String"
                           description="Expression de colonne dérivée"
-                          name="Expression">[ISNULL](#{Package\ETL_Visibility_Staging\SRC_Visibility.Outputs[Sortie de source OLE DB].Columns[vis_num_safe]}) ? -1.0 : #{Package\ETL_Visibility_Staging\SRC_Visibility.Outputs[Sortie de source OLE DB].Columns[vis_num_safe]}</property>
+                          name="Expression">[ISNULL](#{Package\ETL_Visibility_Staging\66:invalid}) ? -1.0 : #{Package\ETL_Visibility_Staging\66:invalid}</property>
                         <property
                           containsID="true"
                           dataType="System.String"
@@ -2007,11 +2007,11 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data] WITH (NOLOCK)</property>
                   name="Entrée de conversion de données">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\ETL_Visibility_Staging\Conversion de données 1.Inputs[Entrée de conversion de données].Columns[Visibility_Category]"
+                      refId="Package\ETL_Visibility_Staging\Conversion de données 1.Inputs[Entrée de conversion de données].Columns[Visibility_Category_unmapped]"
                       cachedDataType="wstr"
                       cachedLength="50"
-                      cachedName="Visibility_Category"
-                      lineageId="Package\ETL_Visibility_Staging\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Visibility_Category]" />
+                      cachedName="Visibility_Category_unmapped"
+                      lineageId="Package\ETL_Visibility_Staging\83:invalid" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -2038,7 +2038,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data] WITH (NOLOCK)</property>
                           containsID="true"
                           dataType="System.Int32"
                           description="Spécifie la colonne d'entrée utilisée comme source de données pour la conversion."
-                          name="SourceInputColumnLineageID">#{Package\ETL_Visibility_Staging\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Visibility_Category]}</property>
+                          name="SourceInputColumnLineageID">#{Package\ETL_Visibility_Staging\83:invalid}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
@@ -2088,7 +2088,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data] WITH (NOLOCK)</property>
                 <property
                   dataType="System.String"
                   description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
-                  name="OpenRowset">[visibility_stg]</property>
+                  name="OpenRowset">[dbo].[Dim_Visibility]</property>
                 <property
                   dataType="System.String"
                   description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
@@ -2131,8 +2131,8 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data] WITH (NOLOCK)</property>
               <connections>
                 <connection
                   refId="Package\ETL_Visibility_Staging\DEST_Visibility_stg.Connections[OleDbConnection]"
-                  connectionManagerID="{2A06DFEB-00AA-4945-B6D2-3C0A64BDCDAC}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[RANNOUM.US_Accidents_STAGING]"
+                  connectionManagerID="{EE6A200C-1D73-4D4F-B9F8-B5C2FD8A0992}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[RANNOUM.US_Accidents_DW]"
                   description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
                   name="OleDbConnection" />
               </connections>
@@ -2145,32 +2145,30 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data] WITH (NOLOCK)</property>
                   name="Entrée de destination OLE DB">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\ETL_Visibility_Staging\DEST_Visibility_stg.Inputs[Entrée de destination OLE DB].Columns[visibility_value]"
-                      cachedDataType="r8"
-                      cachedName="visibility_value"
-                      externalMetadataColumnId="Package\ETL_Visibility_Staging\DEST_Visibility_stg.Inputs[Entrée de destination OLE DB].ExternalColumns[visibility_value]"
-                      lineageId="Package\ETL_Visibility_Staging\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[visibility_value]" />
-                    <inputColumn
-                      refId="Package\ETL_Visibility_Staging\DEST_Visibility_stg.Inputs[Entrée de destination OLE DB].Columns[VisibilityCategory]"
+                      refId="Package\ETL_Visibility_Staging\DEST_Visibility_stg.Inputs[Entrée de destination OLE DB].Columns[VisibilityCategory_unmapped]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
-                      cachedName="VisibilityCategory"
+                      cachedName="VisibilityCategory_unmapped"
                       externalMetadataColumnId="Package\ETL_Visibility_Staging\DEST_Visibility_stg.Inputs[Entrée de destination OLE DB].ExternalColumns[Visibility_Category]"
-                      lineageId="Package\ETL_Visibility_Staging\Conversion de données 1.Outputs[Sortie de conversion de données].Columns[VisibilityCategory]" />
+                      lineageId="Package\ETL_Visibility_Staging\81:invalid" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\ETL_Visibility_Staging\DEST_Visibility_stg.Inputs[Entrée de destination OLE DB].ExternalColumns[visibility_value]"
-                      dataType="r8"
-                      name="visibility_value" />
                     <externalMetadataColumn
                       refId="Package\ETL_Visibility_Staging\DEST_Visibility_stg.Inputs[Entrée de destination OLE DB].ExternalColumns[Visibility_Category]"
                       codePage="1252"
                       dataType="str"
                       length="50"
                       name="Visibility_Category" />
+                    <externalMetadataColumn
+                      refId="Package\ETL_Visibility_Staging\DEST_Visibility_stg.Inputs[Entrée de destination OLE DB].ExternalColumns[Visibility_Key]"
+                      dataType="i4"
+                      name="Visibility_Key" />
+                    <externalMetadataColumn
+                      refId="Package\ETL_Visibility_Staging\DEST_Visibility_stg.Inputs[Entrée de destination OLE DB].ExternalColumns[Visibility_Value]"
+                      dataType="r8"
+                      name="Visibility_Value" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -2215,7 +2213,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data] WITH (NOLOCK)</property>
                 <property
                   dataType="System.String"
                   description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
-                  name="OpenRowset">[dbo].[Accidents_Data]</property>
+                  name="OpenRowset">[dbo].[Visibilityy_stg]</property>
                 <property
                   dataType="System.String"
                   description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
@@ -2244,7 +2242,7 @@ FROM [dbo].[Accidents_Data]</property>
                   dataType="System.Int32"
                   description="Spécifie le mode utilisé pour accéder à la base de données."
                   name="AccessMode"
-                  typeConverter="AccessMode">2</property>
+                  typeConverter="AccessMode">0</property>
                 <property
                   dataType="System.String"
                   description="Mappages entre les paramètres de la commande SQL et les variables."
@@ -2274,15 +2272,6 @@ FROM [dbo].[Accidents_Data]</property>
                       lineageId="Package\ETL_Visibility_Staging\SRC_Visibility.Outputs[Sortie de source OLE DB].Columns[Visibility(mi)]"
                       name="Visibility(mi)"
                       truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\ETL_Visibility_Staging\SRC_Visibility.Outputs[Sortie de source OLE DB].Columns[vis_num_safe]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\ETL_Visibility_Staging\SRC_Visibility.Outputs[Sortie de source OLE DB].ExternalColumns[vis_num_safe]"
-                      lineageId="Package\ETL_Visibility_Staging\SRC_Visibility.Outputs[Sortie de source OLE DB].Columns[vis_num_safe]"
-                      name="vis_num_safe"
-                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -2292,10 +2281,6 @@ FROM [dbo].[Accidents_Data]</property>
                       dataType="str"
                       length="50"
                       name="Visibility(mi)" />
-                    <externalMetadataColumn
-                      refId="Package\ETL_Visibility_Staging\SRC_Visibility.Outputs[Sortie de source OLE DB].ExternalColumns[vis_num_safe]"
-                      dataType="r8"
-                      name="vis_num_safe" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -2309,11 +2294,6 @@ FROM [dbo].[Accidents_Data]</property>
                       lineageId="Package\ETL_Visibility_Staging\SRC_Visibility.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
-                    <outputColumn
-                      refId="Package\ETL_Visibility_Staging\SRC_Visibility.Outputs[Sortie d'erreur de source OLE DB].Columns[vis_num_safe]"
-                      dataType="r8"
-                      lineageId="Package\ETL_Visibility_Staging\SRC_Visibility.Outputs[Sortie d'erreur de source OLE DB].Columns[vis_num_safe]"
-                      name="vis_num_safe" />
                     <outputColumn
                       refId="Package\ETL_Visibility_Staging\SRC_Visibility.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
                       dataType="i4"
@@ -2978,7 +2958,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
       DTS:LocaleID="-1"
       DTS:ObjectName="TRUNCATE"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="4">
+      DTS:ThreadHint="0">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -2995,7 +2975,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
       DTS:LocaleID="-1"
       DTS:ObjectName="TRUNCATE geography_stg"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="1">
+      DTS:ThreadHint="3">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -3011,7 +2991,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Truncate_Precipitation"
-      DTS:ThreadHint="3">
+      DTS:ThreadHint="4">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -3044,7 +3024,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Truncate_WeatherCondtion"
-      DTS:ThreadHint="0">
+      DTS:ThreadHint="1">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -3324,6 +3304,27 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\ETL_Geography_Staging\Geography_stg">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ETL_Geography_Staging\Source DataCSv">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\ETL_Precipitation_Staging">
     <LayoutInfo>
@@ -3670,7 +3671,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
     design-time-name="Package\ETL_Visibility_Staging">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="168,41.6"
           Id="Package\ETL_Visibility_Staging\DEST_Visibility_stg"
@@ -3722,7 +3723,9 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="70.117460499079,25.8601306660756,16,16"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -3750,7 +3753,9 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="48.5396830346986,-22,16,16"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -3759,37 +3764,39 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="138.774603287798,28.0078431551294"
+              EndConnector="138.774603287798,28.0078431551299"
               Start="0,0"
-              End="138.774603287798,20.5078431551294">
+              End="138.774603287798,20.5078431551299">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,10.0039215775647" />
+                    End="0,10.003921577565" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,10.0039215775647"
-                    Point2="0,14.0039215775647"
-                    Point3="4,14.0039215775647" />
+                    Point1="0,10.003921577565"
+                    Point2="0,14.003921577565"
+                    Point3="4,14.003921577565" />
                   <mssgle:LineSegment
-                    End="134.774603287798,14.0039215775647" />
+                    End="134.774603287798,14.003921577565" />
                   <mssgle:CubicBezierSegment
-                    Point1="134.774603287798,14.0039215775647"
-                    Point2="138.774603287798,14.0039215775647"
-                    Point3="138.774603287798,18.0039215775647" />
+                    Point1="134.774603287798,14.003921577565"
+                    Point2="138.774603287798,14.003921577565"
+                    Point3="138.774603287798,18.003921577565" />
                   <mssgle:LineSegment
-                    End="138.774603287798,20.5078431551294" />
+                    End="138.774603287798,20.5078431551299" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="61.387301643899,19.003921577565,16,16"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\ETL_Visibility_Staging.Paths[Sortie de source OLE DB]"
-          TopLeft="83.1650793796933,60.5264705710125">
+          TopLeft="83.1650793796933,60.5264705710124">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -3800,17 +3807,17 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,13.6501633808648" />
+                    End="0,13.6501633808649" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,13.6501633808648"
-                    Point2="0,17.6501633808648"
-                    Point3="4,17.6501633808648" />
+                    Point1="0,13.6501633808649"
+                    Point2="0,17.6501633808649"
+                    Point3="4,17.6501633808649" />
                   <mssgle:LineSegment
-                    End="116.442857312396,17.6501633808648" />
+                    End="116.442857312396,17.6501633808649" />
                   <mssgle:CubicBezierSegment
-                    Point1="116.442857312396,17.6501633808648"
-                    Point2="120.442857312396,17.6501633808648"
-                    Point3="120.442857312396,21.6501633808648" />
+                    Point1="116.442857312396,17.6501633808649"
+                    Point2="120.442857312396,17.6501633808649"
+                    Point3="120.442857312396,21.6501633808649" />
                   <mssgle:LineSegment
                     End="120.442857312396,27.8003267617297" />
                 </mssgle:SegmentCollection>
@@ -3818,7 +3825,9 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="52.2214286561979,22.6501633808649,16,16"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -4035,27 +4044,6 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\ETL_Weather_Staging\Destination OLE DB">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\ETL_Geography_Staging\Source DataCSv">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\ETL_Geography_Staging\Geography_stg">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>

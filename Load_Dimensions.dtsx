@@ -11,8 +11,8 @@
   DTS:LocaleID="1036"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="45"
-  DTS:VersionGUID="{0293E0C9-11CD-409F-A7B4-85A70401AB19}">
+  DTS:VersionBuild="63"
+  DTS:VersionGUID="{23F121B6-95BC-4345-9544-09B2491B869B}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -1911,11 +1911,250 @@ where [refTable].[Precipitation_Category] = ?</property>
           version="1">
           <components>
             <component
-              refId="Package\Dim_Visibility\Destination Dim_Visibility"
+              refId="Package\Dim_Visibility\Colonne dérivée"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Colonne dérivée;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;0"
+              description="Crée de nouvelles valeurs de colonne en appliquant des expressions aux colonnes d'entrée de transformation. Créez de nouvelles colonnes ou remplacez celles qui existent déjà. Par exemple, concaténez les valeurs de la colonne 'prénom' et de la colonne 'nom' pour créer une colonne 'nom complet'."
+              name="Colonne dérivée"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Dim_Visibility\Colonne dérivée.Inputs[Entrée de colonne dérivée]"
+                  description="Entrée de la transformation de colonnes dérivées"
+                  name="Entrée de colonne dérivée">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim_Visibility\Colonne dérivée.Inputs[Entrée de colonne dérivée].Columns[Visibility_Value]"
+                      cachedDataType="r8"
+                      cachedName="Visibility_Value"
+                      lineageId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Visibility_Value]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim_Visibility\Colonne dérivée.Outputs[Sortie de colonne dérivée]"
+                  description="Sortie par défaut de la transformation de colonnes dérivées"
+                  exclusionGroup="1"
+                  name="Sortie de colonne dérivée"
+                  synchronousInputId="Package\Dim_Visibility\Colonne dérivée.Inputs[Entrée de colonne dérivée]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Visibility\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[visibility_floatt]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Dim_Visibility\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[visibility_floatt]"
+                      name="visibility_floatt"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">[ISNULL](#{Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Visibility_Value]}) ? -1.0 : #{Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Visibility_Value]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(Visibility_Value) ? -1.0 : Visibility_Value</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Dim_Visibility\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée]"
+                  description="Sortie d'erreur de la transformation de colonnes dérivées"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de colonne dérivée"
+                  synchronousInputId="Package\Dim_Visibility\Colonne dérivée.Inputs[Entrée de colonne dérivée]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Visibility\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Visibility\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim_Visibility\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Visibility\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dim_Visibility\Colonne dérivée 1"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Colonne dérivée;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;0"
+              description="Crée de nouvelles valeurs de colonne en appliquant des expressions aux colonnes d'entrée de transformation. Créez de nouvelles colonnes ou remplacez celles qui existent déjà. Par exemple, concaténez les valeurs de la colonne 'prénom' et de la colonne 'nom' pour créer une colonne 'nom complet'."
+              name="Colonne dérivée 1"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Dim_Visibility\Colonne dérivée 1.Inputs[Entrée de colonne dérivée]"
+                  description="Entrée de la transformation de colonnes dérivées"
+                  name="Entrée de colonne dérivée">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim_Visibility\Colonne dérivée 1.Inputs[Entrée de colonne dérivée].Columns[Visibility_Value]"
+                      cachedDataType="r8"
+                      cachedName="Visibility_Value"
+                      lineageId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Visibility_Value]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim_Visibility\Colonne dérivée 1.Outputs[Sortie de colonne dérivée]"
+                  description="Sortie par défaut de la transformation de colonnes dérivées"
+                  exclusionGroup="1"
+                  name="Sortie de colonne dérivée"
+                  synchronousInputId="Package\Dim_Visibility\Colonne dérivée 1.Inputs[Entrée de colonne dérivée]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Visibility\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Visibility_Category]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      length="18"
+                      lineageId="Package\Dim_Visibility\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Visibility_Category]"
+                      name="Visibility_Category"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">#{Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Visibility_Value]} &lt;= 0.25 ? "Extrêmement Faible" : (#{Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Visibility_Value]} &lt;= 1.0 ? "Faible" : (#{Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Visibility_Value]} &lt;= 3.0 ? "Moyenne" : (#{Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Visibility_Value]} &lt;= 10.0 ? "Bonne" : "Excellente")))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">Visibility_Value &lt;= 0.25 ? "Extrêmement Faible" : (Visibility_Value &lt;= 1.0 ? "Faible" : (Visibility_Value &lt;= 3.0 ? "Moyenne" : (Visibility_Value &lt;= 10.0 ? "Bonne" : "Excellente")))</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Dim_Visibility\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée]"
+                  description="Sortie d'erreur de la transformation de colonnes dérivées"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de colonne dérivée"
+                  synchronousInputId="Package\Dim_Visibility\Colonne dérivée 1.Inputs[Entrée de colonne dérivée]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Visibility\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Visibility\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim_Visibility\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Visibility\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dim_Visibility\Conversion de données"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Conversion de données;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;0"
+              description="Conversion de données"
+              name="Conversion de données"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Dim_Visibility\Conversion de données.Inputs[Entrée de conversion de données]"
+                  name="Entrée de conversion de données">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim_Visibility\Conversion de données.Inputs[Entrée de conversion de données].Columns[Visibility_Category]"
+                      cachedDataType="wstr"
+                      cachedLength="18"
+                      cachedName="Visibility_Category"
+                      lineageId="Package\Dim_Visibility\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Visibility_Category]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim_Visibility\Conversion de données.Outputs[Sortie de conversion de données]"
+                  exclusionGroup="1"
+                  name="Sortie de conversion de données"
+                  synchronousInputId="Package\Dim_Visibility\Conversion de données.Inputs[Entrée de conversion de données]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Visibility\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Visibility_Category]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="18"
+                      lineageId="Package\Dim_Visibility\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Visibility_Category]"
+                      name="Copy of Visibility_Category"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie la colonne d'entrée utilisée comme source de données pour la conversion."
+                          name="SourceInputColumnLineageID">#{Package\Dim_Visibility\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Visibility_Category]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Dim_Visibility\Conversion de données.Outputs[Sortie d'erreur de conversion de données]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de conversion de données"
+                  synchronousInputId="Package\Dim_Visibility\Conversion de données.Inputs[Entrée de conversion de données]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Visibility\Conversion de données.Outputs[Sortie d'erreur de conversion de données].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Visibility\Conversion de données.Outputs[Sortie d'erreur de conversion de données].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim_Visibility\Conversion de données.Outputs[Sortie d'erreur de conversion de données].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Visibility\Conversion de données.Outputs[Sortie d'erreur de conversion de données].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dim_Visibility\Destination OLE DB"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="Destination OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;4"
               description="Destination OLE DB"
-              name="Destination Dim_Visibility"
+              name="Destination OLE DB"
               usesDispositions="true"
               version="4">
               <properties>
@@ -1968,7 +2207,7 @@ where [refTable].[Precipitation_Category] = ?</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\Dim_Visibility\Destination Dim_Visibility.Connections[OleDbConnection]"
+                  refId="Package\Dim_Visibility\Destination OLE DB.Connections[OleDbConnection]"
                   connectionManagerID="{EE6A200C-1D73-4D4F-B9F8-B5C2FD8A0992}:external"
                   connectionManagerRefId="Project.ConnectionManagers[RANNOUM.US_Accidents_DW]"
                   description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
@@ -1976,66 +2215,239 @@ where [refTable].[Precipitation_Category] = ?</property>
               </connections>
               <inputs>
                 <input
-                  refId="Package\Dim_Visibility\Destination Dim_Visibility.Inputs[Entrée de destination OLE DB]"
+                  refId="Package\Dim_Visibility\Destination OLE DB.Inputs[Entrée de destination OLE DB]"
                   errorOrTruncationOperation="Insérer"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="Entrée de destination OLE DB">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Dim_Visibility\Destination Dim_Visibility.Inputs[Entrée de destination OLE DB].Columns[Visibility_Category]"
+                      refId="Package\Dim_Visibility\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Copy of Visibility_Category]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="18"
+                      cachedName="Copy of Visibility_Category"
+                      externalMetadataColumnId="Package\Dim_Visibility\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Visibility_Category]"
+                      lineageId="Package\Dim_Visibility\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Visibility_Category]" />
+                    <inputColumn
+                      refId="Package\Dim_Visibility\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Visibility_Value]"
+                      cachedDataType="r8"
+                      cachedName="Visibility_Value"
+                      externalMetadataColumnId="Package\Dim_Visibility\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Visibility_Value]"
+                      lineageId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Visibility_Value]" />
+                    <inputColumn
+                      refId="Package\Dim_Visibility\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Original_Value]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
-                      cachedName="Visibility_Category"
-                      cachedSortKeyPosition="2"
-                      externalMetadataColumnId="Package\Dim_Visibility\Destination Dim_Visibility.Inputs[Entrée de destination OLE DB].ExternalColumns[Visibility_Category]"
-                      lineageId="Package\Dim_Visibility\Trier.Outputs[Sortie de tri].Columns[Visibility_Category]" />
-                    <inputColumn
-                      refId="Package\Dim_Visibility\Destination Dim_Visibility.Inputs[Entrée de destination OLE DB].Columns[visibility_value]"
-                      cachedDataType="r8"
-                      cachedName="visibility_value"
-                      cachedSortKeyPosition="1"
-                      externalMetadataColumnId="Package\Dim_Visibility\Destination Dim_Visibility.Inputs[Entrée de destination OLE DB].ExternalColumns[Visibility_Value]"
-                      lineageId="Package\Dim_Visibility\Trier.Outputs[Sortie de tri].Columns[visibility_value]" />
+                      cachedName="Original_Value"
+                      externalMetadataColumnId="Package\Dim_Visibility\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Original_Value]"
+                      lineageId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Original_Value]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Dim_Visibility\Destination Dim_Visibility.Inputs[Entrée de destination OLE DB].ExternalColumns[Visibility_Key]"
+                      refId="Package\Dim_Visibility\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Visibility_Key]"
                       dataType="i4"
                       name="Visibility_Key" />
                     <externalMetadataColumn
-                      refId="Package\Dim_Visibility\Destination Dim_Visibility.Inputs[Entrée de destination OLE DB].ExternalColumns[Visibility_Category]"
+                      refId="Package\Dim_Visibility\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Visibility_Category]"
                       codePage="1252"
                       dataType="str"
                       length="50"
                       name="Visibility_Category" />
                     <externalMetadataColumn
-                      refId="Package\Dim_Visibility\Destination Dim_Visibility.Inputs[Entrée de destination OLE DB].ExternalColumns[Visibility_Value]"
+                      refId="Package\Dim_Visibility\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Visibility_Value]"
                       dataType="r8"
                       name="Visibility_Value" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Visibility\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Original_Value]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Original_Value" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Dim_Visibility\Destination Dim_Visibility.Outputs[Sortie d'erreur de destination OLE DB]"
+                  refId="Package\Dim_Visibility\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Sortie d'erreur de destination OLE DB"
-                  synchronousInputId="Package\Dim_Visibility\Destination Dim_Visibility.Inputs[Entrée de destination OLE DB]">
+                  synchronousInputId="Package\Dim_Visibility\Destination OLE DB.Inputs[Entrée de destination OLE DB]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Dim_Visibility\Destination Dim_Visibility.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      refId="Package\Dim_Visibility\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Dim_Visibility\Destination Dim_Visibility.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      lineageId="Package\Dim_Visibility\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Dim_Visibility\Destination Dim_Visibility.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      refId="Package\Dim_Visibility\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Dim_Visibility\Destination Dim_Visibility.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      lineageId="Package\Dim_Visibility\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dim_Visibility\Recherche"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Recherche;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;6"
+              description="Joint des colonnes supplémentaires au flux de données en recherchant des valeurs dans une table. Par exemple, joignez la colonne 'id employé' à la table des employés afin d'obtenir la 'date d'embauche' et le 'nom de l'employé'. Nous recommandons cette transformation lorsque la table de recherche peut être stockée en mémoire."
+              name="Recherche"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SQL qui génère la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[Dim_Visibility]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[Dim_Visibility]) [refTable]
+where [refTable].[Original_Value] = ? and [refTable].[Visibility_Category] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de cache de la table de correspondance."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie comment la transformation de recherche gère les lignes sans entrées correspondantes dans le jeu de données de référence."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le pourcentage du cache alloué aux lignes sans entrées correspondantes dans le dataset de référence."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indique si les métadonnées sont à référencer en format XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Visibility_Key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Visibility_Category" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Visibility_Value" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Original_Value" dataType="DT_STR" length="1" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Spécifie la liste d'identificateurs de traçabilité se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
+                  name="ParameterMap">#{Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Original_Value]};#{Package\Dim_Visibility\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Visibility_Category]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Détermine si les clés dupliquées dans les données de référence doivent être traitées en tant qu'erreurs lorsque le mode Cache complet est utilisé."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dim_Visibility\Recherche.Connections[OleDbConnection]"
+                  connectionManagerID="{EE6A200C-1D73-4D4F-B9F8-B5C2FD8A0992}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[RANNOUM.US_Accidents_DW]"
+                  description="Gestionnaire de connexions utilisé pour accéder aux données de correspondance."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Dim_Visibility\Recherche.Inputs[Entrée de recherche]"
+                  name="Entrée de recherche">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim_Visibility\Recherche.Inputs[Entrée de recherche].Columns[Copy of Visibility_Category]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="18"
+                      cachedName="Copy of Visibility_Category"
+                      lineageId="Package\Dim_Visibility\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Visibility_Category]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Visibility_Category</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Visibility\Recherche.Inputs[Entrée de recherche].Columns[Original_Value]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Original_Value"
+                      lineageId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Original_Value]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Original_Value</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim_Visibility\Recherche.Outputs[Sortie de recherche avec correspondance]"
+                  errorOrTruncationOperation="Recherche"
+                  exclusionGroup="1"
+                  name="Sortie de recherche avec correspondance"
+                  synchronousInputId="Package\Dim_Visibility\Recherche.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Dim_Visibility\Recherche.Outputs[Sortie de recherche sans correspondance]"
+                  description="Sortie de recherche gérant les lignes sans entrées correspondantes dans le dataset de référence. Utilisez cette sortie lorsque la propriété NoMatchBehavior a la valeur « Envoyez les lignes sans entrées correspondantes dans la sortie sans correspondance »."
+                  exclusionGroup="1"
+                  name="Sortie de recherche sans correspondance"
+                  synchronousInputId="Package\Dim_Visibility\Recherche.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Dim_Visibility\Recherche.Outputs[Sortie d'erreur de recherche]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de recherche"
+                  synchronousInputId="Package\Dim_Visibility\Recherche.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Visibility\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Visibility\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim_Visibility\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Visibility\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -2059,7 +2471,7 @@ where [refTable].[Precipitation_Category] = ?</property>
                 <property
                   dataType="System.String"
                   description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
-                  name="OpenRowset">[dbo].[visibility_stg]</property>
+                  name="OpenRowset">[dbo].[Visibilityy_stg]</property>
                 <property
                   dataType="System.String"
                   description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
@@ -2068,7 +2480,12 @@ where [refTable].[Precipitation_Category] = ?</property>
                   dataType="System.String"
                   description="Commande SQL à exécuter."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT DISTINCT 
+    [Visibility(mi)] as Original_Value,
+    -- On force la lecture au format US (point) pour que ton SSIS FR comprenne
+    TRY_PARSE([Visibility(mi)] AS FLOAT USING 'en-US') as Visibility_Value
+FROM [US_Accidents_STAGING].[dbo].[Visibilityy_stg]
+WHERE [Visibility(mi)] IS NOT NULL</property>
                 <property
                   dataType="System.String"
                   description="Variable contenant la commande SQL à exécuter."
@@ -2085,7 +2502,7 @@ where [refTable].[Precipitation_Category] = ?</property>
                   dataType="System.Int32"
                   description="Spécifie le mode utilisé pour accéder à la base de données."
                   name="AccessMode"
-                  typeConverter="AccessMode">0</property>
+                  typeConverter="AccessMode">2</property>
                 <property
                   dataType="System.String"
                   description="Mappages entre les paramètres de la commande SQL et les variables."
@@ -2105,38 +2522,38 @@ where [refTable].[Precipitation_Category] = ?</property>
                   name="Sortie de source OLE DB">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[visibility_value]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].ExternalColumns[visibility_value]"
-                      lineageId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[visibility_value]"
-                      name="visibility_value"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Visibility_Category]"
+                      refId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Original_Value]"
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].ExternalColumns[Visibility_Category]"
+                      externalMetadataColumnId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].ExternalColumns[Original_Value]"
                       length="50"
-                      lineageId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Visibility_Category]"
-                      name="Visibility_Category"
+                      lineageId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Original_Value]"
+                      name="Original_Value"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Visibility_Value]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].ExternalColumns[Visibility_Value]"
+                      lineageId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Visibility_Value]"
+                      name="Visibility_Value"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].ExternalColumns[visibility_value]"
-                      dataType="r8"
-                      name="visibility_value" />
-                    <externalMetadataColumn
-                      refId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].ExternalColumns[Visibility_Category]"
+                      refId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].ExternalColumns[Original_Value]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      name="Visibility_Category" />
+                      name="Original_Value" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].ExternalColumns[Visibility_Value]"
+                      dataType="r8"
+                      name="Visibility_Value" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -2145,17 +2562,17 @@ where [refTable].[Precipitation_Category] = ?</property>
                   name="Sortie d'erreur de source OLE DB">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Dim_Visibility\Source Stg.Outputs[Sortie d'erreur de source OLE DB].Columns[visibility_value]"
-                      dataType="r8"
-                      lineageId="Package\Dim_Visibility\Source Stg.Outputs[Sortie d'erreur de source OLE DB].Columns[visibility_value]"
-                      name="visibility_value" />
-                    <outputColumn
-                      refId="Package\Dim_Visibility\Source Stg.Outputs[Sortie d'erreur de source OLE DB].Columns[Visibility_Category]"
+                      refId="Package\Dim_Visibility\Source Stg.Outputs[Sortie d'erreur de source OLE DB].Columns[Original_Value]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Dim_Visibility\Source Stg.Outputs[Sortie d'erreur de source OLE DB].Columns[Visibility_Category]"
-                      name="Visibility_Category" />
+                      lineageId="Package\Dim_Visibility\Source Stg.Outputs[Sortie d'erreur de source OLE DB].Columns[Original_Value]"
+                      name="Original_Value" />
+                    <outputColumn
+                      refId="Package\Dim_Visibility\Source Stg.Outputs[Sortie d'erreur de source OLE DB].Columns[Visibility_Value]"
+                      dataType="r8"
+                      lineageId="Package\Dim_Visibility\Source Stg.Outputs[Sortie d'erreur de source OLE DB].Columns[Visibility_Value]"
+                      name="Visibility_Value" />
                     <outputColumn
                       refId="Package\Dim_Visibility\Source Stg.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
                       dataType="i4"
@@ -2173,120 +2590,33 @@ where [refTable].[Precipitation_Category] = ?</property>
                 </output>
               </outputs>
             </component>
-            <component
-              refId="Package\Dim_Visibility\Trier"
-              componentClassID="Microsoft.Sort"
-              contactInfo="Trier;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;1"
-              description="Trie les données d'entrée en ordre croissant ou décroissant lorsque le tri ne peut pas être effectué à la source. Par exemple, triez les données de vente par 'id de client' avant leur enregistrement dans un fichier plat et leur diffusion dans un autre service. Remarque : nous ne recommandons pas cette transformation dans le cas de flux de données volumineux."
-              name="Trier"
-              version="1">
-              <properties>
-                <property
-                  dataType="System.Boolean"
-                  description="Indique si la transformation de tri supprime les lignes comportant des valeurs de tri en double."
-                  name="EliminateDuplicates">false</property>
-                <property
-                  dataType="System.Int32"
-                  description="Spécifie le nombre maximal de threads à utiliser pour le tri."
-                  expressionType="Notify"
-                  name="MaximumThreads">-1</property>
-              </properties>
-              <inputs>
-                <input
-                  refId="Package\Dim_Visibility\Trier.Inputs[Entrée de tri]"
-                  name="Entrée de tri">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\Dim_Visibility\Trier.Inputs[Entrée de tri].Columns[visibility_value]"
-                      cachedDataType="r8"
-                      cachedName="visibility_value"
-                      lineageId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[visibility_value]">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Spécifie les options de comparaison pour les données caractères."
-                          name="NewComparisonFlags">0</property>
-                        <property
-                          dataType="System.Int32"
-                          description="Spécifie l'ordre de tri de la colonne."
-                          name="NewSortKeyPosition">1</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Visibility\Trier.Inputs[Entrée de tri].Columns[Visibility_Category]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Visibility_Category"
-                      lineageId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Visibility_Category]">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Spécifie les options de comparaison pour les données caractères."
-                          name="NewComparisonFlags">0</property>
-                        <property
-                          dataType="System.Int32"
-                          description="Spécifie l'ordre de tri de la colonne."
-                          name="NewSortKeyPosition">2</property>
-                      </properties>
-                    </inputColumn>
-                  </inputColumns>
-                  <externalMetadataColumns />
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\Dim_Visibility\Trier.Outputs[Sortie de tri]"
-                  isSorted="true"
-                  name="Sortie de tri">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Dim_Visibility\Trier.Outputs[Sortie de tri].Columns[visibility_value]"
-                      dataType="r8"
-                      lineageId="Package\Dim_Visibility\Trier.Outputs[Sortie de tri].Columns[visibility_value]"
-                      name="visibility_value"
-                      sortKeyPosition="1">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
-                          name="SortColumnId">#{Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[visibility_value]}</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Dim_Visibility\Trier.Outputs[Sortie de tri].Columns[Visibility_Category]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      lineageId="Package\Dim_Visibility\Trier.Outputs[Sortie de tri].Columns[Visibility_Category]"
-                      name="Visibility_Category"
-                      sortKeyPosition="2">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
-                          name="SortColumnId">#{Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB].Columns[Visibility_Category]}</property>
-                      </properties>
-                    </outputColumn>
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
           </components>
           <paths>
             <path
+              refId="Package\Dim_Visibility.Paths[Sortie de colonne dérivée]"
+              endId="Package\Dim_Visibility\Colonne dérivée 1.Inputs[Entrée de colonne dérivée]"
+              name="Sortie de colonne dérivée"
+              startId="Package\Dim_Visibility\Colonne dérivée.Outputs[Sortie de colonne dérivée]" />
+            <path
+              refId="Package\Dim_Visibility.Paths[Sortie de colonne dérivée1]"
+              endId="Package\Dim_Visibility\Conversion de données.Inputs[Entrée de conversion de données]"
+              name="Sortie de colonne dérivée"
+              startId="Package\Dim_Visibility\Colonne dérivée 1.Outputs[Sortie de colonne dérivée]" />
+            <path
+              refId="Package\Dim_Visibility.Paths[Sortie de conversion de données]"
+              endId="Package\Dim_Visibility\Recherche.Inputs[Entrée de recherche]"
+              name="Sortie de conversion de données"
+              startId="Package\Dim_Visibility\Conversion de données.Outputs[Sortie de conversion de données]" />
+            <path
+              refId="Package\Dim_Visibility.Paths[Sortie de recherche sans correspondance]"
+              endId="Package\Dim_Visibility\Destination OLE DB.Inputs[Entrée de destination OLE DB]"
+              name="Sortie de recherche sans correspondance"
+              startId="Package\Dim_Visibility\Recherche.Outputs[Sortie de recherche sans correspondance]" />
+            <path
               refId="Package\Dim_Visibility.Paths[Sortie de source OLE DB]"
-              endId="Package\Dim_Visibility\Trier.Inputs[Entrée de tri]"
+              endId="Package\Dim_Visibility\Colonne dérivée.Inputs[Entrée de colonne dérivée]"
               name="Sortie de source OLE DB"
               startId="Package\Dim_Visibility\Source Stg.Outputs[Sortie de source OLE DB]" />
-            <path
-              refId="Package\Dim_Visibility.Paths[Sortie de tri]"
-              endId="Package\Dim_Visibility\Destination Dim_Visibility.Inputs[Entrée de destination OLE DB]"
-              name="Sortie de tri"
-              startId="Package\Dim_Visibility\Trier.Outputs[Sortie de tri]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
@@ -2306,6 +2636,135 @@ where [refTable].[Precipitation_Category] = ?</property>
           version="1">
           <components>
             <component
+              refId="Package\Dim_Weather\Colonne dérivée"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Colonne dérivée;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;0"
+              description="Crée de nouvelles valeurs de colonne en appliquant des expressions aux colonnes d'entrée de transformation. Créez de nouvelles colonnes ou remplacez celles qui existent déjà. Par exemple, concaténez les valeurs de la colonne 'prénom' et de la colonne 'nom' pour créer une colonne 'nom complet'."
+              name="Colonne dérivée"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Dim_Weather\Colonne dérivée.Inputs[Entrée de colonne dérivée]"
+                  description="Entrée de la transformation de colonnes dérivées"
+                  name="Entrée de colonne dérivée">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim_Weather\Colonne dérivée.Inputs[Entrée de colonne dérivée].Columns[Weather_Condition]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Weather_Condition"
+                      lineageId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim_Weather\Colonne dérivée.Outputs[Sortie de colonne dérivée]"
+                  description="Sortie par défaut de la transformation de colonnes dérivées"
+                  exclusionGroup="1"
+                  name="Sortie de colonne dérivée"
+                  synchronousInputId="Package\Dim_Weather\Colonne dérivée.Inputs[Entrée de colonne dérivée]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Weather\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Weather_Clean]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Dim_Weather\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Weather_Clean]"
+                      name="Weather_Clean"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">[ISNULL](#{Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]}) || [TRIM](#{Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]}) == "" ? "Inconnu" : [TRIM](#{Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(Weather_Condition) || TRIM(Weather_Condition) == "" ? "Inconnu" : TRIM(Weather_Condition)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Weather\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Weather_Type]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      length="5"
+                      lineageId="Package\Dim_Weather\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Weather_Type]"
+                      name="Weather_Type"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">[FINDSTRING](#{Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]},"Rain",1) &gt; 0 ? "Rain" : [FINDSTRING](#{Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]},"Snow",1) &gt; 0 ? "Snow" : [FINDSTRING](#{Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]},"Clear",1) &gt; 0 ? "Clair" : "Autre"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">FINDSTRING(Weather_Condition,"Rain",1) &gt; 0 ? "Rain" : FINDSTRING(Weather_Condition,"Snow",1) &gt; 0 ? "Snow" : FINDSTRING(Weather_Condition,"Clear",1) &gt; 0 ? "Clair" : "Autre"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Weather\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Weather_Intensity]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      length="7"
+                      lineageId="Package\Dim_Weather\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Weather_Intensity]"
+                      name="Weather_Intensity"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">[FINDSTRING](#{Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]},"Light",1) &gt; 0 ? "Faible" : [FINDSTRING](#{Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]},"Heavy",1) &gt; 0 ? "Forte" : "Normale"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">FINDSTRING(Weather_Condition,"Light",1) &gt; 0 ? "Faible" : FINDSTRING(Weather_Condition,"Heavy",1) &gt; 0 ? "Forte" : "Normale"</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Dim_Weather\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée]"
+                  description="Sortie d'erreur de la transformation de colonnes dérivées"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de colonne dérivée"
+                  synchronousInputId="Package\Dim_Weather\Colonne dérivée.Inputs[Entrée de colonne dérivée]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Weather\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Weather\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim_Weather\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Weather\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
               refId="Package\Dim_Weather\Conversion de données"
               componentClassID="Microsoft.DataConvert"
               contactInfo="Conversion de données;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;0"
@@ -2320,15 +2779,15 @@ where [refTable].[Precipitation_Category] = ?</property>
                     <inputColumn
                       refId="Package\Dim_Weather\Conversion de données.Inputs[Entrée de conversion de données].Columns[Weather_Type]"
                       cachedDataType="wstr"
-                      cachedLength="10"
+                      cachedLength="5"
                       cachedName="Weather_Type"
-                      lineageId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Type]" />
+                      lineageId="Package\Dim_Weather\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Weather_Type]" />
                     <inputColumn
                       refId="Package\Dim_Weather\Conversion de données.Inputs[Entrée de conversion de données].Columns[Weather_Intensity]"
                       cachedDataType="wstr"
                       cachedLength="7"
                       cachedName="Weather_Intensity"
-                      lineageId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Intensity]" />
+                      lineageId="Package\Dim_Weather\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Weather_Intensity]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -2346,7 +2805,7 @@ where [refTable].[Precipitation_Category] = ?</property>
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      length="10"
+                      length="5"
                       lineageId="Package\Dim_Weather\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Type]"
                       name="Copy of Weather_Type"
                       truncationRowDisposition="FailComponent">
@@ -2355,7 +2814,7 @@ where [refTable].[Precipitation_Category] = ?</property>
                           containsID="true"
                           dataType="System.Int32"
                           description="Spécifie la colonne d'entrée utilisée comme source de données pour la conversion."
-                          name="SourceInputColumnLineageID">#{Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Type]}</property>
+                          name="SourceInputColumnLineageID">#{Package\Dim_Weather\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Weather_Type]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
@@ -2377,7 +2836,7 @@ where [refTable].[Precipitation_Category] = ?</property>
                           containsID="true"
                           dataType="System.Int32"
                           description="Spécifie la colonne d'entrée utilisée comme source de données pour la conversion."
-                          name="SourceInputColumnLineageID">#{Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Intensity]}</property>
+                          name="SourceInputColumnLineageID">#{Package\Dim_Weather\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Weather_Intensity]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
@@ -2412,11 +2871,11 @@ where [refTable].[Precipitation_Category] = ?</property>
               </outputs>
             </component>
             <component
-              refId="Package\Dim_Weather\Dim_Weather"
+              refId="Package\Dim_Weather\Destination OLE DB"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="Destination OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;4"
               description="Destination OLE DB"
-              name="Dim_Weather"
+              name="Destination OLE DB"
               usesDispositions="true"
               version="4">
               <properties>
@@ -2427,7 +2886,7 @@ where [refTable].[Precipitation_Category] = ?</property>
                 <property
                   dataType="System.String"
                   description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
-                  name="OpenRowset">[dbo].[Dim_Weather]</property>
+                  name="OpenRowset">[dbo].[Dim_WeatherCondition]</property>
                 <property
                   dataType="System.String"
                   description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
@@ -2469,7 +2928,7 @@ where [refTable].[Precipitation_Category] = ?</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\Dim_Weather\Dim_Weather.Connections[OleDbConnection]"
+                  refId="Package\Dim_Weather\Destination OLE DB.Connections[OleDbConnection]"
                   connectionManagerID="{EE6A200C-1D73-4D4F-B9F8-B5C2FD8A0992}:external"
                   connectionManagerRefId="Project.ConnectionManagers[RANNOUM.US_Accidents_DW]"
                   description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
@@ -2477,68 +2936,82 @@ where [refTable].[Precipitation_Category] = ?</property>
               </connections>
               <inputs>
                 <input
-                  refId="Package\Dim_Weather\Dim_Weather.Inputs[Entrée de destination OLE DB]"
+                  refId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB]"
                   errorOrTruncationOperation="Insérer"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="Entrée de destination OLE DB">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Dim_Weather\Dim_Weather.Inputs[Entrée de destination OLE DB].Columns[Copy of Weather_Type]"
+                      refId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Copy of Weather_Type]"
                       cachedCodepage="1252"
                       cachedDataType="str"
-                      cachedLength="10"
+                      cachedLength="5"
                       cachedName="Copy of Weather_Type"
-                      externalMetadataColumnId="Package\Dim_Weather\Dim_Weather.Inputs[Entrée de destination OLE DB].ExternalColumns[Weather_Type]"
+                      externalMetadataColumnId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Weather_Type]"
                       lineageId="Package\Dim_Weather\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Type]" />
                     <inputColumn
-                      refId="Package\Dim_Weather\Dim_Weather.Inputs[Entrée de destination OLE DB].Columns[Copy of Weather_Intensity]"
+                      refId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Copy of Weather_Intensity]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="7"
                       cachedName="Copy of Weather_Intensity"
-                      externalMetadataColumnId="Package\Dim_Weather\Dim_Weather.Inputs[Entrée de destination OLE DB].ExternalColumns[Weather_Intensity]"
+                      externalMetadataColumnId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Weather_Intensity]"
                       lineageId="Package\Dim_Weather\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Intensity]" />
+                    <inputColumn
+                      refId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Weather_Condition]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Weather_Condition"
+                      externalMetadataColumnId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Original_Value]"
+                      lineageId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Dim_Weather\Dim_Weather.Inputs[Entrée de destination OLE DB].ExternalColumns[Weather_Key]"
+                      refId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Weather_Key]"
                       dataType="i4"
                       name="Weather_Key" />
                     <externalMetadataColumn
-                      refId="Package\Dim_Weather\Dim_Weather.Inputs[Entrée de destination OLE DB].ExternalColumns[Weather_Type]"
+                      refId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Weather_Type]"
                       codePage="1252"
                       dataType="str"
                       length="50"
                       name="Weather_Type" />
                     <externalMetadataColumn
-                      refId="Package\Dim_Weather\Dim_Weather.Inputs[Entrée de destination OLE DB].ExternalColumns[Weather_Intensity]"
+                      refId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Weather_Intensity]"
                       codePage="1252"
                       dataType="str"
                       length="50"
                       name="Weather_Intensity" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Original_Value]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Original_Value" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Dim_Weather\Dim_Weather.Outputs[Sortie d'erreur de destination OLE DB]"
+                  refId="Package\Dim_Weather\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Sortie d'erreur de destination OLE DB"
-                  synchronousInputId="Package\Dim_Weather\Dim_Weather.Inputs[Entrée de destination OLE DB]">
+                  synchronousInputId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Dim_Weather\Dim_Weather.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      refId="Package\Dim_Weather\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Dim_Weather\Dim_Weather.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      lineageId="Package\Dim_Weather\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Dim_Weather\Dim_Weather.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      refId="Package\Dim_Weather\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Dim_Weather\Dim_Weather.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      lineageId="Package\Dim_Weather\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -2560,14 +3033,14 @@ where [refTable].[Precipitation_Category] = ?</property>
                   description="Spécifie l'instruction SQL qui génère la table de correspondance."
                   expressionType="Notify"
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[Dim_Weather]</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[Dim_WeatherCondition]</property>
                 <property
                   dataType="System.String"
                   description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
                   expressionType="Notify"
                   name="SqlCommandParam"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[Dim_Weather]) [refTable]
-where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[Dim_WeatherCondition]) [refTable]
+where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</property>
                 <property
                   dataType="System.Int32"
                   description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
@@ -2598,12 +3071,12 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
                 <property
                   dataType="System.String"
                   description="Indique si les métadonnées sont à référencer en format XML."
-                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Weather_Key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Weather_Type" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Weather_Intensity" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Weather_Key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Weather_Type" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Weather_Intensity" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Original_Value" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
                 <property
                   containsID="true"
                   dataType="System.String"
                   description="Spécifie la liste d'identificateurs de traçabilité se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
-                  name="ParameterMap">#{Package\Dim_Weather\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Type]};#{Package\Dim_Weather\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Intensity]};</property>
+                  name="ParameterMap">#{Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]};#{Package\Dim_Weather\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Type]};#{Package\Dim_Weather\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Intensity]};</property>
                 <property
                   dataType="System.Int32"
                   description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
@@ -2627,17 +3100,17 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
                   name="Entrée de recherche">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Dim_Weather\Recherche.Inputs[Entrée de recherche].Columns[Copy of Weather_Type]"
+                      refId="Package\Dim_Weather\Recherche.Inputs[Entrée de recherche].Columns[Weather_Condition]"
                       cachedCodepage="1252"
                       cachedDataType="str"
-                      cachedLength="10"
-                      cachedName="Copy of Weather_Type"
-                      lineageId="Package\Dim_Weather\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Type]">
+                      cachedLength="50"
+                      cachedName="Weather_Condition"
+                      lineageId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
-                          name="JoinToReferenceColumn">Weather_Type</property>
+                          name="JoinToReferenceColumn">Original_Value</property>
                         <property
                           dataType="System.Null"
                           description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
@@ -2662,6 +3135,24 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
                           name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Weather\Recherche.Inputs[Entrée de recherche].Columns[Copy of Weather_Type]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="Copy of Weather_Type"
+                      lineageId="Package\Dim_Weather\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Type]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Weather_Type</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -2673,40 +3164,6 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
                   exclusionGroup="1"
                   name="Sortie de recherche avec correspondance"
                   synchronousInputId="Package\Dim_Weather\Recherche.Inputs[Entrée de recherche]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Dim_Weather\Recherche.Outputs[Sortie de recherche avec correspondance].Columns[Weather_Type]"
-                      codePage="1252"
-                      dataType="str"
-                      errorOrTruncationOperation="Copie de colonnes"
-                      length="50"
-                      lineageId="Package\Dim_Weather\Recherche.Outputs[Sortie de recherche avec correspondance].Columns[Weather_Type]"
-                      name="Weather_Type"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
-                          name="CopyFromReferenceColumn">Weather_Type</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Dim_Weather\Recherche.Outputs[Sortie de recherche avec correspondance].Columns[Weather_Intensity]"
-                      codePage="1252"
-                      dataType="str"
-                      errorOrTruncationOperation="Copie de colonnes"
-                      length="50"
-                      lineageId="Package\Dim_Weather\Recherche.Outputs[Sortie de recherche avec correspondance].Columns[Weather_Intensity]"
-                      name="Weather_Intensity"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
-                          name="CopyFromReferenceColumn">Weather_Intensity</property>
-                      </properties>
-                    </outputColumn>
-                  </outputColumns>
                   <externalMetadataColumns />
                 </output>
                 <output
@@ -2757,7 +3214,7 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
                 <property
                   dataType="System.String"
                   description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
-                  name="OpenRowset">[dbo].[Weather_stg]</property>
+                  name="OpenRowset">[dbo].[WeatherCondition_Stg]</property>
                 <property
                   dataType="System.String"
                   description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
@@ -2766,7 +3223,7 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
                   dataType="System.String"
                   description="Commande SQL à exécuter."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT DISTINCT Weather_Condition FROM dbo.WeatherCondition_Stg</property>
                 <property
                   dataType="System.String"
                   description="Variable contenant la commande SQL à exécuter."
@@ -2783,7 +3240,7 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
                   dataType="System.Int32"
                   description="Spécifie le mode utilisé pour accéder à la base de données."
                   name="AccessMode"
-                  typeConverter="AccessMode">0</property>
+                  typeConverter="AccessMode">2</property>
                 <property
                   dataType="System.String"
                   description="Mappages entre les paramètres de la commande SQL et les variables."
@@ -2803,38 +3260,25 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
                   name="Sortie de source OLE DB">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Type]"
-                      dataType="wstr"
+                      refId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]"
+                      codePage="1252"
+                      dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Weather_Type]"
-                      length="10"
-                      lineageId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Type]"
-                      name="Weather_Type"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Intensity]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Weather_Intensity]"
-                      length="7"
-                      lineageId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Intensity]"
-                      name="Weather_Intensity"
+                      externalMetadataColumnId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Weather_Condition]"
+                      length="50"
+                      lineageId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]"
+                      name="Weather_Condition"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Weather_Type]"
-                      dataType="wstr"
-                      length="10"
-                      name="Weather_Type" />
-                    <externalMetadataColumn
-                      refId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Weather_Intensity]"
-                      dataType="wstr"
-                      length="7"
-                      name="Weather_Intensity" />
+                      refId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Weather_Condition]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Weather_Condition" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -2843,17 +3287,12 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
                   name="Sortie d'erreur de source OLE DB">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Weather_Type]"
-                      dataType="wstr"
-                      length="10"
-                      lineageId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Weather_Type]"
-                      name="Weather_Type" />
-                    <outputColumn
-                      refId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Weather_Intensity]"
-                      dataType="wstr"
-                      length="7"
-                      lineageId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Weather_Intensity]"
-                      name="Weather_Intensity" />
+                      refId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Weather_Condition]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Weather_Condition]"
+                      name="Weather_Condition" />
                     <outputColumn
                       refId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
                       dataType="i4"
@@ -2874,18 +3313,23 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
           </components>
           <paths>
             <path
+              refId="Package\Dim_Weather.Paths[Sortie de colonne dérivée]"
+              endId="Package\Dim_Weather\Conversion de données.Inputs[Entrée de conversion de données]"
+              name="Sortie de colonne dérivée"
+              startId="Package\Dim_Weather\Colonne dérivée.Outputs[Sortie de colonne dérivée]" />
+            <path
               refId="Package\Dim_Weather.Paths[Sortie de conversion de données]"
               endId="Package\Dim_Weather\Recherche.Inputs[Entrée de recherche]"
               name="Sortie de conversion de données"
               startId="Package\Dim_Weather\Conversion de données.Outputs[Sortie de conversion de données]" />
             <path
               refId="Package\Dim_Weather.Paths[Sortie de recherche sans correspondance]"
-              endId="Package\Dim_Weather\Dim_Weather.Inputs[Entrée de destination OLE DB]"
+              endId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB]"
               name="Sortie de recherche sans correspondance"
               startId="Package\Dim_Weather\Recherche.Outputs[Sortie de recherche sans correspondance]" />
             <path
               refId="Package\Dim_Weather.Paths[Sortie de source OLE DB]"
-              endId="Package\Dim_Weather\Conversion de données.Inputs[Entrée de conversion de données]"
+              endId="Package\Dim_Weather\Colonne dérivée.Inputs[Entrée de colonne dérivée]"
               name="Sortie de source OLE DB"
               startId="Package\Dim_Weather\Source OLE DB.Outputs[Sortie de source OLE DB]" />
           </paths>
@@ -2900,7 +3344,7 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Table Dim_Precipitation"
-      DTS:ThreadHint="0">
+      DTS:ThreadHint="1">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -2916,7 +3360,7 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="truncate Dim_Visibility"
-      DTS:ThreadHint="1">
+      DTS:ThreadHint="2">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -2932,12 +3376,12 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Truncate Dim_Weather"
-      DTS:ThreadHint="2">
+      DTS:ThreadHint="0">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{EE6A200C-1D73-4D4F-B9F8-B5C2FD8A0992}"
-          SQLTask:SqlStatementSource="DELETE FROM Dim_Weather;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="DELETE FROM Dim_WeatherCondition;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
@@ -2982,45 +3426,45 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
         <NodeLayout
           Size="161.6,48.8"
           Id="Package\Dim_Geographie"
-          TopLeft="34.0714283768008,215.523529374228" />
+          TopLeft="50.4999998403444,215.523529374228" />
         <NodeLayout
           Size="160.8,41.6"
           Id="Package\Dim_Precipitation"
-          TopLeft="399.071429217653,129.147058794036" />
+          TopLeft="439.071429302802,84.7941176564425" />
         <NodeLayout
           Size="140.8,41.6"
           Id="Package\Dim_Visibility"
-          TopLeft="26.214285758381,148.499999874655" />
+          TopLeft="251.928571953153,86.5588234583605" />
         <NodeLayout
           Size="142.4,41.6"
           Id="Package\Dim_Weather"
-          TopLeft="196.928571708349,137.382352878169" />
+          TopLeft="36.2142856519448,86.1470588054317" />
         <NodeLayout
           Size="189.6,41.6"
           Id="Package\Table Dim_Precipitation"
-          TopLeft="389.071429132503,62.0294118203403" />
+          TopLeft="426.214286354427,19.9705883277947" />
         <NodeLayout
           Size="183.2,41.6"
           Id="Package\truncate Dim_Visibility"
-          TopLeft="12.642856966476,51.9117647440891" />
+          TopLeft="226.928571708348,19.0294118317353" />
         <NodeLayout
-          Size="175.2,41.6"
+          Size="202.4,43.2"
           Id="Package\Truncate Dim_Weather"
-          TopLeft="206.214285822243,55.3235294995732" />
+          TopLeft="5.49999968068913,14.0294118887102" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Contrainte]"
-          TopLeft="100.428571362428,93.5117647440891">
+          TopLeft="320.428571830751,60.6294118317353">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,54.9882351305658"
+              EndConnector="0,25.9294116266253"
               Start="0,0"
-              End="0,47.4882351305658">
+              End="0,18.4294116266253">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,47.4882351305658" />
+                    End="0,18.4294116266253" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3031,30 +3475,18 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Contrainte 1]"
-          TopLeft="293.814285822243,96.9235294995732">
+          TopLeft="107.057142666317,57.2294118887102">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-25.6857141138942,40.4588233785955"
+              EndConnector="0,28.9176469167214"
               Start="0,0"
-              End="-25.6857141138942,32.9588233785955">
+              End="0,21.4176469167214">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,16.2294116892978" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,16.2294116892978"
-                    Point2="0,20.2294116892978"
-                    Point3="-4,20.2294116892978" />
-                  <mssgle:LineSegment
-                    End="-21.6857141138942,20.2294116892978" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-21.6857141138942,20.2294116892978"
-                    Point2="-25.6857141138942,20.2294116892978"
-                    Point3="-25.6857141138942,24.2294116892978" />
-                  <mssgle:LineSegment
-                    End="-25.6857141138942,32.9588233785955" />
+                    End="0,21.4176469167214" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3065,18 +3497,18 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Contrainte 2]"
-          TopLeft="481.671429175078,103.62941182034">
+          TopLeft="520.242857828615,61.5705883277947">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,25.5176469736962"
+              EndConnector="0,23.2235293286478"
               Start="0,0"
-              End="0,18.0176469736962">
+              End="0,15.7235293286478">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,18.0176469736962" />
+                    End="0,15.7235293286478" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3593,45 +4025,111 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
     design-time-name="Package\Dim_Visibility">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="129.6,41.6"
           Id="Package\Dim_Visibility\Source Stg"
-          TopLeft="37.8076918262702,13.1923075776834" />
+          TopLeft="15.4999998509884,28" />
         <NodeLayout
-          Size="196.8,41.6"
-          Id="Package\Dim_Visibility\Destination Dim_Visibility"
-          TopLeft="172.499997958541,145.115382981988" />
-        <NodeLayout
-          Size="100,41.6"
-          Id="Package\Dim_Visibility\Trier"
-          TopLeft="156.269228522594,72.4230759258454" />
+          Size="154.4,41.6"
+          Id="Package\Dim_Visibility\Colonne dérivée"
+          TopLeft="176.269228224571,32.61538454661" />
         <EdgeLayout
-          Id="Package\Dim_Visibility.Paths[Sortie de tri]"
-          TopLeft="206.269228522594,114.023075925845">
+          Id="Package\Dim_Visibility.Paths[Sortie de source OLE DB]"
+          TopLeft="145.099999850988,51.107692273305">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="64.6307694359468,31.0923070561428"
+              EndConnector="31.1692283735825,0"
               Start="0,0"
-              End="64.6307694359468,23.5923070561428">
+              End="23.6692283735825,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,11.5461535280714" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,11.5461535280714"
-                    Point2="0,15.5461535280714"
-                    Point3="4,15.5461535280714" />
+                    End="23.6692283735825,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="163.2,41.6"
+          Id="Package\Dim_Visibility\Colonne dérivée 1"
+          TopLeft="359.34614902047,29.5384619625715" />
+        <EdgeLayout
+          Id="Package\Dim_Visibility.Paths[Sortie de colonne dérivée]"
+          TopLeft="330.669228224571,51.8769232545907">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="28.6769207958992,0"
+              Start="0,0"
+              End="21.1769207958992,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
                   <mssgle:LineSegment
-                    End="60.6307694359468,15.5461535280714" />
-                  <mssgle:CubicBezierSegment
-                    Point1="60.6307694359468,15.5461535280714"
-                    Point2="64.6307694359468,15.5461535280714"
-                    Point3="64.6307694359468,19.5461535280714" />
+                    End="21.1769207958992,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="188,41.6"
+          Id="Package\Dim_Visibility\Conversion de données"
+          TopLeft="344.730765069907,97.0384610685019" />
+        <EdgeLayout
+          Id="Package\Dim_Visibility.Paths[Sortie de colonne dérivée1]"
+          TopLeft="439.838457045188,71.1384619625715">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,25.8999991059304"
+              Start="0,0"
+              End="0,18.3999991059304">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
                   <mssgle:LineSegment
-                    End="64.6307694359468,23.5923070561428" />
+                    End="0,18.3999991059304" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Dim_Visibility\Destination OLE DB"
+          TopLeft="550.115377841088,169.34615274576" />
+        <NodeLayout
+          Size="127.2,41.6"
+          Id="Package\Dim_Visibility\Recherche"
+          TopLeft="373.961534759173,173.961537739405" />
+        <EdgeLayout
+          Id="Package\Dim_Visibility.Paths[Sortie de conversion de données]"
+          TopLeft="438.14614991454,138.638461068502">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35.3230766709034"
+              Start="0,0"
+              End="0,27.8230766709034">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.8230766709034" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3641,31 +4139,27 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Dim_Visibility.Paths[Sortie de source OLE DB]"
-          TopLeft="167.40769182627,33.9923075776834">
+          Id="Package\Dim_Visibility.Paths[Sortie de recherche sans correspondance]"
+          TopLeft="501.161534759173,192.453845242583">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="38.861536696324,38.430768348162"
+              EndConnector="48.9538430819147,0"
               Start="0,0"
-              End="38.861536696324,30.930768348162">
+              End="41.4538430819147,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="34.861536696324,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="34.861536696324,0"
-                    Point2="38.861536696324,0"
-                    Point3="38.861536696324,4" />
-                  <mssgle:LineSegment
-                    End="38.861536696324,30.930768348162" />
+                    End="41.4538430819147,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="-70.7750901777927,5,183.0040234375,11.609375"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -3684,130 +4178,119 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
       </Property>
     </Properties>
   </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Dim_Visibility\Destination Dim_Visibility">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\Dim_Weather">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="149.6,41.6"
           Id="Package\Dim_Weather\Source OLE DB"
           TopLeft="5.5,5.5" />
         <NodeLayout
-          Size="127.2,41.6"
-          Id="Package\Dim_Weather\Recherche"
-          TopLeft="217.83333106339,119.499999195337" />
-        <NodeLayout
-          Size="142.4,41.6"
-          Id="Package\Dim_Weather\Dim_Weather"
-          TopLeft="332.833328902722,206.166664123535" />
-        <NodeLayout
-          Size="188,41.6"
-          Id="Package\Dim_Weather\Conversion de données"
-          TopLeft="90.5000000745058,59.5000005364418" />
+          Size="154.4,41.6"
+          Id="Package\Dim_Weather\Colonne dérivée"
+          TopLeft="197.999997131526,9.66666660457849" />
         <EdgeLayout
-          Id="Package\Dim_Weather.Paths[Sortie de recherche sans correspondance]"
-          TopLeft="281.43333106339,161.099999195337">
+          Id="Package\Dim_Weather.Paths[Sortie de source OLE DB]"
+          TopLeft="155.1,28.3833333022892">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="122.599997839332,45.0666649281978"
+              EndConnector="42.8999971315265,0"
               Start="0,0"
-              End="122.599997839332,37.5666649281978">
+              End="35.3999971315265,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,18.5333324640989" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,18.5333324640989"
-                    Point2="0,22.5333324640989"
-                    Point3="4,22.5333324640989" />
+                    End="35.3999971315265,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Dim_Weather\Destination OLE DB"
+          TopLeft="410.948712354096,190.307690000878" />
+        <NodeLayout
+          Size="188,41.6"
+          Id="Package\Dim_Weather\Conversion de données"
+          TopLeft="394.666661761701,14.6666674241424" />
+        <EdgeLayout
+          Id="Package\Dim_Weather.Paths[Sortie de colonne dérivée]"
+          TopLeft="352.399997131526,32.9666670143604">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="42.2666646301748,0"
+              Start="0,0"
+              End="34.7666646301748,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
                   <mssgle:LineSegment
-                    End="118.599997839332,22.5333324640989" />
-                  <mssgle:CubicBezierSegment
-                    Point1="118.599997839332,22.5333324640989"
-                    Point2="122.599997839332,22.5333324640989"
-                    Point3="122.599997839332,26.5333324640989" />
+                    End="34.7666646301748,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="127.2,41.6"
+          Id="Package\Dim_Weather\Recherche"
+          TopLeft="430.884609045891,87.8076910812121" />
+        <EdgeLayout
+          Id="Package\Dim_Weather.Paths[Sortie de conversion de données]"
+          TopLeft="491.575635403796,56.2666674241424">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.5410236570697"
+              Start="0,0"
+              End="0,24.0410236570697">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
                   <mssgle:LineSegment
-                    End="122.599997839332,37.5666649281978" />
+                    End="0,24.0410236570697" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dim_Weather.Paths[Sortie de recherche sans correspondance]"
+          TopLeft="495.316660699993,129.407691081212">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.8999989196658"
+              Start="0,0"
+              End="0,53.3999989196658">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,53.3999989196658" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-38.8900010803342,27.5333324640989,200.38,16"
+              BoundingBox="-91.50201171875,20.8953119598329,183.0040234375,11.609375"
               RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Dim_Weather.Paths[Sortie de conversion de données]"
-          TopLeft="278.500000074506,80.3000005364418">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="2.93333098888399,39.1999986588955"
-              Start="0,0"
-              End="2.93333098888399,31.6999986588955">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="-1.06666901111601,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-1.06666901111601,0"
-                    Point2="2.93333098888399,0"
-                    Point3="2.93333098888399,4" />
-                  <mssgle:LineSegment
-                    End="2.93333098888399,31.6999986588955" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Dim_Weather.Paths[Sortie de source OLE DB]"
-          TopLeft="155.1,26.3">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="29.4000000745058,33.2000005364418"
-              Start="0,0"
-              End="29.4000000745058,25.7000005364418">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="25.4000000745058,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="25.4000000745058,0"
-                    Point2="29.4000000745058,0"
-                    Point3="29.4000000745058,4" />
-                  <mssgle:LineSegment
-                    End="29.4000000745058,25.7000005364418" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -3827,30 +4310,7 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Dim_Weather\Recherche">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:string">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[Dim_Weather]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:string">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Dim_Weather\Dim_Weather">
+    design-time-name="Package\Dim_Weather\Destination OLE DB">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -3859,6 +4319,65 @@ where [refTable].[Weather_Type] = ? and [refTable].[Weather_Intensity] = ?</prop
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dim_Weather\Recherche">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Dim_WeatherCondition]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dim_Visibility\Destination OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dim_Visibility\Recherche">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Dim_Visibility]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

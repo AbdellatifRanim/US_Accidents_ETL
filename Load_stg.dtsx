@@ -11,8 +11,8 @@
   DTS:LocaleID="1036"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="34"
-  DTS:VersionGUID="{E132A27B-7FC6-43A3-8EA9-89E5597180DB}">
+  DTS:VersionBuild="35"
+  DTS:VersionGUID="{A854037A-2AD1-49D1-B72F-E4F42DC6C2A9}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -2759,7 +2759,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
       DTS:LocaleID="-1"
       DTS:ObjectName="TRUNCATE"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="4">
+      DTS:ThreadHint="1">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -2776,7 +2776,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
       DTS:LocaleID="-1"
       DTS:ObjectName="TRUNCATE geography_stg"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="0">
+      DTS:ThreadHint="3">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -2792,7 +2792,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Truncate stg_INFRASTRUCTURE"
-      DTS:ThreadHint="1">
+      DTS:ThreadHint="4">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -2808,7 +2808,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Truncate Stg_Weather"
-      DTS:ThreadHint="5">
+      DTS:ThreadHint="2">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -2824,7 +2824,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Truncate_Precipitation"
-      DTS:ThreadHint="2">
+      DTS:ThreadHint="5">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -2841,7 +2841,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
       DTS:LocaleID="-1"
       DTS:ObjectName="Truncate_Temperature"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="3">
+      DTS:ThreadHint="0">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -2919,7 +2919,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
         <NodeLayout
           Size="230.4,41.6"
           Id="Package\ETL_INFRASTRUCTURE_Staging"
-          TopLeft="261.957143331547,344.264705585413" />
+          TopLeft="544.100001075012,297.617646802772" />
         <NodeLayout
           Size="200.8,41.6"
           Id="Package\ETL_Precipitation_Staging"
@@ -3072,30 +3072,18 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Contrainte 5]"
-          TopLeft="657.247721229922,264.276470397872">
+          TopLeft="658.273861152467,264.276470397872">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-280.090577898375,79.9882351875411"
+              EndConnector="0,33.3411764048996"
               Start="0,0"
-              End="-280.090577898375,72.4882351875411">
+              End="0,25.8411764048996">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,35.9941175937706" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,35.9941175937706"
-                    Point2="0,39.9941175937706"
-                    Point3="-4,39.9941175937706" />
-                  <mssgle:LineSegment
-                    End="-276.090577898375,39.9941175937706" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-276.090577898375,39.9941175937706"
-                    Point2="-280.090577898375,39.9941175937706"
-                    Point3="-280.090577898375,43.9941175937706" />
-                  <mssgle:LineSegment
-                    End="-280.090577898375,72.4882351875411" />
+                    End="0,25.8411764048996" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
