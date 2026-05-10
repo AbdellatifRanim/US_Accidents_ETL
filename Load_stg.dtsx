@@ -11,8 +11,8 @@
   DTS:LocaleID="1036"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="35"
-  DTS:VersionGUID="{A854037A-2AD1-49D1-B72F-E4F42DC6C2A9}">
+  DTS:VersionBuild="38"
+  DTS:VersionGUID="{D3001D89-95A4-4C42-A706-26B74DE11EF9}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -1529,7 +1529,7 @@ FROM Accidents_Data;</property>
                 <property
                   dataType="System.String"
                   description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
-                  name="OpenRowset">[dbo].[Precipitation_stg]</property>
+                  name="OpenRowset">[Precipitation_stg]</property>
                 <property
                   dataType="System.String"
                   description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
@@ -1586,24 +1586,22 @@ FROM Accidents_Data;</property>
                   name="Entrée de destination OLE DB">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\ETL_Precipitation_Staging\Destination stg.Inputs[Entrée de destination OLE DB].Columns[Precipitation_in]"
-                      cachedDataType="r8"
-                      cachedName="Precipitation_in"
-                      externalMetadataColumnId="Package\ETL_Precipitation_Staging\Destination stg.Inputs[Entrée de destination OLE DB].ExternalColumns[Precipitation_float]"
-                      lineageId="Package\ETL_Precipitation_Staging\NETTOYAGE.Outputs[Sortie de colonne dérivée].Columns[Precipitation_in]" />
+                      refId="Package\ETL_Precipitation_Staging\Destination stg.Inputs[Entrée de destination OLE DB].Columns[Precipitation(in)]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Precipitation(in)"
+                      externalMetadataColumnId="Package\ETL_Precipitation_Staging\Destination stg.Inputs[Entrée de destination OLE DB].ExternalColumns[Precipitation(in)]"
+                      lineageId="Package\ETL_Precipitation_Staging\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Precipitation(in)]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\ETL_Precipitation_Staging\Destination stg.Inputs[Entrée de destination OLE DB].ExternalColumns[Precipitation_float]"
-                      dataType="r8"
-                      name="Precipitation_float" />
-                    <externalMetadataColumn
-                      refId="Package\ETL_Precipitation_Staging\Destination stg.Inputs[Entrée de destination OLE DB].ExternalColumns[Precipitation_Category]"
+                      refId="Package\ETL_Precipitation_Staging\Destination stg.Inputs[Entrée de destination OLE DB].ExternalColumns[Precipitation(in)]"
                       codePage="1252"
                       dataType="str"
-                      length="30"
-                      name="Precipitation_Category" />
+                      length="50"
+                      name="Precipitation(in)" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -1625,86 +1623,6 @@ FROM Accidents_Data;</property>
                       refId="Package\ETL_Precipitation_Staging\Destination stg.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
                       dataType="i4"
                       lineageId="Package\ETL_Precipitation_Staging\Destination stg.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
-              refId="Package\ETL_Precipitation_Staging\NETTOYAGE"
-              componentClassID="Microsoft.DerivedColumn"
-              contactInfo="Colonne dérivée;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;0"
-              description="Crée de nouvelles valeurs de colonne en appliquant des expressions aux colonnes d'entrée de transformation. Créez de nouvelles colonnes ou remplacez celles qui existent déjà. Par exemple, concaténez les valeurs de la colonne 'prénom' et de la colonne 'nom' pour créer une colonne 'nom complet'."
-              name="NETTOYAGE"
-              usesDispositions="true">
-              <inputs>
-                <input
-                  refId="Package\ETL_Precipitation_Staging\NETTOYAGE.Inputs[Entrée de colonne dérivée]"
-                  description="Entrée de la transformation de colonnes dérivées"
-                  name="Entrée de colonne dérivée">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\ETL_Precipitation_Staging\NETTOYAGE.Inputs[Entrée de colonne dérivée].Columns[precip_num_safe]"
-                      cachedDataType="r8"
-                      cachedName="precip_num_safe"
-                      lineageId="Package\ETL_Precipitation_Staging\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[precip_num_safe]" />
-                  </inputColumns>
-                  <externalMetadataColumns />
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\ETL_Precipitation_Staging\NETTOYAGE.Outputs[Sortie de colonne dérivée]"
-                  description="Sortie par défaut de la transformation de colonnes dérivées"
-                  exclusionGroup="1"
-                  name="Sortie de colonne dérivée"
-                  synchronousInputId="Package\ETL_Precipitation_Staging\NETTOYAGE.Inputs[Entrée de colonne dérivée]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\ETL_Precipitation_Staging\NETTOYAGE.Outputs[Sortie de colonne dérivée].Columns[Precipitation_in]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Calcul"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\ETL_Precipitation_Staging\NETTOYAGE.Outputs[Sortie de colonne dérivée].Columns[Precipitation_in]"
-                      name="Precipitation_in"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.String"
-                          description="Expression de colonne dérivée"
-                          name="Expression">[ISNULL](#{Package\ETL_Precipitation_Staging\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[precip_num_safe]}) ? 0.0 : #{Package\ETL_Precipitation_Staging\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[precip_num_safe]}</property>
-                        <property
-                          containsID="true"
-                          dataType="System.String"
-                          description="Expression claire de colonne dérivée"
-                          expressionType="Notify"
-                          name="FriendlyExpression">ISNULL(precip_num_safe) ? 0.0 : precip_num_safe</property>
-                      </properties>
-                    </outputColumn>
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\ETL_Precipitation_Staging\NETTOYAGE.Outputs[Sortie d'erreur de colonne dérivée]"
-                  description="Sortie d'erreur de la transformation de colonnes dérivées"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="Sortie d'erreur de colonne dérivée"
-                  synchronousInputId="Package\ETL_Precipitation_Staging\NETTOYAGE.Inputs[Entrée de colonne dérivée]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\ETL_Precipitation_Staging\NETTOYAGE.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\ETL_Precipitation_Staging\NETTOYAGE.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\ETL_Precipitation_Staging\NETTOYAGE.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\ETL_Precipitation_Staging\NETTOYAGE.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -1737,10 +1655,8 @@ FROM Accidents_Data;</property>
                   dataType="System.String"
                   description="Commande SQL à exécuter."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT DISTINCT 
-    [Precipitation(in)], 
-TRY_PARSE([Precipitation(in)] AS FLOAT USING 'en-US') as precip_num_safe
-FROM [dbo].[Accidents_Data] WITH (NOLOCK)</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT DISTINCT [Precipitation(in)] 
+FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
                 <property
                   dataType="System.String"
                   description="Variable contenant la commande SQL à exécuter."
@@ -1787,15 +1703,6 @@ FROM [dbo].[Accidents_Data] WITH (NOLOCK)</property>
                       lineageId="Package\ETL_Precipitation_Staging\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Precipitation(in)]"
                       name="Precipitation(in)"
                       truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\ETL_Precipitation_Staging\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[precip_num_safe]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\ETL_Precipitation_Staging\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[precip_num_safe]"
-                      lineageId="Package\ETL_Precipitation_Staging\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[precip_num_safe]"
-                      name="precip_num_safe"
-                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1805,10 +1712,6 @@ FROM [dbo].[Accidents_Data] WITH (NOLOCK)</property>
                       dataType="str"
                       length="50"
                       name="Precipitation(in)" />
-                    <externalMetadataColumn
-                      refId="Package\ETL_Precipitation_Staging\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[precip_num_safe]"
-                      dataType="r8"
-                      name="precip_num_safe" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -1823,11 +1726,6 @@ FROM [dbo].[Accidents_Data] WITH (NOLOCK)</property>
                       length="50"
                       lineageId="Package\ETL_Precipitation_Staging\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Precipitation(in)]"
                       name="Precipitation(in)" />
-                    <outputColumn
-                      refId="Package\ETL_Precipitation_Staging\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[precip_num_safe]"
-                      dataType="r8"
-                      lineageId="Package\ETL_Precipitation_Staging\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[precip_num_safe]"
-                      name="precip_num_safe" />
                     <outputColumn
                       refId="Package\ETL_Precipitation_Staging\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
                       dataType="i4"
@@ -1848,13 +1746,8 @@ FROM [dbo].[Accidents_Data] WITH (NOLOCK)</property>
           </components>
           <paths>
             <path
-              refId="Package\ETL_Precipitation_Staging.Paths[Sortie de colonne dérivée]"
-              endId="Package\ETL_Precipitation_Staging\Destination stg.Inputs[Entrée de destination OLE DB]"
-              name="Sortie de colonne dérivée"
-              startId="Package\ETL_Precipitation_Staging\NETTOYAGE.Outputs[Sortie de colonne dérivée]" />
-            <path
               refId="Package\ETL_Precipitation_Staging.Paths[Sortie de source OLE DB]"
-              endId="Package\ETL_Precipitation_Staging\NETTOYAGE.Inputs[Entrée de colonne dérivée]"
+              endId="Package\ETL_Precipitation_Staging\Destination stg.Inputs[Entrée de destination OLE DB]"
               name="Sortie de source OLE DB"
               startId="Package\ETL_Precipitation_Staging\Source OLE DB.Outputs[Sortie de source OLE DB]" />
           </paths>
@@ -2919,7 +2812,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
         <NodeLayout
           Size="230.4,41.6"
           Id="Package\ETL_INFRASTRUCTURE_Staging"
-          TopLeft="544.100001075012,297.617646802772" />
+          TopLeft="488.385715242126,211.205882172632" />
         <NodeLayout
           Size="200.8,41.6"
           Id="Package\ETL_Precipitation_Staging"
@@ -2947,7 +2840,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
         <NodeLayout
           Size="231.2,41.6"
           Id="Package\Truncate stg_INFRASTRUCTURE"
-          TopLeft="541.647721229922,222.676470397872" />
+          TopLeft="485.933435397035,136.264705767733" />
         <NodeLayout
           Size="184.8,41.6"
           Id="Package\Truncate Stg_Weather"
@@ -3072,7 +2965,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Contrainte 5]"
-          TopLeft="658.273861152467,264.276470397872">
+          TopLeft="602.55957531958,177.864705767733">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -3099,7 +2992,11 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
     design-time-name="Package\ETL_Geography_Staging">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\ETL_Geography_Staging\Geography_stg"
+          TopLeft="455.500000957932,19.9444444317833" />
         <NodeLayout
           Size="153.6,41.6"
           Id="Package\ETL_Geography_Staging\Source DataCSv"
@@ -3108,10 +3005,6 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
           Size="188,41.6"
           Id="Package\ETL_Geography_Staging\Conversion de données"
           TopLeft="223.595238495643,13.4084967513902" />
-        <NodeLayout
-          Size="149.6,41.6"
-          Id="Package\ETL_Geography_Staging\Geography_stg"
-          TopLeft="455.500000957932,19.9444444317833" />
         <EdgeLayout
           Id="Package\ETL_Geography_Staging.Paths[Sortie de source OLE DB]"
           TopLeft="159.1,30.2542483756951">
@@ -3131,7 +3024,9 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -3153,7 +3048,9 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -3189,7 +3086,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
     design-time-name="Package\ETL_INFRASTRUCTURE_Staging">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="149.6,41.6"
           Id="Package\ETL_INFRASTRUCTURE_Staging\Source OLE DB"
@@ -3229,7 +3126,9 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -3260,55 +3159,29 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
     design-time-name="Package\ETL_Precipitation_Staging">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="148.8,41.6"
-          Id="Package\ETL_Precipitation_Staging\Destination stg"
-          TopLeft="385.499994784593,20.9000051409011" />
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="149.6,41.6"
           Id="Package\ETL_Precipitation_Staging\Source OLE DB"
-          TopLeft="5.5,5.5" />
+          TopLeft="70.4999990314245,9.49999994039536" />
         <NodeLayout
-          Size="136.8,56.8"
-          Id="Package\ETL_Precipitation_Staging\NETTOYAGE"
-          TopLeft="201.499997973442,5.50000089406965" />
+          Size="148.8,41.6"
+          Id="Package\ETL_Precipitation_Staging\Destination stg"
+          TopLeft="272.499996468424,9.90000530481387" />
         <EdgeLayout
           Id="Package\ETL_Precipitation_Staging.Paths[Sortie de source OLE DB]"
-          TopLeft="155.1,30.1000004470348">
+          TopLeft="220.099999031425,30.5000026226046">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="46.3999979734418,0"
+              EndConnector="52.3999974369998,0"
               Start="0,0"
-              End="38.8999979734418,0">
+              End="44.8999974369998,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="38.8999979734418,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\ETL_Precipitation_Staging.Paths[Sortie de colonne dérivée]"
-          TopLeft="338.299997973442,37.8000030174854">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="47.1999968111509,0"
-              Start="0,0"
-              End="39.6999968111509,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="39.6999968111509,0" />
+                    End="44.8999974369998,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3404,7 +3277,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
     design-time-name="Package\ETL_Visibility_Staging">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="168,41.6"
           Id="Package\ETL_Visibility_Staging\DEST_Visibility_stg"
@@ -3436,7 +3309,9 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -3458,7 +3333,9 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -3494,7 +3371,7 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
     design-time-name="Package\ETL_Weather_Staging">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="139.2,41.6"
           Id="Package\ETL_Weather_Staging\Stg_Weather"
@@ -3522,7 +3399,9 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
