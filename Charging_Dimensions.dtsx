@@ -1,0 +1,219 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/14/2026 9:24:26 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="RANNOUM"
+  DTS:CreatorName="RANNOUM\rannoum"
+  DTS:DTSID="{A61E71EC-B417-4197-A6A6-449ACE3E0F19}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="1036"
+  DTS:ObjectName="Charging_Dimensions"
+  DTS:PackageType="5"
+  DTS:VersionBuild="55"
+  DTS:VersionGUID="{B44EF72F-190D-4FB3-91F9-365EE9E13AA0}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[RANNOUM.US_Accidents_STAGING 1]"
+      DTS:CreationName="OLEDB"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{C038BE23-599C-4F03-8C8D-6BBE44BB1020}"
+      DTS:ObjectName="RANNOUM.US_Accidents_STAGING 1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=RANNOUM;Initial Catalog=US_Accidents_STAGING;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Staging_Load-{C038BE23-599C-4F03-8C8D-6BBE44BB1020}RANNOUM.US_Accidents_STAGING 1;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Dim_Geographie"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tâche de flux de données"
+      DTS:DTSID="{0BDBC13B-F2C0-4992-8EA6-AE9326608390}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Dim_Geographie"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          defaultBufferMaxRows="100000"
+          defaultBufferSize="104857600"
+          version="1">
+          <components>
+            <component
+              refId="Package\Dim_Geographie\Colonne dérivée"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Colonne dérivée;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;0"
+              description="Crée de nouvelles valeurs de colonne en appliquant des expressions aux colonnes d'entrée de transformation."
+              name="Colonne dérivée"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Dim_Geographie\Colonne dérivée.Inputs[Entrée de colonne dérivée]"
+                  name="Entrée de colonne dérivée">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim_Geographie\Colonne dérivée.Outputs[Sortie de colonne dérivée]"
+                  exclusionGroup="1"
+                  name="Sortie de colonne dérivée"
+                  synchronousInputId="Package\Dim_Geographie\Colonne dérivée.Inputs[Entrée de colonne dérivée]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Geographie\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[End_Date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Dim_Geographie\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[End_Date]"
+                      name="End_Date">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          name="Expression">(DT_DBTIMESTAMP)(@[System::StartTime])</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dim_Geographie\Source Geography_stg"
+              componentClassID="Microsoft.OLEDBSource"
+              name="Source Geography_stg"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.String"
+                  name="OpenRowset">[dbo].[Geography_stg]</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dim_Geographie\Source Geography_stg.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[RANNOUM.US_Accidents_STAGING 1]"
+                  connectionManagerRefId="Package.ConnectionManagers[RANNOUM.US_Accidents_STAGING 1]"
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB]"
+                  name="Sortie de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[State]"
+                      name="State" />
+                    <outputColumn
+                      refId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lat]"
+                      dataType="r8"
+                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lat]"
+                      name="Start_Lat" />
+                    <outputColumn
+                      refId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lng]"
+                      dataType="r8"
+                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lng]"
+                      name="Start_Lng" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Dim_Temperautre"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{4C2E6A49-1751-4BD1-B94E-A48B91D6CEF8}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:ObjectName="Dim_Temperautre">
+      <DTS:ObjectData>
+        <pipeline version="1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Dim_Visibility"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{7D666F4C-A54E-467C-BF7C-72B2086BFDD8}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:ObjectName="Dim_Visibility">
+      <DTS:ObjectData>
+        <pipeline version="1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\ETL_Weather_Dimernsion"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{323A8613-7334-411A-A618-00F815CDE32D}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:ObjectName="ETL_Weather_Dimernsion">
+      <DTS:ObjectData>
+        <pipeline version="1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Dim_Temperature"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{6B9F0DA8-CB55-4648-B7B1-D439056DCAF1}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:ObjectName="Truncate Dim_Temperature">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{C038BE23-599C-4F03-8C8D-6BBE44BB1020}"
+          SQLTask:SqlStatementSource="Truncate table Dim_Temperature;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\truncate Dim_Visibility"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{3A37A715-D3B9-49E9-B6AB-E5C4EF646806}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:ObjectName="truncate Dim_Visibility">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{C038BE23-599C-4F03-8C8D-6BBE44BB1020}"
+          SQLTask:SqlStatementSource="Delete from Dim_Visibility;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Dim_Weather"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{11C52AD5-3ADB-4448-B78D-BF915696CE28}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:ObjectName="Truncate Dim_Weather">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{C038BE23-599C-4F03-8C8D-6BBE44BB1020}"
+          SQLTask:SqlStatementSource="Truncate table Dim_WeatherCondition;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Contrainte]"
+      DTS:From="Package\Truncate Dim_Weather"
+      DTS:To="Package\ETL_Weather_Dimernsion" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Contrainte 1]"
+      DTS:From="Package\Truncate Dim_Temperature"
+      DTS:To="Package\Dim_Temperautre" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Contrainte 2]"
+      DTS:From="Package\truncate Dim_Visibility"
+      DTS:To="Package\Dim_Visibility" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

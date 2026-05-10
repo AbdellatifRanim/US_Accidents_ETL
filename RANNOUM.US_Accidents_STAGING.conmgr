@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="RANNOUM.US_Accidents_STAGING"
+  DTS:DTSID="{2A06DFEB-00AA-4945-B6D2-3C0A64BDCDAC}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=RANNOUM;Initial Catalog=US_Accidents_STAGING;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-US_Accidents_ETL-{2A06DFEB-00AA-4945-B6D2-3C0A64BDCDAC}RANNOUM.US_Accidents_STAGING;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
