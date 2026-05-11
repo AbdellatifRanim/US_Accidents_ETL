@@ -1,0 +1,2704 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/10/2026 11:38:35 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="RANNOUM"
+  DTS:CreatorName="RANNOUM\rannoum"
+  DTS:DTSID="{E44E2740-9EAB-434A-B967-638D3C936215}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="1036"
+  DTS:ObjectName="Load_DimInfrastructure"
+  DTS:PackageType="5"
+  DTS:VersionBuild="16"
+  DTS:VersionGUID="{18F6B61E-9C0B-43E4-992E-B6C14BDC397C}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Dim_Infrastructure"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tâche de flux de données"
+      DTS:DTSID="{EA973AE1-2D48-490B-8997-E4D8CE549002}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Dim_Infrastructure"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Dim_Infrastructure\Colonne dérivée"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Colonne dérivée;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;0"
+              description="Crée de nouvelles valeurs de colonne en appliquant des expressions aux colonnes d'entrée de transformation. Créez de nouvelles colonnes ou remplacez celles qui existent déjà. Par exemple, concaténez les valeurs de la colonne 'prénom' et de la colonne 'nom' pour créer une colonne 'nom complet'."
+              name="Colonne dérivée"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Dim_Infrastructure\Colonne dérivée.Inputs[Entrée de colonne dérivée]"
+                  description="Entrée de la transformation de colonnes dérivées"
+                  name="Entrée de colonne dérivée">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée.Inputs[Entrée de colonne dérivée].Columns[Amenity]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Amenity"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Amenity]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée.Inputs[Entrée de colonne dérivée].Columns[Bump]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Bump"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Bump]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée.Inputs[Entrée de colonne dérivée].Columns[Crossing]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Crossing"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Crossing]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée.Inputs[Entrée de colonne dérivée].Columns[Give_Way]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Give_Way"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Give_Way]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie de colonne dérivée]"
+                  description="Sortie par défaut de la transformation de colonnes dérivées"
+                  exclusionGroup="1"
+                  name="Sortie de colonne dérivée"
+                  synchronousInputId="Package\Dim_Infrastructure\Colonne dérivée.Inputs[Entrée de colonne dérivée]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Amenity_BIT]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Amenity_BIT]"
+                      name="Amenity_BIT"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">(DT_BOOL)([ISNULL](#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Amenity]}) || #{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Amenity]} == "" ? 0 : (#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Amenity]} == "True" ? 1 : 0))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_BOOL)(ISNULL(Amenity) || Amenity == "" ? 0 : (Amenity == "True" ? 1 : 0))</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Bump_BIT]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Bump_BIT]"
+                      name="Bump_BIT"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">(DT_BOOL)([ISNULL](#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Bump]}) || #{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Bump]} == "" ? 0 : (#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Bump]} == "True" ? 1 : 0))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_BOOL)(ISNULL(Bump) || Bump == "" ? 0 : (Bump == "True" ? 1 : 0))</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Crossing_BIT]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Crossing_BIT]"
+                      name="Crossing_BIT"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">(DT_BOOL)([ISNULL](#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Crossing]}) || #{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Crossing]} == "" ? 0 : (#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Crossing]} == "True" ? 1 : 0))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_BOOL)(ISNULL(Crossing) || Crossing == "" ? 0 : (Crossing == "True" ? 1 : 0))</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Give_WayBIT]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Give_WayBIT]"
+                      name="Give_WayBIT"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">(DT_BOOL)([ISNULL](#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Give_Way]}) || #{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Give_Way]} == "" ? 0 : (#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Give_Way]} == "True" ? 1 : 0))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_BOOL)(ISNULL(Give_Way) || Give_Way == "" ? 0 : (Give_Way == "True" ? 1 : 0))</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée]"
+                  description="Sortie d'erreur de la transformation de colonnes dérivées"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de colonne dérivée"
+                  synchronousInputId="Package\Dim_Infrastructure\Colonne dérivée.Inputs[Entrée de colonne dérivée]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dim_Infrastructure\Colonne dérivée 1"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Colonne dérivée;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;0"
+              description="Crée de nouvelles valeurs de colonne en appliquant des expressions aux colonnes d'entrée de transformation. Créez de nouvelles colonnes ou remplacez celles qui existent déjà. Par exemple, concaténez les valeurs de la colonne 'prénom' et de la colonne 'nom' pour créer une colonne 'nom complet'."
+              name="Colonne dérivée 1"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Dim_Infrastructure\Colonne dérivée 1.Inputs[Entrée de colonne dérivée]"
+                  description="Entrée de la transformation de colonnes dérivées"
+                  name="Entrée de colonne dérivée">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Inputs[Entrée de colonne dérivée].Columns[Junction]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Junction"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Junction]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Inputs[Entrée de colonne dérivée].Columns[No_Exit]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="No_Exit"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[No_Exit]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Inputs[Entrée de colonne dérivée].Columns[Railway]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Railway"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Railway]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Inputs[Entrée de colonne dérivée].Columns[Roundabout]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Roundabout"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Roundabout]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Inputs[Entrée de colonne dérivée].Columns[Station]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Station"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Station]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Inputs[Entrée de colonne dérivée].Columns[Traffic_Calming]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Traffic_Calming"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Traffic_Calming]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Inputs[Entrée de colonne dérivée].Columns[Traffic_Signal]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Traffic_Signal"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Traffic_Signal]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Inputs[Entrée de colonne dérivée].Columns[Turning_Loop]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Turning_Loop"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Turning_Loop]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Inputs[Entrée de colonne dérivée].Columns[Stop]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Stop"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Stop]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée]"
+                  description="Sortie par défaut de la transformation de colonnes dérivées"
+                  exclusionGroup="1"
+                  name="Sortie de colonne dérivée"
+                  synchronousInputId="Package\Dim_Infrastructure\Colonne dérivée 1.Inputs[Entrée de colonne dérivée]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Junction_BIT]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Junction_BIT]"
+                      name="Junction_BIT"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">(DT_BOOL)([ISNULL](#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Junction]}) || #{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Junction]} == "" ? 0 : (#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Junction]} == "True" ? 1 : 0))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_BOOL)(ISNULL(Junction) || Junction == "" ? 0 : (Junction == "True" ? 1 : 0))</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[No_Exit_BIT]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[No_Exit_BIT]"
+                      name="No_Exit_BIT"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">(DT_BOOL)([ISNULL](#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[No_Exit]}) || #{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[No_Exit]} == "" ? 0 : (#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[No_Exit]} == "True" ? 1 : 0))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_BOOL)(ISNULL(No_Exit) || No_Exit == "" ? 0 : (No_Exit == "True" ? 1 : 0))</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Railway_BIT]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Railway_BIT]"
+                      name="Railway_BIT"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">(DT_BOOL)([ISNULL](#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Railway]}) || #{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Railway]} == "" ? 0 : (#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Railway]} == "True" ? 1 : 0))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_BOOL)(ISNULL(Railway) || Railway == "" ? 0 : (Railway == "True" ? 1 : 0))</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Roundabout_BIT]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Roundabout_BIT]"
+                      name="Roundabout_BIT"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">(DT_BOOL)([ISNULL](#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Roundabout]}) || #{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Roundabout]} == "" ? 0 : (#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Roundabout]} == "True" ? 1 : 0))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_BOOL)(ISNULL(Roundabout) || Roundabout == "" ? 0 : (Roundabout == "True" ? 1 : 0))</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Station_BIT]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Station_BIT]"
+                      name="Station_BIT"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">(DT_BOOL)([ISNULL](#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Station]}) || #{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Station]} == "" ? 0 : (#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Station]} == "True" ? 1 : 0))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_BOOL)(ISNULL(Station) || Station == "" ? 0 : (Station == "True" ? 1 : 0))</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Traffic_SignalBIT]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Traffic_SignalBIT]"
+                      name="Traffic_SignalBIT"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">(DT_BOOL)([ISNULL](#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Traffic_Signal]}) || #{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Traffic_Signal]} == "" ? 0 : (#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Traffic_Signal]} == "True" ? 1 : 0))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_BOOL)(ISNULL(Traffic_Signal) || Traffic_Signal == "" ? 0 : (Traffic_Signal == "True" ? 1 : 0))</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Traffic_CalmingBIT]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Traffic_CalmingBIT]"
+                      name="Traffic_CalmingBIT"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">(DT_BOOL)([ISNULL](#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Traffic_Calming]}) || #{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Traffic_Calming]} == "" ? 0 : (#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Traffic_Calming]} == "True" ? 1 : 0))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_BOOL)(ISNULL(Traffic_Calming) || Traffic_Calming == "" ? 0 : (Traffic_Calming == "True" ? 1 : 0))</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Turning_LoopBIT]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Turning_LoopBIT]"
+                      name="Turning_LoopBIT"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">(DT_BOOL)([ISNULL](#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Turning_Loop]}) || #{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Turning_Loop]} == "" ? 0 : (#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Turning_Loop]} == "True" ? 1 : 0))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_BOOL)(ISNULL(Turning_Loop) || Turning_Loop == "" ? 0 : (Turning_Loop == "True" ? 1 : 0))</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Stop_SignBIT]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Stop_SignBIT]"
+                      name="Stop_SignBIT"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">(DT_BOOL)([ISNULL](#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Stop]}) || #{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Stop]} == "" ? 0 : (#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Stop]} == "True" ? 1 : 0))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_BOOL)(ISNULL(Stop) || Stop == "" ? 0 : (Stop == "True" ? 1 : 0))</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée]"
+                  description="Sortie d'erreur de la transformation de colonnes dérivées"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de colonne dérivée"
+                  synchronousInputId="Package\Dim_Infrastructure\Colonne dérivée 1.Inputs[Entrée de colonne dérivée]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dim_Infrastructure\Destination OLE DB"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destination OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;4"
+              description="Destination OLE DB"
+              name="Destination OLE DB"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[dbo].[Dim_Infrastructure]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les valeurs fournies pour les colonnes d'identité seront copiées à la destination. Si la valeur est définie à False, les valeurs des colonnes d'identité seront générées automatiquement à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les colonnes contenant la valeur NULL auront cette valeur NULL copiée à la destination. Si la valeur est définie à False, les colonnes contenant la valeur NULL auront leurs valeurs par défaut insérées à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie les options à utiliser avec le chargement rapide.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie quand les validations sont émises pendant l'insertion des données.  Une valeur égale à 0 spécifie qu'une validation sera émise à la fin de l'insertion des données.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dim_Infrastructure\Destination OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="{EE6A200C-1D73-4D4F-B9F8-B5C2FD8A0992}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[RANNOUM.US_Accidents_DW]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB]"
+                  errorOrTruncationOperation="Insérer"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrée de destination OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Amenity_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Amenity_BIT"
+                      cachedSortKeyPosition="14"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Amenity]"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Amenity_BIT]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Bump_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Bump_BIT"
+                      cachedSortKeyPosition="15"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Bump]"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Bump_BIT]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Crossing_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Crossing_BIT"
+                      cachedSortKeyPosition="16"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Crossing]"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Crossing_BIT]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Give_WayBIT]"
+                      cachedDataType="bool"
+                      cachedName="Give_WayBIT"
+                      cachedSortKeyPosition="17"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Give_Way]"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Give_WayBIT]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Junction_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Junction_BIT"
+                      cachedSortKeyPosition="18"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Junction]"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Junction_BIT]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[No_Exit_BIT]"
+                      cachedDataType="bool"
+                      cachedName="No_Exit_BIT"
+                      cachedSortKeyPosition="19"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[No_Exit]"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[No_Exit_BIT]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Railway_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Railway_BIT"
+                      cachedSortKeyPosition="20"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Railway]"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Railway_BIT]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Roundabout_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Roundabout_BIT"
+                      cachedSortKeyPosition="21"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Roundabout]"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Roundabout_BIT]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Station_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Station_BIT"
+                      cachedSortKeyPosition="22"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Station]"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Station_BIT]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Stop_SignBIT]"
+                      cachedDataType="bool"
+                      cachedName="Stop_SignBIT"
+                      cachedSortKeyPosition="26"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Stop_Sign]"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Stop_SignBIT]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Traffic_CalmingBIT]"
+                      cachedDataType="bool"
+                      cachedName="Traffic_CalmingBIT"
+                      cachedSortKeyPosition="24"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Traffic_Calming]"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_CalmingBIT]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Traffic_SignalBIT]"
+                      cachedDataType="bool"
+                      cachedName="Traffic_SignalBIT"
+                      cachedSortKeyPosition="23"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Traffic_Signal]"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_SignalBIT]" />
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Turning_LoopBIT]"
+                      cachedDataType="bool"
+                      cachedName="Turning_LoopBIT"
+                      cachedSortKeyPosition="25"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Turning_Loop]"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Turning_LoopBIT]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Infrastructure_Key]"
+                      dataType="i4"
+                      name="Infrastructure_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Amenity]"
+                      dataType="bool"
+                      name="Amenity" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Bump]"
+                      dataType="bool"
+                      name="Bump" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Crossing]"
+                      dataType="bool"
+                      name="Crossing" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Give_Way]"
+                      dataType="bool"
+                      name="Give_Way" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Junction]"
+                      dataType="bool"
+                      name="Junction" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[No_Exit]"
+                      dataType="bool"
+                      name="No_Exit" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Railway]"
+                      dataType="bool"
+                      name="Railway" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Roundabout]"
+                      dataType="bool"
+                      name="Roundabout" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Station]"
+                      dataType="bool"
+                      name="Station" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Stop_Sign]"
+                      dataType="bool"
+                      name="Stop_Sign" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Traffic_Calming]"
+                      dataType="bool"
+                      name="Traffic_Calming" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Traffic_Signal]"
+                      dataType="bool"
+                      name="Traffic_Signal" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Turning_Loop]"
+                      dataType="bool"
+                      name="Turning_Loop" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim_Infrastructure\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de destination OLE DB"
+                  synchronousInputId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Infrastructure\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Infrastructure\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dim_Infrastructure\Recherche"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Recherche;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;6"
+              description="Joint des colonnes supplémentaires au flux de données en recherchant des valeurs dans une table. Par exemple, joignez la colonne 'id employé' à la table des employés afin d'obtenir la 'date d'embauche' et le 'nom de l'employé'. Nous recommandons cette transformation lorsque la table de recherche peut être stockée en mémoire."
+              name="Recherche"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SQL qui génère la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[Dim_Infrastructure]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[Dim_Infrastructure]) [refTable]
+where [refTable].[Amenity] = ? and [refTable].[Bump] = ? and [refTable].[Crossing] = ? and [refTable].[Give_Way] = ? and [refTable].[Junction] = ? and [refTable].[No_Exit] = ? and [refTable].[Railway] = ? and [refTable].[Roundabout] = ? and [refTable].[Station] = ? and [refTable].[Traffic_Signal] = ? and [refTable].[Traffic_Calming] = ? and [refTable].[Turning_Loop] = ? and [refTable].[Stop_Sign] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de cache de la table de correspondance."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie comment la transformation de recherche gère les lignes sans entrées correspondantes dans le jeu de données de référence."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le pourcentage du cache alloué aux lignes sans entrées correspondantes dans le dataset de référence."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indique si les métadonnées sont à référencer en format XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Infrastructure_Key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Amenity" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Bump" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Crossing" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Give_Way" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Junction" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="No_Exit" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Railway" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Roundabout" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Station" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Stop_Sign" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Traffic_Calming" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Traffic_Signal" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Turning_Loop" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Spécifie la liste d'identificateurs de traçabilité se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
+                  name="ParameterMap">#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Amenity_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Bump_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Crossing_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Give_WayBIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Junction_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[No_Exit_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Railway_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Roundabout_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Station_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_SignalBIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_CalmingBIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Turning_LoopBIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Stop_SignBIT]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Détermine si les clés dupliquées dans les données de référence doivent être traitées en tant qu'erreurs lorsque le mode Cache complet est utilisé."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dim_Infrastructure\Recherche.Connections[OleDbConnection]"
+                  connectionManagerID="{EE6A200C-1D73-4D4F-B9F8-B5C2FD8A0992}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[RANNOUM.US_Accidents_DW]"
+                  description="Gestionnaire de connexions utilisé pour accéder aux données de correspondance."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche]"
+                  name="Entrée de recherche">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche].Columns[Amenity_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Amenity_BIT"
+                      cachedSortKeyPosition="14"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Amenity_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Amenity</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche].Columns[Bump_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Bump_BIT"
+                      cachedSortKeyPosition="15"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Bump_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Bump</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche].Columns[Crossing_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Crossing_BIT"
+                      cachedSortKeyPosition="16"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Crossing_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Crossing</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche].Columns[Give_WayBIT]"
+                      cachedDataType="bool"
+                      cachedName="Give_WayBIT"
+                      cachedSortKeyPosition="17"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Give_WayBIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Give_Way</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche].Columns[Junction_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Junction_BIT"
+                      cachedSortKeyPosition="18"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Junction_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Junction</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche].Columns[No_Exit_BIT]"
+                      cachedDataType="bool"
+                      cachedName="No_Exit_BIT"
+                      cachedSortKeyPosition="19"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[No_Exit_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">No_Exit</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche].Columns[Railway_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Railway_BIT"
+                      cachedSortKeyPosition="20"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Railway_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Railway</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche].Columns[Station_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Station_BIT"
+                      cachedSortKeyPosition="22"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Station_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Station</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche].Columns[Traffic_CalmingBIT]"
+                      cachedDataType="bool"
+                      cachedName="Traffic_CalmingBIT"
+                      cachedSortKeyPosition="24"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_CalmingBIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Traffic_Calming</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche].Columns[Stop_SignBIT]"
+                      cachedDataType="bool"
+                      cachedName="Stop_SignBIT"
+                      cachedSortKeyPosition="26"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Stop_SignBIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Stop_Sign</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche].Columns[Roundabout_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Roundabout_BIT"
+                      cachedSortKeyPosition="21"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Roundabout_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Roundabout</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche].Columns[Turning_LoopBIT]"
+                      cachedDataType="bool"
+                      cachedName="Turning_LoopBIT"
+                      cachedSortKeyPosition="25"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Turning_LoopBIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Turning_Loop</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche].Columns[Traffic_SignalBIT]"
+                      cachedDataType="bool"
+                      cachedName="Traffic_SignalBIT"
+                      cachedSortKeyPosition="23"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_SignalBIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Traffic_Signal</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim_Infrastructure\Recherche.Outputs[Sortie de recherche avec correspondance]"
+                  errorOrTruncationOperation="Recherche"
+                  exclusionGroup="1"
+                  name="Sortie de recherche avec correspondance"
+                  synchronousInputId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Dim_Infrastructure\Recherche.Outputs[Sortie de recherche sans correspondance]"
+                  description="Sortie de recherche gérant les lignes sans entrées correspondantes dans le dataset de référence. Utilisez cette sortie lorsque la propriété NoMatchBehavior a la valeur « Envoyez les lignes sans entrées correspondantes dans la sortie sans correspondance »."
+                  exclusionGroup="1"
+                  name="Sortie de recherche sans correspondance"
+                  synchronousInputId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Dim_Infrastructure\Recherche.Outputs[Sortie d'erreur de recherche]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de recherche"
+                  synchronousInputId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Infrastructure\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Infrastructure\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dim_Infrastructure\Source OLE DB"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Source OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;7"
+              description="Source OLE DB"
+              name="Source OLE DB"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[dbo].[Infrastructure_stg]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable contenant la commande SQL à exécuter."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Mappages entre les paramètres de la commande SQL et les variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Dim_Infrastructure\Source OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="{2A06DFEB-00AA-4945-B6D2-3C0A64BDCDAC}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[RANNOUM.US_Accidents_STAGING]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB]"
+                  name="Sortie de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Amenity]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Amenity]"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Amenity]"
+                      name="Amenity"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Bump]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Bump]"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Bump]"
+                      name="Bump"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Crossing]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Crossing]"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Crossing]"
+                      name="Crossing"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Give_Way]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Give_Way]"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Give_Way]"
+                      name="Give_Way"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Junction]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Junction]"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Junction]"
+                      name="Junction"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[No_Exit]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[No_Exit]"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[No_Exit]"
+                      name="No_Exit"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Railway]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Railway]"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Railway]"
+                      name="Railway"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Roundabout]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Roundabout]"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Roundabout]"
+                      name="Roundabout"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Station]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Station]"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Station]"
+                      name="Station"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Traffic_Calming]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Traffic_Calming]"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Traffic_Calming]"
+                      name="Traffic_Calming"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Traffic_Signal]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Traffic_Signal]"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Traffic_Signal]"
+                      name="Traffic_Signal"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Turning_Loop]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Turning_Loop]"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Turning_Loop]"
+                      name="Turning_Loop"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Stop]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Stop]"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Stop]"
+                      name="Stop"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Amenity]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Amenity" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Bump]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Bump" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Crossing]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Crossing" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Give_Way]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Give_Way" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Junction]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Junction" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[No_Exit]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="No_Exit" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Railway]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Railway" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Roundabout]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Roundabout" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Station]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Station" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Traffic_Calming]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Traffic_Calming" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Traffic_Signal]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Traffic_Signal" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Turning_Loop]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Turning_Loop" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Stop]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Stop" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB]"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Amenity]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Amenity]"
+                      name="Amenity" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Bump]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Bump]"
+                      name="Bump" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Crossing]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Crossing]"
+                      name="Crossing" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Give_Way]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Give_Way]"
+                      name="Give_Way" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Junction]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Junction]"
+                      name="Junction" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[No_Exit]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[No_Exit]"
+                      name="No_Exit" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Railway]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Railway]"
+                      name="Railway" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Roundabout]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Roundabout]"
+                      name="Roundabout" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Station]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Station]"
+                      name="Station" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Traffic_Calming]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Traffic_Calming]"
+                      name="Traffic_Calming" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Traffic_Signal]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Traffic_Signal]"
+                      name="Traffic_Signal" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Turning_Loop]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Turning_Loop]"
+                      name="Turning_Loop" />
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Stop]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Stop]"
+                      name="Stop" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Dim_Infrastructure\Trier"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Trier;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;1"
+              description="Trie les données d'entrée en ordre croissant ou décroissant lorsque le tri ne peut pas être effectué à la source. Par exemple, triez les données de vente par 'id de client' avant leur enregistrement dans un fichier plat et leur diffusion dans un autre service. Remarque : nous ne recommandons pas cette transformation dans le cas de flux de données volumineux."
+              name="Trier"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si la transformation de tri supprime les lignes comportant des valeurs de tri en double."
+                  name="EliminateDuplicates">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le nombre maximal de threads à utiliser pour le tri."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri]"
+                  name="Entrée de tri">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Amenity]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Amenity"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Amenity]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Bump]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Bump"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Bump]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Crossing]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Crossing"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Crossing]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">3</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Give_Way]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Give_Way"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Give_Way]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">4</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Junction]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Junction"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Junction]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">5</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[No_Exit]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="No_Exit"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[No_Exit]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">6</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Railway]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Railway"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Railway]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">7</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Roundabout]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Roundabout"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Roundabout]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">8</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Station]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Station"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Station]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">9</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Traffic_Calming]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Traffic_Calming"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Traffic_Calming]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">10</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Traffic_Signal]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Traffic_Signal"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Traffic_Signal]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">11</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Turning_Loop]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Turning_Loop"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Turning_Loop]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">12</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Stop]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Stop"
+                      lineageId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Stop]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">13</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Amenity_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Amenity_BIT"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Amenity_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">14</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Bump_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Bump_BIT"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Bump_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">15</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Crossing_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Crossing_BIT"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Crossing_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">16</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Give_WayBIT]"
+                      cachedDataType="bool"
+                      cachedName="Give_WayBIT"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Give_WayBIT]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">17</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Junction_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Junction_BIT"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Junction_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">18</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[No_Exit_BIT]"
+                      cachedDataType="bool"
+                      cachedName="No_Exit_BIT"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[No_Exit_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">19</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Railway_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Railway_BIT"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Railway_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">20</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Roundabout_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Roundabout_BIT"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Roundabout_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">21</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Station_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Station_BIT"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Station_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">22</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Traffic_SignalBIT]"
+                      cachedDataType="bool"
+                      cachedName="Traffic_SignalBIT"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Traffic_SignalBIT]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">23</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Traffic_CalmingBIT]"
+                      cachedDataType="bool"
+                      cachedName="Traffic_CalmingBIT"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Traffic_CalmingBIT]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">24</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Turning_LoopBIT]"
+                      cachedDataType="bool"
+                      cachedName="Turning_LoopBIT"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Turning_LoopBIT]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">25</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri].Columns[Stop_SignBIT]"
+                      cachedDataType="bool"
+                      cachedName="Stop_SignBIT"
+                      lineageId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Stop_SignBIT]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie les options de comparaison pour les données caractères."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Spécifie l'ordre de tri de la colonne."
+                          name="NewSortKeyPosition">26</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri]"
+                  isSorted="true"
+                  name="Sortie de tri">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Amenity]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Amenity]"
+                      name="Amenity"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Amenity]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Bump]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Bump]"
+                      name="Bump"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Bump]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Crossing]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Crossing]"
+                      name="Crossing"
+                      sortKeyPosition="3">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Crossing]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Give_Way]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Give_Way]"
+                      name="Give_Way"
+                      sortKeyPosition="4">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Give_Way]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Junction]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Junction]"
+                      name="Junction"
+                      sortKeyPosition="5">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Junction]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[No_Exit]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[No_Exit]"
+                      name="No_Exit"
+                      sortKeyPosition="6">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[No_Exit]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Railway]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Railway]"
+                      name="Railway"
+                      sortKeyPosition="7">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Railway]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Roundabout]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Roundabout]"
+                      name="Roundabout"
+                      sortKeyPosition="8">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Roundabout]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Station]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Station]"
+                      name="Station"
+                      sortKeyPosition="9">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Station]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_Calming]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_Calming]"
+                      name="Traffic_Calming"
+                      sortKeyPosition="10">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Traffic_Calming]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_Signal]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_Signal]"
+                      name="Traffic_Signal"
+                      sortKeyPosition="11">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Traffic_Signal]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Turning_Loop]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Turning_Loop]"
+                      name="Turning_Loop"
+                      sortKeyPosition="12">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Turning_Loop]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Stop]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Stop]"
+                      name="Stop"
+                      sortKeyPosition="13">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Stop]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Amenity_BIT]"
+                      dataType="bool"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Amenity_BIT]"
+                      name="Amenity_BIT"
+                      sortKeyPosition="14">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Amenity_BIT]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Bump_BIT]"
+                      dataType="bool"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Bump_BIT]"
+                      name="Bump_BIT"
+                      sortKeyPosition="15">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Bump_BIT]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Crossing_BIT]"
+                      dataType="bool"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Crossing_BIT]"
+                      name="Crossing_BIT"
+                      sortKeyPosition="16">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Crossing_BIT]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Give_WayBIT]"
+                      dataType="bool"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Give_WayBIT]"
+                      name="Give_WayBIT"
+                      sortKeyPosition="17">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Give_WayBIT]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Junction_BIT]"
+                      dataType="bool"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Junction_BIT]"
+                      name="Junction_BIT"
+                      sortKeyPosition="18">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Junction_BIT]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[No_Exit_BIT]"
+                      dataType="bool"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[No_Exit_BIT]"
+                      name="No_Exit_BIT"
+                      sortKeyPosition="19">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[No_Exit_BIT]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Railway_BIT]"
+                      dataType="bool"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Railway_BIT]"
+                      name="Railway_BIT"
+                      sortKeyPosition="20">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Railway_BIT]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Roundabout_BIT]"
+                      dataType="bool"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Roundabout_BIT]"
+                      name="Roundabout_BIT"
+                      sortKeyPosition="21">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Roundabout_BIT]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Station_BIT]"
+                      dataType="bool"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Station_BIT]"
+                      name="Station_BIT"
+                      sortKeyPosition="22">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Station_BIT]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_SignalBIT]"
+                      dataType="bool"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_SignalBIT]"
+                      name="Traffic_SignalBIT"
+                      sortKeyPosition="23">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Traffic_SignalBIT]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_CalmingBIT]"
+                      dataType="bool"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_CalmingBIT]"
+                      name="Traffic_CalmingBIT"
+                      sortKeyPosition="24">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Traffic_CalmingBIT]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Turning_LoopBIT]"
+                      dataType="bool"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Turning_LoopBIT]"
+                      name="Turning_LoopBIT"
+                      sortKeyPosition="25">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Turning_LoopBIT]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Stop_SignBIT]"
+                      dataType="bool"
+                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Stop_SignBIT]"
+                      name="Stop_SignBIT"
+                      sortKeyPosition="26">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Spécifie l'identificateur de traçabilité de la colonne d'entrée associé à cette colonne de sortie."
+                          name="SortColumnId">#{Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Stop_SignBIT]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Dim_Infrastructure.Paths[Sortie de colonne dérivée]"
+              endId="Package\Dim_Infrastructure\Colonne dérivée 1.Inputs[Entrée de colonne dérivée]"
+              name="Sortie de colonne dérivée"
+              startId="Package\Dim_Infrastructure\Colonne dérivée.Outputs[Sortie de colonne dérivée]" />
+            <path
+              refId="Package\Dim_Infrastructure.Paths[Sortie de colonne dérivée1]"
+              endId="Package\Dim_Infrastructure\Trier.Inputs[Entrée de tri]"
+              name="Sortie de colonne dérivée"
+              startId="Package\Dim_Infrastructure\Colonne dérivée 1.Outputs[Sortie de colonne dérivée]" />
+            <path
+              refId="Package\Dim_Infrastructure.Paths[Sortie de recherche sans correspondance]"
+              endId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB]"
+              name="Sortie de recherche sans correspondance"
+              startId="Package\Dim_Infrastructure\Recherche.Outputs[Sortie de recherche sans correspondance]" />
+            <path
+              refId="Package\Dim_Infrastructure.Paths[Sortie de source OLE DB]"
+              endId="Package\Dim_Infrastructure\Colonne dérivée.Inputs[Entrée de colonne dérivée]"
+              name="Sortie de source OLE DB"
+              startId="Package\Dim_Infrastructure\Source OLE DB.Outputs[Sortie de source OLE DB]" />
+            <path
+              refId="Package\Dim_Infrastructure.Paths[Sortie de tri]"
+              endId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche]"
+              name="Sortie de tri"
+              startId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Tâche d'exécution de requêtes SQL"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tâche d'exécution de requêtes SQL"
+      DTS:DTSID="{02B8E615-A85E-44F1-9E7A-2D78AD749D0B}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Tâche d'exécution de requêtes SQL"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EE6A200C-1D73-4D4F-B9F8-B5C2FD8A0992}"
+          SQLTask:SqlStatementSource="Delete From Dim_Infrastructure;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Contrainte]"
+      DTS:CreationName=""
+      DTS:DTSID="{6CC4BE51-B227-4CEC-929B-8398F341BCF7}"
+      DTS:From="Package\Tâche d'exécution de requêtes SQL"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Contrainte"
+      DTS:To="Package\Dim_Infrastructure" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Cette section CDATA contient des informations sur la disposition du package. Elle comprend des informations telles que les coordonnées (x,y), la largeur et la hauteur.-->
+<!--Si vous modifiez manuellement cette section et commettez une erreur, vous pouvez la supprimer. -->
+<!--Le package pourra toujours se charger normalement, mais les informations de disposition précédente seront perdues et le concepteur réorganisera automatiquement les éléments sur l'aire de conception.-->
+<Objects
+  Version="8">
+  <!--Chaque nœud ci-dessous contiendra des propriétés qui n'affectent pas le comportement d'exécution.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="244.8,41.6"
+          Id="Package\Tâche d'exécution de requêtes SQL"
+          TopLeft="5.5,5.5" />
+        <NodeLayout
+          Size="168,41.6"
+          Id="Package\Dim_Infrastructure"
+          TopLeft="29.0714285577438,99.7352940613423" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Contrainte]"
+          TopLeft="127.9,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-14.8285714422562,52.6352940613423"
+              Start="0,0"
+              End="-14.8285714422562,45.1352940613423">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.3176470306712" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.3176470306712"
+                    Point2="0,26.3176470306712"
+                    Point3="-4,26.3176470306712" />
+                  <mssgle:LineSegment
+                    End="-10.8285714422562,26.3176470306712" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-10.8285714422562,26.3176470306712"
+                    Point2="-14.8285714422562,26.3176470306712"
+                    Point3="-14.8285714422562,30.3176470306712" />
+                  <mssgle:LineSegment
+                    End="-14.8285714422562,45.1352940613423" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Dim_Infrastructure">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Dim_Infrastructure\Source OLE DB"
+          TopLeft="5.5,24.6176470420662" />
+        <NodeLayout
+          Size="129.6,41.6"
+          Id="Package\Dim_Infrastructure\Destination OLE DB"
+          TopLeft="550.842858126638,181.50000011395" />
+        <NodeLayout
+          Size="127.2,41.6"
+          Id="Package\Dim_Infrastructure\Recherche"
+          TopLeft="376.214286375714,177.911764607349" />
+        <NodeLayout
+          Size="154.4,41.6"
+          Id="Package\Dim_Infrastructure\Colonne dérivée"
+          TopLeft="181.214285896749,30.500000056975" />
+        <EdgeLayout
+          Id="Package\Dim_Infrastructure.Paths[Sortie de source OLE DB]"
+          TopLeft="155.1,48.3588235495206">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="26.1142858967489,0"
+              Start="0,0"
+              End="18.6142858967489,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="18.6142858967489,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="163.2,41.6"
+          Id="Package\Dim_Infrastructure\Colonne dérivée 1"
+          TopLeft="382.642857945695,36.0882352673059" />
+        <EdgeLayout
+          Id="Package\Dim_Infrastructure.Paths[Sortie de recherche sans correspondance]"
+          TopLeft="503.414286375714,200.50588236065">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="47.4285717509237,0"
+              Start="0,0"
+              End="39.9285717509237,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="39.9285717509237,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-71.5377258432882,5,183.0040234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dim_Infrastructure.Paths[Sortie de colonne dérivée]"
+          TopLeft="335.614285896749,54.0941176621405">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="47.0285720489462,0"
+              Start="0,0"
+              End="39.5285720489462,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="39.5285720489462,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="100,41.6"
+          Id="Package\Dim_Infrastructure\Trier"
+          TopLeft="396.92857226182,111.837647001178" />
+        <EdgeLayout
+          Id="Package\Dim_Infrastructure.Paths[Sortie de colonne dérivée1]"
+          TopLeft="464.242857945695,77.6882352673059">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-17.314285683875,34.1494117338722"
+              Start="0,0"
+              End="-17.314285683875,26.6494117338722">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,13.0747058669361" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.0747058669361"
+                    Point2="0,17.0747058669361"
+                    Point3="-4,17.0747058669361" />
+                  <mssgle:LineSegment
+                    End="-13.314285683875,17.0747058669361" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-13.314285683875,17.0747058669361"
+                    Point2="-17.314285683875,17.0747058669361"
+                    Point3="-17.314285683875,21.0747058669361" />
+                  <mssgle:LineSegment
+                    End="-17.314285683875,26.6494117338722" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dim_Infrastructure.Paths[Sortie de tri]"
+          TopLeft="443.371429318767,153.437647001178">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,24.4741176061709"
+              Start="0,0"
+              End="0,16.9741176061709">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.9741176061709" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dim_Infrastructure\Source OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dim_Infrastructure\Destination OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dim_Infrastructure\Recherche">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Dim_Infrastructure]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
