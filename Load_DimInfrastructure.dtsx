@@ -11,8 +11,8 @@
   DTS:LocaleID="1036"
   DTS:ObjectName="Load_DimInfrastructure"
   DTS:PackageType="5"
-  DTS:VersionBuild="16"
-  DTS:VersionGUID="{18F6B61E-9C0B-43E4-992E-B6C14BDC397C}">
+  DTS:VersionBuild="17"
+  DTS:VersionGUID="{A8939D4F-FC29-4FD7-ACB1-0B785C7BE0B7}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -653,7 +653,7 @@
                       refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Stop_SignBIT]"
                       cachedDataType="bool"
                       cachedName="Stop_SignBIT"
-                      cachedSortKeyPosition="26"
+                      cachedSortKeyPosition="25"
                       externalMetadataColumnId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Stop_Sign]"
                       lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Stop_SignBIT]" />
                     <inputColumn
@@ -670,13 +670,6 @@
                       cachedSortKeyPosition="23"
                       externalMetadataColumnId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Traffic_Signal]"
                       lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_SignalBIT]" />
-                    <inputColumn
-                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Turning_LoopBIT]"
-                      cachedDataType="bool"
-                      cachedName="Turning_LoopBIT"
-                      cachedSortKeyPosition="25"
-                      externalMetadataColumnId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Turning_Loop]"
-                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Turning_LoopBIT]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -732,10 +725,6 @@
                       refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Traffic_Signal]"
                       dataType="bool"
                       name="Traffic_Signal" />
-                    <externalMetadataColumn
-                      refId="Package\Dim_Infrastructure\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Turning_Loop]"
-                      dataType="bool"
-                      name="Turning_Loop" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -785,7 +774,7 @@
                   expressionType="Notify"
                   name="SqlCommandParam"
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[Dim_Infrastructure]) [refTable]
-where [refTable].[Amenity] = ? and [refTable].[Bump] = ? and [refTable].[Crossing] = ? and [refTable].[Give_Way] = ? and [refTable].[Junction] = ? and [refTable].[No_Exit] = ? and [refTable].[Railway] = ? and [refTable].[Roundabout] = ? and [refTable].[Station] = ? and [refTable].[Traffic_Signal] = ? and [refTable].[Traffic_Calming] = ? and [refTable].[Turning_Loop] = ? and [refTable].[Stop_Sign] = ?</property>
+where [refTable].[Amenity] = ? and [refTable].[Bump] = ? and [refTable].[Crossing] = ? and [refTable].[Give_Way] = ? and [refTable].[Junction] = ? and [refTable].[No_Exit] = ? and [refTable].[Railway] = ? and [refTable].[Roundabout] = ? and [refTable].[Station] = ? and [refTable].[Traffic_Signal] = ? and [refTable].[Traffic_Calming] = ? and [refTable].[Stop_Sign] = ?</property>
                 <property
                   dataType="System.Int32"
                   description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
@@ -816,12 +805,12 @@ where [refTable].[Amenity] = ? and [refTable].[Bump] = ? and [refTable].[Crossin
                 <property
                   dataType="System.String"
                   description="Indique si les métadonnées sont à référencer en format XML."
-                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Infrastructure_Key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Amenity" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Bump" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Crossing" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Give_Way" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Junction" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="No_Exit" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Railway" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Roundabout" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Station" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Stop_Sign" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Traffic_Calming" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Traffic_Signal" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Turning_Loop" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Infrastructure_Key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Amenity" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Bump" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Crossing" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Give_Way" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Junction" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="No_Exit" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Railway" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Roundabout" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Station" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Stop_Sign" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Traffic_Calming" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Traffic_Signal" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
                 <property
                   containsID="true"
                   dataType="System.String"
                   description="Spécifie la liste d'identificateurs de traçabilité se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
-                  name="ParameterMap">#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Amenity_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Bump_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Crossing_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Give_WayBIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Junction_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[No_Exit_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Railway_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Roundabout_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Station_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_SignalBIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_CalmingBIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Turning_LoopBIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Stop_SignBIT]};</property>
+                  name="ParameterMap">#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Amenity_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Bump_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Crossing_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Give_WayBIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Junction_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[No_Exit_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Railway_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Roundabout_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Station_BIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_SignalBIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Traffic_CalmingBIT]};#{Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Stop_SignBIT]};</property>
                 <property
                   dataType="System.Int32"
                   description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
@@ -1001,7 +990,7 @@ where [refTable].[Amenity] = ? and [refTable].[Bump] = ? and [refTable].[Crossin
                       refId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche].Columns[Stop_SignBIT]"
                       cachedDataType="bool"
                       cachedName="Stop_SignBIT"
-                      cachedSortKeyPosition="26"
+                      cachedSortKeyPosition="25"
                       lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Stop_SignBIT]">
                       <properties>
                         <property
@@ -1025,23 +1014,6 @@ where [refTable].[Amenity] = ? and [refTable].[Bump] = ? and [refTable].[Crossin
                           dataType="System.String"
                           description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
                           name="JoinToReferenceColumn">Roundabout</property>
-                        <property
-                          dataType="System.Null"
-                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
-                          name="CopyFromReferenceColumn" />
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Infrastructure\Recherche.Inputs[Entrée de recherche].Columns[Turning_LoopBIT]"
-                      cachedDataType="bool"
-                      cachedName="Turning_LoopBIT"
-                      cachedSortKeyPosition="25"
-                      lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Turning_LoopBIT]">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
-                          name="JoinToReferenceColumn">Turning_Loop</property>
                         <property
                           dataType="System.Null"
                           description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
@@ -1956,7 +1928,7 @@ where [refTable].[Amenity] = ? and [refTable].[Bump] = ? and [refTable].[Crossin
                         <property
                           dataType="System.Int32"
                           description="Spécifie l'ordre de tri de la colonne."
-                          name="NewSortKeyPosition">25</property>
+                          name="NewSortKeyPosition">0</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -1972,7 +1944,7 @@ where [refTable].[Amenity] = ? and [refTable].[Bump] = ? and [refTable].[Crossin
                         <property
                           dataType="System.Int32"
                           description="Spécifie l'ordre de tri de la colonne."
-                          name="NewSortKeyPosition">26</property>
+                          name="NewSortKeyPosition">25</property>
                       </properties>
                     </inputColumn>
                   </inputColumns>
@@ -2351,8 +2323,7 @@ where [refTable].[Amenity] = ? and [refTable].[Bump] = ? and [refTable].[Crossin
                       refId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Turning_LoopBIT]"
                       dataType="bool"
                       lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Turning_LoopBIT]"
-                      name="Turning_LoopBIT"
-                      sortKeyPosition="25">
+                      name="Turning_LoopBIT">
                       <properties>
                         <property
                           containsID="true"
@@ -2366,7 +2337,7 @@ where [refTable].[Amenity] = ? and [refTable].[Bump] = ? and [refTable].[Crossin
                       dataType="bool"
                       lineageId="Package\Dim_Infrastructure\Trier.Outputs[Sortie de tri].Columns[Stop_SignBIT]"
                       name="Stop_SignBIT"
-                      sortKeyPosition="26">
+                      sortKeyPosition="25">
                       <properties>
                         <property
                           containsID="true"
@@ -2451,13 +2422,13 @@ where [refTable].[Amenity] = ? and [refTable].[Bump] = ? and [refTable].[Crossin
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="244.8,41.6"
-          Id="Package\Tâche d'exécution de requêtes SQL"
-          TopLeft="5.5,5.5" />
-        <NodeLayout
           Size="168,41.6"
           Id="Package\Dim_Infrastructure"
           TopLeft="29.0714285577438,99.7352940613423" />
+        <NodeLayout
+          Size="244.8,41.6"
+          Id="Package\Tâche d'exécution de requêtes SQL"
+          TopLeft="5.5,5.5" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Contrainte]"
           TopLeft="127.9,47.1">
@@ -2509,13 +2480,43 @@ where [refTable].[Amenity] = ? and [refTable].[Bump] = ? and [refTable].[Crossin
           Id="Package\Dim_Infrastructure\Destination OLE DB"
           TopLeft="550.842858126638,181.50000011395" />
         <NodeLayout
+          Size="100,41.6"
+          Id="Package\Dim_Infrastructure\Trier"
+          TopLeft="396.92857226182,111.837647001178" />
+        <NodeLayout
           Size="127.2,41.6"
           Id="Package\Dim_Infrastructure\Recherche"
           TopLeft="376.214286375714,177.911764607349" />
         <NodeLayout
+          Size="163.2,41.6"
+          Id="Package\Dim_Infrastructure\Colonne dérivée 1"
+          TopLeft="382.642857945695,36.0882352673059" />
+        <NodeLayout
           Size="154.4,41.6"
           Id="Package\Dim_Infrastructure\Colonne dérivée"
           TopLeft="181.214285896749,30.500000056975" />
+        <EdgeLayout
+          Id="Package\Dim_Infrastructure.Paths[Sortie de tri]"
+          TopLeft="443.371429318767,153.437647001178">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,24.4741176061709"
+              Start="0,0"
+              End="0,16.9741176061709">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.9741176061709" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\Dim_Infrastructure.Paths[Sortie de source OLE DB]"
           TopLeft="155.1,48.3588235495206">
@@ -2538,10 +2539,6 @@ where [refTable].[Amenity] = ? and [refTable].[Bump] = ? and [refTable].[Crossin
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="163.2,41.6"
-          Id="Package\Dim_Infrastructure\Colonne dérivée 1"
-          TopLeft="382.642857945695,36.0882352673059" />
         <EdgeLayout
           Id="Package\Dim_Infrastructure.Paths[Sortie de recherche sans correspondance]"
           TopLeft="503.414286375714,200.50588236065">
@@ -2566,32 +2563,6 @@ where [refTable].[Amenity] = ? and [refTable].[Bump] = ? and [refTable].[Crossin
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Dim_Infrastructure.Paths[Sortie de colonne dérivée]"
-          TopLeft="335.614285896749,54.0941176621405">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="47.0285720489462,0"
-              Start="0,0"
-              End="39.5285720489462,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="39.5285720489462,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="100,41.6"
-          Id="Package\Dim_Infrastructure\Trier"
-          TopLeft="396.92857226182,111.837647001178" />
         <EdgeLayout
           Id="Package\Dim_Infrastructure.Paths[Sortie de colonne dérivée1]"
           TopLeft="464.242857945695,77.6882352673059">
@@ -2627,19 +2598,19 @@ where [refTable].[Amenity] = ? and [refTable].[Bump] = ? and [refTable].[Crossin
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Dim_Infrastructure.Paths[Sortie de tri]"
-          TopLeft="443.371429318767,153.437647001178">
+          Id="Package\Dim_Infrastructure.Paths[Sortie de colonne dérivée]"
+          TopLeft="335.614285896749,54.0941176621405">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,24.4741176061709"
+              EndConnector="47.0285720489462,0"
               Start="0,0"
-              End="0,16.9741176061709">
+              End="39.5285720489462,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,16.9741176061709" />
+                    End="39.5285720489462,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
