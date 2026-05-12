@@ -11,8 +11,8 @@
   DTS:LocaleID="1036"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="98"
-  DTS:VersionGUID="{D089290E-CF0A-450F-A143-4F3D3563E572}">
+  DTS:VersionBuild="109"
+  DTS:VersionGUID="{9CFA0B92-9ED6-491F-8D3B-ABAAE8DFBE16}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -45,6 +45,22 @@
                   refId="Package\Dim_Geographie\Colonne dérivée.Inputs[Entrée de colonne dérivée]"
                   description="Entrée de la transformation de colonnes dérivées"
                   name="Entrée de colonne dérivée">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim_Geographie\Colonne dérivée.Inputs[Entrée de colonne dérivée].Columns[Start_Lat]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Start_Lat"
+                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lat]" />
+                    <inputColumn
+                      refId="Package\Dim_Geographie\Colonne dérivée.Inputs[Entrée de colonne dérivée].Columns[Start_Lng]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Start_Lng"
+                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lng]" />
+                  </inputColumns>
                   <externalMetadataColumns />
                 </input>
               </inputs>
@@ -57,25 +73,51 @@
                   synchronousInputId="Package\Dim_Geographie\Colonne dérivée.Inputs[Entrée de colonne dérivée]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Dim_Geographie\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[End_Date]"
-                      dataType="dbTimeStamp"
+                      refId="Package\Dim_Geographie\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Lat_Fix]"
+                      dataType="numeric"
                       errorOrTruncationOperation="Calcul"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Dim_Geographie\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[End_Date]"
-                      name="End_Date"
+                      lineageId="Package\Dim_Geographie\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Lat_Fix]"
+                      name="Lat_Fix"
+                      precision="10"
+                      scale="6"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
                           containsID="true"
                           dataType="System.String"
                           description="Expression de colonne dérivée"
-                          name="Expression">(DT_DBTIMESTAMP)(@[System::StartTime])</property>
+                          name="Expression">(DT_NUMERIC,10,6)[REPLACE](#{Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lat]},".",",")</property>
                         <property
                           containsID="true"
                           dataType="System.String"
                           description="Expression claire de colonne dérivée"
                           expressionType="Notify"
-                          name="FriendlyExpression">(DT_DBTIMESTAMP)(@[System::StartTime])</property>
+                          name="FriendlyExpression">(DT_NUMERIC,10,6)REPLACE(Start_Lat,".",",")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Dim_Geographie\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Lng_Fix]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Dim_Geographie\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Lng_Fix]"
+                      name="Lng_Fix"
+                      precision="10"
+                      scale="6"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">(DT_NUMERIC,10,6)[REPLACE](#{Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lng]},".",",")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_NUMERIC,10,6)REPLACE(Start_Lng,".",",")</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -107,213 +149,11 @@
               </outputs>
             </component>
             <component
-              refId="Package\Dim_Geographie\Colonne dérivée 1"
-              componentClassID="Microsoft.DerivedColumn"
-              contactInfo="Colonne dérivée;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;0"
-              description="Crée de nouvelles valeurs de colonne en appliquant des expressions aux colonnes d'entrée de transformation. Créez de nouvelles colonnes ou remplacez celles qui existent déjà. Par exemple, concaténez les valeurs de la colonne 'prénom' et de la colonne 'nom' pour créer une colonne 'nom complet'."
-              name="Colonne dérivée 1"
-              usesDispositions="true">
-              <inputs>
-                <input
-                  refId="Package\Dim_Geographie\Colonne dérivée 1.Inputs[Entrée de colonne dérivée]"
-                  description="Entrée de la transformation de colonnes dérivées"
-                  name="Entrée de colonne dérivée">
-                  <externalMetadataColumns />
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\Dim_Geographie\Colonne dérivée 1.Outputs[Sortie de colonne dérivée]"
-                  description="Sortie par défaut de la transformation de colonnes dérivées"
-                  exclusionGroup="1"
-                  name="Sortie de colonne dérivée"
-                  synchronousInputId="Package\Dim_Geographie\Colonne dérivée 1.Inputs[Entrée de colonne dérivée]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Dim_Geographie\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Start_Date]"
-                      dataType="dbTimeStamp"
-                      errorOrTruncationOperation="Calcul"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\Dim_Geographie\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Start_Date]"
-                      name="Start_Date"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.String"
-                          description="Expression de colonne dérivée"
-                          name="Expression">(DT_DBTIMESTAMP)(@[System::StartTime])</property>
-                        <property
-                          containsID="true"
-                          dataType="System.String"
-                          description="Expression claire de colonne dérivée"
-                          expressionType="Notify"
-                          name="FriendlyExpression">(DT_DBTIMESTAMP)(@[System::StartTime])</property>
-                      </properties>
-                    </outputColumn>
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\Dim_Geographie\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée]"
-                  description="Sortie d'erreur de la transformation de colonnes dérivées"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="Sortie d'erreur de colonne dérivée"
-                  synchronousInputId="Package\Dim_Geographie\Colonne dérivée 1.Inputs[Entrée de colonne dérivée]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Dim_Geographie\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\Dim_Geographie\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\Dim_Geographie\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\Dim_Geographie\Colonne dérivée 1.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
-              refId="Package\Dim_Geographie\Commande OLE DB"
-              componentClassID="Microsoft.OLEDBCommand"
-              contactInfo="Commande OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;2"
-              description="Exécute une instruction SQL pour chaque ligne d'un flux de données. Par exemple, appelez une procédure stockée 'nouvelle configuration d'employé' pour chaque ligne de la table 'nouveaux employés'. Remarque : l'exécution d'une instruction SQL pour chaque ligne d'un flux de données volumineux peut prendre beaucoup de temps."
-              name="Commande OLE DB"
-              usesDispositions="true"
-              version="2">
-              <properties>
-                <property
-                  dataType="System.Int32"
-                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
-                  name="CommandTimeout">0</property>
-                <property
-                  dataType="System.String"
-                  description="Commande SQL à exécuter."
-                  expressionType="Notify"
-                  name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">UPDATE [dbo].[Dim_Geographie] SET [End_Date] = ? WHERE [Latitude] = ? AND [Longitude] = ? AND [End_Date] IS NULL</property>
-                <property
-                  dataType="System.Int32"
-                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
-                  name="DefaultCodePage">1252</property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\Dim_Geographie\Commande OLE DB.Connections[OleDbConnection]"
-                  connectionManagerID="{EE6A200C-1D73-4D4F-B9F8-B5C2FD8A0992}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[RANNOUM.US_Accidents_DW]"
-                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
-                  name="OleDbConnection" />
-              </connections>
-              <inputs>
-                <input
-                  refId="Package\Dim_Geographie\Commande OLE DB.Inputs[Entrée de commande OLE DB]"
-                  errorOrTruncationOperation="Exécution de commande"
-                  errorRowDisposition="FailComponent"
-                  hasSideEffects="true"
-                  name="Entrée de commande OLE DB">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Start_Lat]"
-                      cachedDataType="r8"
-                      cachedName="Start_Lat"
-                      externalMetadataColumnId="Package\Dim_Geographie\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_1]"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lat]" />
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Start_Lng]"
-                      cachedDataType="r8"
-                      cachedName="Start_Lng"
-                      externalMetadataColumnId="Package\Dim_Geographie\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_2]"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lng]" />
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[End_Date]"
-                      cachedDataType="dbTimeStamp"
-                      cachedName="End_Date"
-                      externalMetadataColumnId="Package\Dim_Geographie\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_0]"
-                      lineageId="Package\Dim_Geographie\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[End_Date]" />
-                  </inputColumns>
-                  <externalMetadataColumns
-                    isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\Dim_Geographie\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_0]"
-                      dataType="dbTimeStamp"
-                      name="Param_0">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
-                          name="DBParamInfoFlags">65</property>
-                      </properties>
-                    </externalMetadataColumn>
-                    <externalMetadataColumn
-                      refId="Package\Dim_Geographie\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_1]"
-                      dataType="r8"
-                      name="Param_1">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
-                          name="DBParamInfoFlags">81</property>
-                      </properties>
-                    </externalMetadataColumn>
-                    <externalMetadataColumn
-                      refId="Package\Dim_Geographie\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_2]"
-                      dataType="r8"
-                      name="Param_2">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
-                          name="DBParamInfoFlags">81</property>
-                      </properties>
-                    </externalMetadataColumn>
-                  </externalMetadataColumns>
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\Dim_Geographie\Commande OLE DB.Outputs[Sortie de commande OLE DB]"
-                  exclusionGroup="1"
-                  name="Sortie de commande OLE DB"
-                  synchronousInputId="Package\Dim_Geographie\Commande OLE DB.Inputs[Entrée de commande OLE DB]">
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\Dim_Geographie\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB]"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="Sortie d'erreur de commande OLE DB"
-                  synchronousInputId="Package\Dim_Geographie\Commande OLE DB.Inputs[Entrée de commande OLE DB]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Dim_Geographie\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\Dim_Geographie\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\Dim_Geographie\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\Dim_Geographie\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
-              refId="Package\Dim_Geographie\Destination d'insertion"
+              refId="Package\Dim_Geographie\Destination OLE DB"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="Destination OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;4"
               description="Destination OLE DB"
-              name="Destination d'insertion"
+              name="Destination OLE DB"
               usesDispositions="true"
               version="4">
               <properties>
@@ -346,7 +186,7 @@
                   dataType="System.Int32"
                   description="Spécifie le mode utilisé pour accéder à la base de données."
                   name="AccessMode"
-                  typeConverter="AccessMode">0</property>
+                  typeConverter="AccessMode">3</property>
                 <property
                   dataType="System.Boolean"
                   description="Indique si les valeurs fournies pour les colonnes d'identité seront copiées à la destination. Si la valeur est définie à False, les valeurs des colonnes d'identité seront générées automatiquement à la destination. Ne s'applique que si le chargement rapide est activé."
@@ -358,7 +198,7 @@
                 <property
                   dataType="System.String"
                   description="Spécifie les options à utiliser avec le chargement rapide.  Ne s'applique que si le chargement rapide est activé."
-                  name="FastLoadOptions"></property>
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
                 <property
                   dataType="System.Int32"
                   description="Spécifie quand les validations sont émises pendant l'insertion des données.  Une valeur égale à 0 spécifie qu'une validation sera émise à la fin de l'insertion des données.  Ne s'applique que si le chargement rapide est activé."
@@ -366,7 +206,7 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\Dim_Geographie\Destination d'insertion.Connections[OleDbConnection]"
+                  refId="Package\Dim_Geographie\Destination OLE DB.Connections[OleDbConnection]"
                   connectionManagerID="{EE6A200C-1D73-4D4F-B9F8-B5C2FD8A0992}:external"
                   connectionManagerRefId="Project.ConnectionManagers[RANNOUM.US_Accidents_DW]"
                   description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
@@ -374,168 +214,152 @@
               </connections>
               <inputs>
                 <input
-                  refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB]"
+                  refId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB]"
                   errorOrTruncationOperation="Insérer"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="Entrée de destination OLE DB">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].Columns[State]"
+                      refId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[State]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
                       cachedName="State"
-                      externalMetadataColumnId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[State]"
-                      lineageId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[State]" />
+                      externalMetadataColumnId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[State]"
+                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[State]" />
                     <inputColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].Columns[County]"
+                      refId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[County]"
                       cachedCodepage="1252"
                       cachedDataType="str"
-                      cachedLength="100"
+                      cachedLength="50"
                       cachedName="County"
-                      externalMetadataColumnId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[County]"
-                      lineageId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[County]" />
+                      externalMetadataColumnId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[County]"
+                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[County]" />
                     <inputColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].Columns[City]"
+                      refId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[City]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="100"
                       cachedName="City"
-                      externalMetadataColumnId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[City]"
-                      lineageId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[City]" />
+                      externalMetadataColumnId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[City]"
+                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[City]" />
                     <inputColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].Columns[Street]"
+                      refId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Street]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="4000"
                       cachedName="Street"
-                      externalMetadataColumnId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Street]"
-                      lineageId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Street]" />
+                      externalMetadataColumnId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Street]"
+                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Street]" />
                     <inputColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].Columns[Zipcode]"
+                      refId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Zipcode]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
                       cachedName="Zipcode"
-                      externalMetadataColumnId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Zipcode]"
-                      lineageId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Zipcode]" />
+                      externalMetadataColumnId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Zipcode]"
+                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Zipcode]" />
                     <inputColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].Columns[Timezone]"
+                      refId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Timezone]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
                       cachedName="Timezone"
-                      externalMetadataColumnId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Timezone]"
-                      lineageId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Timezone]" />
+                      externalMetadataColumnId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Timezone]"
+                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Timezone]" />
                     <inputColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].Columns[Start_Lat]"
-                      cachedDataType="r8"
-                      cachedName="Start_Lat"
-                      externalMetadataColumnId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Latitude]"
-                      lineageId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Start_Lat]" />
+                      refId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Lat_Fix]"
+                      cachedDataType="numeric"
+                      cachedName="Lat_Fix"
+                      cachedPrecision="10"
+                      cachedScale="6"
+                      externalMetadataColumnId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Start_Lat]"
+                      lineageId="Package\Dim_Geographie\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Lat_Fix]" />
                     <inputColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].Columns[Start_Lng]"
-                      cachedDataType="r8"
-                      cachedName="Start_Lng"
-                      externalMetadataColumnId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Longitude]"
-                      lineageId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Start_Lng]" />
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].Columns[Start_Date]"
-                      cachedDataType="dbTimeStamp"
-                      cachedName="Start_Date"
-                      externalMetadataColumnId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Start_Date]"
-                      lineageId="Package\Dim_Geographie\Colonne dérivée 1.Outputs[Sortie de colonne dérivée].Columns[Start_Date]" />
+                      refId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Lng_Fix]"
+                      cachedDataType="numeric"
+                      cachedName="Lng_Fix"
+                      cachedPrecision="10"
+                      cachedScale="6"
+                      externalMetadataColumnId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Start_Lng]"
+                      lineageId="Package\Dim_Geographie\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Lng_Fix]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Geo_Key]"
+                      refId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Geo_Key]"
                       dataType="i4"
                       name="Geo_Key" />
                     <externalMetadataColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[State]"
+                      refId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[State]"
                       codePage="1252"
                       dataType="str"
                       length="50"
                       name="State" />
                     <externalMetadataColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[County]"
+                      refId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[County]"
                       codePage="1252"
                       dataType="str"
                       length="100"
                       name="County" />
                     <externalMetadataColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[City]"
+                      refId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[City]"
                       codePage="1252"
                       dataType="str"
                       length="100"
                       name="City" />
                     <externalMetadataColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Street]"
+                      refId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Street]"
                       codePage="1252"
                       dataType="str"
-                      length="4000"
+                      length="200"
                       name="Street" />
                     <externalMetadataColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Zipcode]"
+                      refId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Zipcode]"
                       codePage="1252"
                       dataType="str"
                       length="50"
                       name="Zipcode" />
                     <externalMetadataColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Timezone]"
+                      refId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Timezone]"
                       codePage="1252"
                       dataType="str"
                       length="50"
                       name="Timezone" />
                     <externalMetadataColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Latitude]"
-                      dataType="r8"
-                      name="Latitude" />
+                      refId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Start_Lat]"
+                      dataType="numeric"
+                      name="Start_Lat"
+                      precision="10"
+                      scale="6" />
                     <externalMetadataColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Longitude]"
-                      dataType="r8"
-                      name="Longitude" />
-                    <externalMetadataColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Start_Date]"
-                      dataType="dbTimeStamp"
-                      name="Start_Date" />
-                    <externalMetadataColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[End_Date]"
-                      dataType="dbTimeStamp"
-                      name="End_Date" />
-                    <externalMetadataColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Is_Current]"
-                      dataType="bool"
-                      name="Is_Current" />
-                    <externalMetadataColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Geo_Join_Key]"
-                      codePage="1252"
-                      dataType="str"
-                      length="100"
-                      name="Geo_Join_Key" />
+                      refId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Start_Lng]"
+                      dataType="numeric"
+                      name="Start_Lng"
+                      precision="10"
+                      scale="6" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Dim_Geographie\Destination d'insertion.Outputs[Sortie d'erreur de destination OLE DB]"
+                  refId="Package\Dim_Geographie\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Sortie d'erreur de destination OLE DB"
-                  synchronousInputId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB]">
+                  synchronousInputId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      refId="Package\Dim_Geographie\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Dim_Geographie\Destination d'insertion.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      lineageId="Package\Dim_Geographie\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Dim_Geographie\Destination d'insertion.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      refId="Package\Dim_Geographie\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Dim_Geographie\Destination d'insertion.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      lineageId="Package\Dim_Geographie\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -544,286 +368,162 @@
               </outputs>
             </component>
             <component
-              refId="Package\Dim_Geographie\SCD"
-              componentClassID="Microsoft.SCD"
-              contactInfo="Dimension à variation lente;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;3"
-              description="Met à jour une dimension d'entrepôt de données (Data Warehouse) SQL Server Analysis Services. Mettez à jour les enregistrements de dimension qui sont déjà présents et insérez ceux qui ne le sont pas. Par exemple, mettez à jour la table DimProduct de la base de données OLAP AdventureWorksDW avec les données de la table Products dans la base de données OLTP AdventureWorks."
-              name="SCD"
-              version="3">
+              refId="Package\Dim_Geographie\Recherche"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Recherche;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;6"
+              description="Joint des colonnes supplémentaires au flux de données en recherchant des valeurs dans une table. Par exemple, joignez la colonne 'id employé' à la table des employés afin d'obtenir la 'date d'embauche' et le 'nom de l'employé'. Nous recommandons cette transformation lorsque la table de recherche peut être stockée en mémoire."
+              name="Recherche"
+              usesDispositions="true"
+              version="6">
               <properties>
                 <property
                   dataType="System.String"
-                  description="Spécifie l'instruction SELECT utilisée pour créer un ensemble de lignes du schéma."
+                  description="Spécifie l'instruction SQL qui génère la table de correspondance."
+                  expressionType="Notify"
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT [City], [County], [Latitude], [Longitude], [State], [Street], [Timezone], [Zipcode],[Start_Date],[End_Date] FROM [dbo].[Dim_Geographie]</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[Dim_Geographie]</property>
                 <property
                   dataType="System.String"
-                  description="Spécifie la clause WHERE dans l'instruction SELECT qui sélectionne la ligne actuelle parmi les lignes comportant des clés de travail identiques."
-                  name="CurrentRowWhere">[Start_Date] IS NOT NULL AND [End_Date] IS NULL</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Indique si les mises à jour d'attribut d'historique sont dirigées sur la sortie de la transformation pour les mises à jour d'attribut de validation."
-                  name="UpdateChangingAttributeHistory">false</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Indique si la transformation échoue lorsque les colonnes comportant des attributs fixes contiennent des modifications."
-                  name="FailOnFixedAttributeChange">false</property>
-                <property
-                  dataType="System.String"
-                  description="Spécifie le nom de la colonne pour le membre déduit."
-                  name="InferredMemberIndicator"></property>
-                <property
-                  dataType="System.Boolean"
-                  description="Indique si les mises à jour de membre déduit sont détectées."
-                  name="EnableInferredMember">false</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Indique si la transformation échoue lorsque la recherche d'un enregistrement existant échoue."
-                  name="FailOnLookupFailure">false</property>
+                  description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[Dim_Geographie]) [refTable]
+where [refTable].[Start_Lat] = ? and [refTable].[Start_Lng] = ?</property>
                 <property
                   dataType="System.Int32"
-                  description="Spécifie que toutes les lignes de l'entrée sont nouvelles ou que la transformation détecte le type de modification."
-                  name="IncomingRowChangeType"
-                  typeConverter="IncomingRowChangeType">1</property>
+                  description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de cache de la table de correspondance."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie comment la transformation de recherche gère les lignes sans entrées correspondantes dans le jeu de données de référence."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le pourcentage du cache alloué aux lignes sans entrées correspondantes dans le dataset de référence."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indique si les métadonnées sont à référencer en format XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Geo_Key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="State" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="County" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="City" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Street" dataType="DT_STR" length="200" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Zipcode" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Timezone" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Start_Lat" dataType="DT_NUMERIC" length="0" precision="10" scale="6" codePage="0"/&gt;&lt;referenceColumn name="Start_Lng" dataType="DT_NUMERIC" length="0" precision="10" scale="6" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Spécifie la liste d'identificateurs de traçabilité se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
+                  name="ParameterMap">#{Package\Dim_Geographie\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Lat_Fix]};#{Package\Dim_Geographie\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Lng_Fix]};</property>
                 <property
                   dataType="System.Int32"
                   description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
                   name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Détermine si les clés dupliquées dans les données de référence doivent être traitées en tant qu'erreurs lorsque le mode Cache complet est utilisé."
+                  name="TreatDuplicateKeysAsError">false</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\Dim_Geographie\SCD.Connections[LookupConnection]"
+                  refId="Package\Dim_Geographie\Recherche.Connections[OleDbConnection]"
                   connectionManagerID="{EE6A200C-1D73-4D4F-B9F8-B5C2FD8A0992}:external"
                   connectionManagerRefId="Project.ConnectionManagers[RANNOUM.US_Accidents_DW]"
-                  description="Définit la connexion à utiliser pour faire des recherches dans la table de dimension"
-                  name="LookupConnection" />
+                  description="Gestionnaire de connexions utilisé pour accéder aux données de correspondance."
+                  name="OleDbConnection" />
               </connections>
               <inputs>
                 <input
-                  refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente]"
-                  name="Entrée de dimension à variation lente">
+                  refId="Package\Dim_Geographie\Recherche.Inputs[Entrée de recherche]"
+                  name="Entrée de recherche">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].Columns[City]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="100"
-                      cachedName="City"
-                      externalMetadataColumnId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].ExternalColumns[City]"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[City]">
+                      refId="Package\Dim_Geographie\Recherche.Inputs[Entrée de recherche].Columns[Lat_Fix]"
+                      cachedDataType="numeric"
+                      cachedName="Lat_Fix"
+                      cachedPrecision="10"
+                      cachedScale="6"
+                      lineageId="Package\Dim_Geographie\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Lat_Fix]">
                       <properties>
                         <property
-                          dataType="System.Int32"
-                          name="ColumnType"
-                          typeConverter="ColumnType">3</property>
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Start_Lat</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                     <inputColumn
-                      refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].Columns[County]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="100"
-                      cachedName="County"
-                      externalMetadataColumnId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].ExternalColumns[County]"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[County]">
+                      refId="Package\Dim_Geographie\Recherche.Inputs[Entrée de recherche].Columns[Lng_Fix]"
+                      cachedDataType="numeric"
+                      cachedName="Lng_Fix"
+                      cachedPrecision="10"
+                      cachedScale="6"
+                      lineageId="Package\Dim_Geographie\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Lng_Fix]">
                       <properties>
                         <property
-                          dataType="System.Int32"
-                          name="ColumnType"
-                          typeConverter="ColumnType">3</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].Columns[Start_Lat]"
-                      cachedDataType="r8"
-                      cachedName="Start_Lat"
-                      externalMetadataColumnId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].ExternalColumns[Latitude]"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lat]">
-                      <properties>
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Start_Lng</property>
                         <property
-                          dataType="System.Int32"
-                          name="ColumnType"
-                          typeConverter="ColumnType">1</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].Columns[Start_Lng]"
-                      cachedDataType="r8"
-                      cachedName="Start_Lng"
-                      externalMetadataColumnId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].ExternalColumns[Longitude]"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lng]">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          name="ColumnType"
-                          typeConverter="ColumnType">1</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].Columns[State]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="State"
-                      externalMetadataColumnId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].ExternalColumns[State]"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[State]">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          name="ColumnType"
-                          typeConverter="ColumnType">3</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].Columns[Street]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="4000"
-                      cachedName="Street"
-                      externalMetadataColumnId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].ExternalColumns[Street]"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Street]">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          name="ColumnType"
-                          typeConverter="ColumnType">3</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].Columns[Timezone]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Timezone"
-                      externalMetadataColumnId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].ExternalColumns[Timezone]"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Timezone]">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          name="ColumnType"
-                          typeConverter="ColumnType">3</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].Columns[Zipcode]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Zipcode"
-                      externalMetadataColumnId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].ExternalColumns[Zipcode]"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Zipcode]">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          name="ColumnType"
-                          typeConverter="ColumnType">3</property>
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                   </inputColumns>
-                  <externalMetadataColumns
-                    isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].ExternalColumns[City]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      name="City" />
-                    <externalMetadataColumn
-                      refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].ExternalColumns[County]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      name="County" />
-                    <externalMetadataColumn
-                      refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].ExternalColumns[Latitude]"
-                      dataType="r8"
-                      name="Latitude" />
-                    <externalMetadataColumn
-                      refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].ExternalColumns[Longitude]"
-                      dataType="r8"
-                      name="Longitude" />
-                    <externalMetadataColumn
-                      refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].ExternalColumns[State]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      name="State" />
-                    <externalMetadataColumn
-                      refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].ExternalColumns[Street]"
-                      codePage="1252"
-                      dataType="str"
-                      length="100"
-                      name="Street" />
-                    <externalMetadataColumn
-                      refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].ExternalColumns[Timezone]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      name="Timezone" />
-                    <externalMetadataColumn
-                      refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].ExternalColumns[Zipcode]"
-                      codePage="1252"
-                      dataType="str"
-                      length="20"
-                      name="Zipcode" />
-                    <externalMetadataColumn
-                      refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].ExternalColumns[Start_Date]"
-                      dataType="dbTimeStamp"
-                      name="Start_Date" />
-                    <externalMetadataColumn
-                      refId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente].ExternalColumns[End_Date]"
-                      dataType="dbTimeStamp"
-                      name="End_Date" />
-                  </externalMetadataColumns>
+                  <externalMetadataColumns />
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Dim_Geographie\SCD.Outputs[Sortie inchangée]"
-                  description="Lignes inchangées"
+                  refId="Package\Dim_Geographie\Recherche.Outputs[Sortie de recherche avec correspondance]"
+                  errorOrTruncationOperation="Recherche"
                   exclusionGroup="1"
-                  name="Sortie inchangée"
-                  synchronousInputId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente]">
+                  name="Sortie de recherche avec correspondance"
+                  synchronousInputId="Package\Dim_Geographie\Recherche.Inputs[Entrée de recherche]">
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\Dim_Geographie\SCD.Outputs[Nouvelle sortie]"
-                  description="Nouvelles lignes"
+                  refId="Package\Dim_Geographie\Recherche.Outputs[Sortie de recherche sans correspondance]"
+                  description="Sortie de recherche gérant les lignes sans entrées correspondantes dans le dataset de référence. Utilisez cette sortie lorsque la propriété NoMatchBehavior a la valeur « Envoyez les lignes sans entrées correspondantes dans la sortie sans correspondance »."
                   exclusionGroup="1"
-                  name="Nouvelle sortie"
-                  synchronousInputId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente]">
+                  name="Sortie de recherche sans correspondance"
+                  synchronousInputId="Package\Dim_Geographie\Recherche.Inputs[Entrée de recherche]">
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\Dim_Geographie\SCD.Outputs[Sortie d'attribut fixe]"
-                  description="Lignes comportant des modifications dans les colonnes marquées FixedAttribute"
+                  refId="Package\Dim_Geographie\Recherche.Outputs[Sortie d'erreur de recherche]"
                   exclusionGroup="1"
-                  name="Sortie d'attribut fixe"
-                  synchronousInputId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente]">
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\Dim_Geographie\SCD.Outputs[Sortie de mises à jour d'attribut de validation]"
-                  description="Ces lignes contiennent de nouvelles informations sur les modifications de colonnes ChangingAttribute (type 1)"
-                  exclusionGroup="1"
-                  name="Sortie de mises à jour d'attribut de validation"
-                  synchronousInputId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente]">
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\Dim_Geographie\SCD.Outputs[Sortie d'insertions d'attribut d'historique]"
-                  description="Les modifications sur HistoricalAttribute (type 2) apparaissent dans ces nouvelles lignes"
-                  exclusionGroup="2"
-                  name="Sortie d'insertions d'attribut d'historique"
-                  synchronousInputId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente]">
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\Dim_Geographie\SCD.Outputs[Sortie de mises à jour de membre déduit]"
-                  description="Information de mise à jour de ligne de dimension initiale non remplie"
-                  exclusionGroup="1"
-                  name="Sortie de mises à jour de membre déduit"
-                  synchronousInputId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente]">
+                  isErrorOut="true"
+                  name="Sortie d'erreur de recherche"
+                  synchronousInputId="Package\Dim_Geographie\Recherche.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Geographie\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Geographie\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim_Geographie\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Geographie\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
                   <externalMetadataColumns />
                 </output>
               </outputs>
@@ -907,7 +607,7 @@
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].ExternalColumns[County]"
-                      length="100"
+                      length="50"
                       lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[County]"
                       name="County"
                       truncationRowDisposition="FailComponent" />
@@ -957,29 +657,29 @@
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lat]"
-                      dataType="r8"
+                      codePage="1252"
+                      dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].ExternalColumns[Start_Lat]"
+                      length="50"
                       lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lat]"
                       name="Start_Lat"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lng]"
-                      dataType="r8"
+                      codePage="1252"
+                      dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].ExternalColumns[Start_Lng]"
+                      length="50"
                       lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lng]"
                       name="Start_Lng"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].ExternalColumns[Geo_ID]"
-                      dataType="i4"
-                      name="Geo_ID" />
                     <externalMetadataColumn
                       refId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].ExternalColumns[State]"
                       codePage="1252"
@@ -990,7 +690,7 @@
                       refId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].ExternalColumns[County]"
                       codePage="1252"
                       dataType="str"
-                      length="100"
+                      length="50"
                       name="County" />
                     <externalMetadataColumn
                       refId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].ExternalColumns[City]"
@@ -1018,11 +718,15 @@
                       name="Timezone" />
                     <externalMetadataColumn
                       refId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].ExternalColumns[Start_Lat]"
-                      dataType="r8"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
                       name="Start_Lat" />
                     <externalMetadataColumn
                       refId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].ExternalColumns[Start_Lng]"
-                      dataType="r8"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
                       name="Start_Lng" />
                   </externalMetadataColumns>
                 </output>
@@ -1042,7 +746,7 @@
                       refId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie d'erreur de source OLE DB].Columns[County]"
                       codePage="1252"
                       dataType="str"
-                      length="100"
+                      length="50"
                       lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie d'erreur de source OLE DB].Columns[County]"
                       name="County" />
                     <outputColumn
@@ -1075,12 +779,16 @@
                       name="Timezone" />
                     <outputColumn
                       refId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie d'erreur de source OLE DB].Columns[Start_Lat]"
-                      dataType="r8"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
                       lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie d'erreur de source OLE DB].Columns[Start_Lat]"
                       name="Start_Lat" />
                     <outputColumn
                       refId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie d'erreur de source OLE DB].Columns[Start_Lng]"
-                      dataType="r8"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
                       lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie d'erreur de source OLE DB].Columns[Start_Lng]"
                       name="Start_Lng" />
                     <outputColumn
@@ -1100,368 +808,23 @@
                 </output>
               </outputs>
             </component>
-            <component
-              refId="Package\Dim_Geographie\Unir tout"
-              componentClassID="Microsoft.UnionAll"
-              contactInfo="Unir tout;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;1"
-              description="Combine des lignes de plusieurs flux de données sans effectuer de tri. Par exemple, rajoutez des lignes à un flux de données après correction des erreurs. Si le tri est important, nous recommandons l'utilisation de la transformation de fusion."
-              name="Unir tout"
-              version="1">
-              <inputs>
-                <input
-                  refId="Package\Dim_Geographie\Unir tout.Inputs[Unir tout entrée 1]"
-                  name="Unir tout entrée 1">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Inputs[Unir tout entrée 1].Columns[State]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="State"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[State]">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="ID de traçabilité de colonne de sortie"
-                          name="OutputColumnLineageID">#{Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[State]}</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Inputs[Unir tout entrée 1].Columns[County]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="100"
-                      cachedName="County"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[County]">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="ID de traçabilité de colonne de sortie"
-                          name="OutputColumnLineageID">#{Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[County]}</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Inputs[Unir tout entrée 1].Columns[City]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="100"
-                      cachedName="City"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[City]">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="ID de traçabilité de colonne de sortie"
-                          name="OutputColumnLineageID">#{Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[City]}</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Inputs[Unir tout entrée 1].Columns[Street]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="4000"
-                      cachedName="Street"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Street]">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="ID de traçabilité de colonne de sortie"
-                          name="OutputColumnLineageID">#{Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Street]}</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Inputs[Unir tout entrée 1].Columns[Zipcode]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Zipcode"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Zipcode]">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="ID de traçabilité de colonne de sortie"
-                          name="OutputColumnLineageID">#{Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Zipcode]}</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Inputs[Unir tout entrée 1].Columns[Timezone]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Timezone"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Timezone]">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="ID de traçabilité de colonne de sortie"
-                          name="OutputColumnLineageID">#{Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Timezone]}</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Inputs[Unir tout entrée 1].Columns[Start_Lat]"
-                      cachedDataType="r8"
-                      cachedName="Start_Lat"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lat]">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="ID de traçabilité de colonne de sortie"
-                          name="OutputColumnLineageID">#{Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Start_Lat]}</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Inputs[Unir tout entrée 1].Columns[Start_Lng]"
-                      cachedDataType="r8"
-                      cachedName="Start_Lng"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lng]">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="ID de traçabilité de colonne de sortie"
-                          name="OutputColumnLineageID">#{Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Start_Lng]}</property>
-                      </properties>
-                    </inputColumn>
-                  </inputColumns>
-                  <externalMetadataColumns />
-                </input>
-                <input
-                  refId="Package\Dim_Geographie\Unir tout.Inputs[Entrée Union All 1]"
-                  hasSideEffects="true"
-                  name="Entrée Union All 1">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Inputs[Entrée Union All 1].Columns[State]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="State"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[State]">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="ID de traçabilité de colonne de sortie"
-                          name="OutputColumnLineageID">#{Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[State]}</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Inputs[Entrée Union All 1].Columns[County]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="100"
-                      cachedName="County"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[County]">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="ID de traçabilité de colonne de sortie"
-                          name="OutputColumnLineageID">#{Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[County]}</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Inputs[Entrée Union All 1].Columns[City]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="100"
-                      cachedName="City"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[City]">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="ID de traçabilité de colonne de sortie"
-                          name="OutputColumnLineageID">#{Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[City]}</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Inputs[Entrée Union All 1].Columns[Street]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="4000"
-                      cachedName="Street"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Street]">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="ID de traçabilité de colonne de sortie"
-                          name="OutputColumnLineageID">#{Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Street]}</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Inputs[Entrée Union All 1].Columns[Zipcode]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Zipcode"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Zipcode]">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="ID de traçabilité de colonne de sortie"
-                          name="OutputColumnLineageID">#{Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Zipcode]}</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Inputs[Entrée Union All 1].Columns[Timezone]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Timezone"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Timezone]">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="ID de traçabilité de colonne de sortie"
-                          name="OutputColumnLineageID">#{Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Timezone]}</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Inputs[Entrée Union All 1].Columns[Start_Lat]"
-                      cachedDataType="r8"
-                      cachedName="Start_Lat"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lat]">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="ID de traçabilité de colonne de sortie"
-                          name="OutputColumnLineageID">#{Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Start_Lat]}</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Inputs[Entrée Union All 1].Columns[Start_Lng]"
-                      cachedDataType="r8"
-                      cachedName="Start_Lng"
-                      lineageId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB].Columns[Start_Lng]">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="ID de traçabilité de colonne de sortie"
-                          name="OutputColumnLineageID">#{Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Start_Lng]}</property>
-                      </properties>
-                    </inputColumn>
-                  </inputColumns>
-                  <externalMetadataColumns />
-                </input>
-                <input
-                  refId="Package\Dim_Geographie\Unir tout.Inputs[Entrée Union All 2]"
-                  dangling="true"
-                  hasSideEffects="true"
-                  name="Entrée Union All 2">
-                  <externalMetadataColumns />
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1]"
-                  name="Unir tout sortie 1">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[State]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      lineageId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[State]"
-                      name="State" />
-                    <outputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[County]"
-                      codePage="1252"
-                      dataType="str"
-                      length="100"
-                      lineageId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[County]"
-                      name="County" />
-                    <outputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[City]"
-                      codePage="1252"
-                      dataType="str"
-                      length="100"
-                      lineageId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[City]"
-                      name="City" />
-                    <outputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Street]"
-                      codePage="1252"
-                      dataType="str"
-                      length="4000"
-                      lineageId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Street]"
-                      name="Street" />
-                    <outputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Zipcode]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      lineageId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Zipcode]"
-                      name="Zipcode" />
-                    <outputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Timezone]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      lineageId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Timezone]"
-                      name="Timezone" />
-                    <outputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Start_Lat]"
-                      dataType="r8"
-                      lineageId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Start_Lat]"
-                      name="Start_Lat" />
-                    <outputColumn
-                      refId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Start_Lng]"
-                      dataType="r8"
-                      lineageId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1].Columns[Start_Lng]"
-                      name="Start_Lng" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
           </components>
           <paths>
             <path
-              refId="Package\Dim_Geographie.Paths[Nouvelle sortie]"
-              endId="Package\Dim_Geographie\Unir tout.Inputs[Unir tout entrée 1]"
-              name="Nouvelle sortie"
-              startId="Package\Dim_Geographie\SCD.Outputs[Nouvelle sortie]" />
-            <path
-              refId="Package\Dim_Geographie.Paths[Sortie d'insertions d'attribut d'historique]"
-              endId="Package\Dim_Geographie\Colonne dérivée.Inputs[Entrée de colonne dérivée]"
-              name="Sortie d'insertions d'attribut d'historique"
-              startId="Package\Dim_Geographie\SCD.Outputs[Sortie d'insertions d'attribut d'historique]" />
-            <path
               refId="Package\Dim_Geographie.Paths[Sortie de colonne dérivée]"
-              endId="Package\Dim_Geographie\Commande OLE DB.Inputs[Entrée de commande OLE DB]"
+              endId="Package\Dim_Geographie\Recherche.Inputs[Entrée de recherche]"
               name="Sortie de colonne dérivée"
               startId="Package\Dim_Geographie\Colonne dérivée.Outputs[Sortie de colonne dérivée]" />
             <path
-              refId="Package\Dim_Geographie.Paths[Sortie de colonne dérivée1]"
-              endId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB]"
-              name="Sortie de colonne dérivée"
-              startId="Package\Dim_Geographie\Colonne dérivée 1.Outputs[Sortie de colonne dérivée]" />
-            <path
-              refId="Package\Dim_Geographie.Paths[Sortie de commande OLE DB]"
-              endId="Package\Dim_Geographie\Unir tout.Inputs[Entrée Union All 1]"
-              name="Sortie de commande OLE DB"
-              startId="Package\Dim_Geographie\Commande OLE DB.Outputs[Sortie de commande OLE DB]" />
+              refId="Package\Dim_Geographie.Paths[Sortie de recherche sans correspondance]"
+              endId="Package\Dim_Geographie\Destination OLE DB.Inputs[Entrée de destination OLE DB]"
+              name="Sortie de recherche sans correspondance"
+              startId="Package\Dim_Geographie\Recherche.Outputs[Sortie de recherche sans correspondance]" />
             <path
               refId="Package\Dim_Geographie.Paths[Sortie de source OLE DB]"
-              endId="Package\Dim_Geographie\SCD.Inputs[Entrée de dimension à variation lente]"
+              endId="Package\Dim_Geographie\Colonne dérivée.Inputs[Entrée de colonne dérivée]"
               name="Sortie de source OLE DB"
               startId="Package\Dim_Geographie\Source Geography_stg.Outputs[Sortie de source OLE DB]" />
-            <path
-              refId="Package\Dim_Geographie.Paths[Unir tout sortie 1]"
-              endId="Package\Dim_Geographie\Colonne dérivée 1.Inputs[Entrée de colonne dérivée]"
-              name="Unir tout sortie 1"
-              startId="Package\Dim_Geographie\Unir tout.Outputs[Unir tout sortie 1]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
@@ -2908,13 +2271,13 @@ where [refTable].[Temperature_Category] = ? and [refTable].[Temperature_Value] =
                           containsID="true"
                           dataType="System.String"
                           description="Expression de colonne dérivée"
-                          name="Expression">#{Package\Dim_Temperature\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Temp_Value_Clean]} == -999.0 ? "Inconnu" : (#{Package\Dim_Temperature\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Temp_Value_Clean]} &lt; 32.0 ? "Gel" : (#{Package\Dim_Temperature\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Temp_Value_Clean]} &lt; 50.0 ? "Froid" : (#{Package\Dim_Temperature\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Temp_Value_Clean]} &lt; 77.0 ? "Modéré" : "Chaud")))</property>
+                          name="Expression">#{Package\Dim_Temperature\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Temp_Value_Clean]} == -999.0 ? "Inconnu" : (#{Package\Dim_Temperature\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Temp_Value_Clean]} &lt; 32.0 ? "Gel" : (#{Package\Dim_Temperature\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Temp_Value_Clean]} &lt; 50.0 ? "Froid" : (#{Package\Dim_Temperature\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Temp_Value_Clean]} &lt; 77.0 ? "Modere" : "Chaud")))</property>
                         <property
                           containsID="true"
                           dataType="System.String"
                           description="Expression claire de colonne dérivée"
                           expressionType="Notify"
-                          name="FriendlyExpression">Temp_Value_Clean == -999.0 ? "Inconnu" : (Temp_Value_Clean &lt; 32.0 ? "Gel" : (Temp_Value_Clean &lt; 50.0 ? "Froid" : (Temp_Value_Clean &lt; 77.0 ? "Modéré" : "Chaud")))</property>
+                          name="FriendlyExpression">Temp_Value_Clean == -999.0 ? "Inconnu" : (Temp_Value_Clean &lt; 32.0 ? "Gel" : (Temp_Value_Clean &lt; 50.0 ? "Froid" : (Temp_Value_Clean &lt; 77.0 ? "Modere" : "Chaud")))</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -4424,7 +3787,7 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Table Dim_Precipitation"
-      DTS:ThreadHint="1">
+      DTS:ThreadHint="2">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -4472,7 +3835,7 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Tuncate_DimTemp"
-      DTS:ThreadHint="2">
+      DTS:ThreadHint="1">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -4658,83 +4021,33 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
     design-time-name="Package\Dim_Geographie">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="184.8,41.6"
           Id="Package\Dim_Geographie\Source Geography_stg"
-          TopLeft="144.3,5.49999999999995" />
-        <NodeLayout
-          Size="163.2,41.6"
-          Id="Package\Dim_Geographie\Colonne dérivée 1"
-          TopLeft="547.957143693432,178.897059115945" />
-        <NodeLayout
-          Size="97.6,41.6"
-          Id="Package\Dim_Geographie\SCD"
-          TopLeft="187.9,107.1" />
-        <NodeLayout
-          Size="120,41.6"
-          Id="Package\Dim_Geographie\Unir tout"
-          TopLeft="316.878571726975,214.988235466718" />
-        <NodeLayout
-          Size="183.2,41.6"
-          Id="Package\Dim_Geographie\Destination d'insertion"
-          TopLeft="537.957143693432,280.497059115945" />
-        <NodeLayout
-          Size="170.4,41.6"
-          Id="Package\Dim_Geographie\Commande OLE DB"
-          TopLeft="5.50000000000001,310.3" />
+          TopLeft="80.0142855774383,11.071428566545" />
         <NodeLayout
           Size="154.4,41.6"
           Id="Package\Dim_Geographie\Colonne dérivée"
-          TopLeft="21.5,208.7" />
-        <EdgeLayout
-          Id="Package\Dim_Geographie.Paths[Unir tout sortie 1]"
-          TopLeft="436.878571726975,235.788235466718">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="111.078571966458,-36.0911763507731"
-              Start="0,0"
-              End="103.578571966458,-36.0911763507731">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="51.5392859832288,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="51.5392859832288,0"
-                    Point2="55.5392859832288,0"
-                    Point3="55.5392859832288,-4" />
-                  <mssgle:LineSegment
-                    End="55.5392859832288,-32.0911763507731" />
-                  <mssgle:CubicBezierSegment
-                    Point1="55.5392859832288,-32.0911763507731"
-                    Point2="55.5392859832288,-36.0911763507731"
-                    Point3="59.5392859832288,-36.0911763507731" />
-                  <mssgle:LineSegment
-                    End="103.578571966458,-36.0911763507731" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          TopLeft="314.071429228296,8.5588235267306" />
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Dim_Geographie\Destination OLE DB"
+          TopLeft="721.316327990535,13.2142857338195" />
         <EdgeLayout
           Id="Package\Dim_Geographie.Paths[Sortie de source OLE DB]"
-          TopLeft="236.7,47.1">
+          TopLeft="264.814285577438,30.6151260466378">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,59.9999999999999"
+              EndConnector="49.2571436508578,0"
               Start="0,0"
-              End="0,52.4999999999999">
+              End="41.7571436508578,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,52.4999999999999" />
+                    End="41.7571436508578,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -4743,88 +4056,24 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Dim_Geographie.Paths[Sortie de commande OLE DB]"
-          TopLeft="117.766666666667,310.3">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="240.445238393641,-53.7117645332817"
-              Start="0,0"
-              End="240.445238393641,-46.2117645332817">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,-22.7271505780767" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,-22.7271505780767"
-                    Point2="0,-26.7271505780767"
-                    Point3="4,-26.7271505780767" />
-                  <mssgle:LineSegment
-                    End="236.445238393641,-26.7271505780767" />
-                  <mssgle:CubicBezierSegment
-                    Point1="236.445238393641,-26.7271505780767"
-                    Point2="240.445238393641,-26.7271505780767"
-                    Point3="240.445238393641,-30.7271505780767" />
-                  <mssgle:LineSegment
-                    End="240.445238393641,-46.2117645332817" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Dim_Geographie.Paths[Sortie de colonne dérivée1]"
-          TopLeft="629.557143693432,220.497059115945">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,59.9999999999999"
-              Start="0,0"
-              End="0,52.4999999999999">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.4999999999999" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+        <NodeLayout
+          Size="127.2,41.6"
+          Id="Package\Dim_Geographie\Recherche"
+          TopLeft="514.78571536985,10.0882352900959" />
         <EdgeLayout
           Id="Package\Dim_Geographie.Paths[Sortie de colonne dérivée]"
-          TopLeft="98.7,250.3">
+          TopLeft="468.471429228296,30.1235294084132">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-8,59.9999999999999"
+              EndConnector="46.3142861415538,0"
               Start="0,0"
-              End="-8,52.4999999999999">
+              End="38.8142861415538,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,26" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,26"
-                    Point2="0,30"
-                    Point3="-4,30" />
-                  <mssgle:LineSegment
-                    End="-4,30" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-4,30"
-                    Point2="-8,30"
-                    Point3="-8,34" />
-                  <mssgle:LineSegment
-                    End="-8,52.4999999999999" />
+                    End="38.8142861415538,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -4834,74 +4083,26 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Dim_Geographie.Paths[Sortie d'insertions d'attribut d'historique]"
-          TopLeft="221.766666666667,148.7">
+          Id="Package\Dim_Geographie.Paths[Sortie de recherche sans correspondance]"
+          TopLeft="641.98571536985,32.4512605119577">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-123.066666666667,59.9999999999999"
+              EndConnector="79.3306126206852,0"
               Start="0,0"
-              End="-123.066666666667,52.4999999999999">
+              End="71.8306126206852,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,20.5806451612903" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,20.5806451612903"
-                    Point2="0,24.5806451612903"
-                    Point3="-4,24.5806451612903" />
-                  <mssgle:LineSegment
-                    End="-119.066666666667,24.5806451612903" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-119.066666666667,24.5806451612903"
-                    Point2="-123.066666666667,24.5806451612903"
-                    Point3="-123.066666666667,28.5806451612903" />
-                  <mssgle:LineSegment
-                    End="-123.066666666667,52.4999999999999" />
+                    End="71.8306126206852,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-150.075345052084,29.5806451612903,177.0840234375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Dim_Geographie.Paths[Nouvelle sortie]"
-          TopLeft="251.633333333333,148.7">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="125.245238393641,66.2882354667181"
-              Start="0,0"
-              End="125.245238393641,58.7882354667181">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,23.156793239591" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,23.156793239591"
-                    Point2="0,27.156793239591"
-                    Point3="4,27.156793239591" />
-                  <mssgle:LineSegment
-                    End="121.245238393641,27.156793239591" />
-                  <mssgle:CubicBezierSegment
-                    Point1="121.245238393641,27.156793239591"
-                    Point2="125.245238393641,27.156793239591"
-                    Point3="125.245238393641,31.156793239591" />
-                  <mssgle:LineSegment
-                    End="125.245238393641,58.7882354667181" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="29.4862715405705,32.156793239591,66.2726953125,9.7490234375"
+              BoundingBox="-55.5867054084074,5,183.0040234375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -4922,89 +4123,7 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Dim_Geographie\SCD">
-    <Properties>
-      <Property>
-        <Name>SCDMetadata</Name>
-        <Value
-          type="q2:string">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SCDWizardMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
-  &lt;ConnectionID&gt;{EE6A200C-1D73-4D4F-B9F8-B5C2FD8A0992}&lt;/ConnectionID&gt;
-  &lt;TableName&gt;[dbo].[Dim_Geographie]&lt;/TableName&gt;
-  &lt;InputToColumnsCollection&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Source Geography_stg.Sorties[Sortie de source OLE DB].Colonnes[City]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;City&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;HistoricalAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Source Geography_stg.Sorties[Sortie de source OLE DB].Colonnes[County]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;County&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;HistoricalAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Source Geography_stg.Sorties[Sortie de source OLE DB].Colonnes[Start_Lat]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;Latitude&lt;/ColumnName&gt;
-      &lt;KeyType&gt;BusinessKey&lt;/KeyType&gt;
-      &lt;ChangeType&gt;None&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Source Geography_stg.Sorties[Sortie de source OLE DB].Colonnes[Start_Lng]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;Longitude&lt;/ColumnName&gt;
-      &lt;KeyType&gt;BusinessKey&lt;/KeyType&gt;
-      &lt;ChangeType&gt;None&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Source Geography_stg.Sorties[Sortie de source OLE DB].Colonnes[State]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;State&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;HistoricalAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Source Geography_stg.Sorties[Sortie de source OLE DB].Colonnes[Street]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;Street&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;HistoricalAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Source Geography_stg.Sorties[Sortie de source OLE DB].Colonnes[Timezone]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;Timezone&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;HistoricalAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Source Geography_stg.Sorties[Sortie de source OLE DB].Colonnes[Zipcode]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;Zipcode&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;HistoricalAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-  &lt;/InputToColumnsCollection&gt;
-  &lt;GeneratedComponentsIdentificationStrings&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;Colonne dérivée&lt;/anyType&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;Commande OLE DB&lt;/anyType&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;Unir tout&lt;/anyType&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;Colonne dérivée 1&lt;/anyType&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;Destination d'insertion&lt;/anyType&gt;
-  &lt;/GeneratedComponentsIdentificationStrings&gt;
-  &lt;FailFixedAttribute&gt;false&lt;/FailFixedAttribute&gt;
-  &lt;FailChangeAttribute&gt;false&lt;/FailChangeAttribute&gt;
-  &lt;UseStartEndDate&gt;true&lt;/UseStartEndDate&gt;
-  &lt;CurrentIndicatorColumn /&gt;
-  &lt;InferredIndicatorColumn /&gt;
-  &lt;ValueCurrent /&gt;
-  &lt;ValueExpired /&gt;
-  &lt;StartDateColumn&gt;Start_Date&lt;/StartDateColumn&gt;
-  &lt;EndDateColumn&gt;End_Date&lt;/EndDateColumn&gt;
-  &lt;DateVariable&gt;System::StartTime&lt;/DateVariable&gt;
-  &lt;EnableInferredSupport&gt;false&lt;/EnableInferredSupport&gt;
-&lt;/SCDWizardMetadata&gt;</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Dim_Geographie\Destination d'insertion">
+    design-time-name="Package\Dim_Geographie\Destination OLE DB">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -5022,6 +4141,10 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
+          Size="188,41.6"
+          Id="Package\Dim_Precipitation\Conversion de données"
+          TopLeft="690.499991133809,126.714285584433" />
+        <NodeLayout
           Size="226.4,41.6"
           Id="Package\Dim_Precipitation\Conversion du texte en nombre"
           TopLeft="228.071425254855,35.9999998807907" />
@@ -5038,57 +4161,13 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
           Id="Package\Dim_Precipitation\Destination OLE DB"
           TopLeft="704.78570431258,259.57142556778" />
         <NodeLayout
+          Size="154.4,41.6"
+          Id="Package\Dim_Precipitation\Colonne dérivée"
+          TopLeft="489.499992787838,36.1428570215191" />
+        <NodeLayout
           Size="127.2,41.6"
           Id="Package\Dim_Precipitation\Recherche"
           TopLeft="722.642846456596,192.106696033026" />
-        <NodeLayout
-          Size="188,41.6"
-          Id="Package\Dim_Precipitation\Conversion de données"
-          TopLeft="690.499991133809,126.714285584433" />
-        <EdgeLayout
-          Id="Package\Dim_Precipitation.Paths[Sortie de conversion de données]"
-          TopLeft="785.371418795203,168.314285584433">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,23.7924104485928"
-              Start="0,0"
-              End="0,16.2924104485928">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,16.2924104485928" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Dim_Precipitation.Paths[Sortie de colonne dérivée]"
-          TopLeft="784.214276613934,81.0285721523422">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,45.6857134320906"
-              Start="0,0"
-              End="0,38.1857134320906">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,38.1857134320906" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <EdgeLayout
           Id="Package\Dim_Precipitation.Paths[Sortie de source OLE DB]"
           TopLeft="162.957142740062,55.6571427549635">
@@ -5108,7 +4187,9 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -5135,30 +4216,28 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="154.4,41.6"
-          Id="Package\Dim_Precipitation\Colonne dérivée"
-          TopLeft="489.499992787838,36.1428570215191" />
         <EdgeLayout
-          Id="Package\Dim_Precipitation.Paths[Sortie de colonne dérivée1]"
-          TopLeft="454.471425254855,56.8714284511549">
+          Id="Package\Dim_Precipitation.Paths[Sortie de conversion de données]"
+          TopLeft="785.371418795203,168.314285584433">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="35.0285675329827,0"
+              EndConnector="0,23.7924104485928"
               Start="0,0"
-              End="27.5285675329827,0">
+              End="0,16.2924104485928">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="27.5285675329827,0" />
+                    End="0,16.2924104485928" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -5180,7 +4259,57 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dim_Precipitation.Paths[Sortie de colonne dérivée1]"
+          TopLeft="454.471425254855,56.8714284511549">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="35.0285675329827,0"
+              Start="0,0"
+              End="27.5285675329827,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="27.5285675329827,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dim_Precipitation.Paths[Sortie de colonne dérivée]"
+          TopLeft="784.214276613934,81.0285721523422">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,45.6857134320906"
+              Start="0,0"
+              End="0,38.1857134320906">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.1857134320906" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -5265,6 +4394,28 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
           Id="Package\Dim_Temperature\Colonne dérivée"
           TopLeft="491.499994546175,29.0000017732381" />
         <EdgeLayout
+          Id="Package\Dim_Temperature.Paths[Sortie de source OLE DB]"
+          TopLeft="194.099999418855,49.8000008791685">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="297.39999512732,0"
+              Start="0,0"
+              End="289.89999512732,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="289.89999512732,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
           Id="Package\Dim_Temperature.Paths[Sortie de recherche sans correspondance]"
           TopLeft="627.69999396503,271.799997794628">
           <EdgeLayout.Curve>
@@ -5346,28 +4497,6 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,27.8999992996454" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Dim_Temperature.Paths[Sortie de source OLE DB]"
-          TopLeft="194.099999418855,49.8000008791685">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="297.39999512732,0"
-              Start="0,0"
-              End="289.89999512732,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="289.89999512732,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5677,7 +4806,9 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -5699,7 +4830,9 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -5721,7 +4854,9 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -5797,6 +4932,29 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dim_Geographie\Recherche">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Dim_Geographie]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
