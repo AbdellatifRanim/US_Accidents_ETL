@@ -11,8 +11,8 @@
   DTS:LocaleID="1036"
   DTS:ObjectName="Load_Fact_Table"
   DTS:PackageType="5"
-  DTS:VersionBuild="124"
-  DTS:VersionGUID="{4B73AD58-34FB-40CE-83D0-E771A6B8D6CF}">
+  DTS:VersionBuild="129"
+  DTS:VersionGUID="{AF50BED0-F963-4819-9C6D-19FAEF1130B1}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -3861,13 +3861,13 @@ FROM  vw_Fact_Accidents_Source</property>
                           containsID="true"
                           dataType="System.String"
                           description="Expression de colonne dérivée"
-                          name="Expression">[ISNULL](#{Package\Fact_Accidents 1 1\Source.Outputs[Sortie de source OLE DB].Columns[Start_Time]}) ? NULL(DT_I4) : (DT_I4)([YEAR]((DT_DBTIMESTAMP)#{Package\Fact_Accidents 1 1\Source.Outputs[Sortie de source OLE DB].Columns[Start_Time]}) * 1000000 + [MONTH]((DT_DBTIMESTAMP)#{Package\Fact_Accidents 1 1\Source.Outputs[Sortie de source OLE DB].Columns[Start_Time]}) * 10000 + [DAY]((DT_DBTIMESTAMP)#{Package\Fact_Accidents 1 1\Source.Outputs[Sortie de source OLE DB].Columns[Start_Time]}) * 100 + [DATEPART]("HH",(DT_DBTIMESTAMP)#{Package\Fact_Accidents 1 1\Source.Outputs[Sortie de source OLE DB].Columns[Start_Time]}))</property>
+                          name="Expression">[ISNULL](#{Package\Fact_Accidents 1 1\Source.Outputs[Sortie de source OLE DB].Columns[Start_Time]}) || [ISNULL](#{Package\Fact_Accidents 1 1\Source.Outputs[Sortie de source OLE DB].Columns[End_Time]}) || [TRIM](#{Package\Fact_Accidents 1 1\Source.Outputs[Sortie de source OLE DB].Columns[Start_Time]}) == "" || [TRIM](#{Package\Fact_Accidents 1 1\Source.Outputs[Sortie de source OLE DB].Columns[End_Time]}) == "" || #{Package\Fact_Accidents 1 1\Source.Outputs[Sortie de source OLE DB].Columns[Start_Time]} == "N/A" || #{Package\Fact_Accidents 1 1\Source.Outputs[Sortie de source OLE DB].Columns[End_Time]} == "N/A" ? NULL(DT_I4) : [DATEDIFF]("minute",(DT_DBTIMESTAMP)#{Package\Fact_Accidents 1 1\Source.Outputs[Sortie de source OLE DB].Columns[Start_Time]},(DT_DBTIMESTAMP)#{Package\Fact_Accidents 1 1\Source.Outputs[Sortie de source OLE DB].Columns[End_Time]})</property>
                         <property
                           containsID="true"
                           dataType="System.String"
                           description="Expression claire de colonne dérivée"
                           expressionType="Notify"
-                          name="FriendlyExpression">ISNULL(Start_Time) ? NULL(DT_I4) : (DT_I4)(YEAR((DT_DBTIMESTAMP)Start_Time) * 1000000 + MONTH((DT_DBTIMESTAMP)Start_Time) * 10000 + DAY((DT_DBTIMESTAMP)Start_Time) * 100 + DATEPART("HH",(DT_DBTIMESTAMP)Start_Time))</property>
+                          name="FriendlyExpression">ISNULL(Start_Time) || ISNULL(End_Time) || TRIM(Start_Time) == "" || TRIM(End_Time) == "" || Start_Time == "N/A" || End_Time == "N/A" ? NULL(DT_I4) : DATEDIFF("minute",(DT_DBTIMESTAMP)Start_Time,(DT_DBTIMESTAMP)End_Time)</property>
                       </properties>
                     </outputColumn>
                     <outputColumn
@@ -4547,6 +4547,38 @@ FROM  vw_Fact_Accidents_Source</property>
                       cachedName="Weather_Key"
                       externalMetadataColumnId="Package\Fact_Accidents 1 1\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Weather_Key]"
                       lineageId="Package\Fact_Accidents 1 1\Lookup dimWeatherCondition.Outputs[Sortie de recherche avec correspondance].Columns[Weather_Key]" />
+                    <inputColumn
+                      refId="Package\Fact_Accidents 1 1\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Temperature_Key]"
+                      cachedDataType="i4"
+                      cachedName="Temperature_Key"
+                      externalMetadataColumnId="Package\Fact_Accidents 1 1\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Temperature_Key]"
+                      lineageId="Package\Fact_Accidents 1 1\Lookup Temp.Outputs[Sortie de recherche avec correspondance].Columns[Temperature_Key]" />
+                    <inputColumn
+                      refId="Package\Fact_Accidents 1 1\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Visibility_Key]"
+                      cachedDataType="i4"
+                      cachedName="Visibility_Key"
+                      externalMetadataColumnId="Package\Fact_Accidents 1 1\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Visibility_Key]"
+                      lineageId="Package\Fact_Accidents 1 1\Lookup visibility.Outputs[Sortie de recherche avec correspondance].Columns[Visibility_Key]" />
+                    <inputColumn
+                      refId="Package\Fact_Accidents 1 1\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Precipitation_Key]"
+                      cachedDataType="i4"
+                      cachedName="Precipitation_Key"
+                      externalMetadataColumnId="Package\Fact_Accidents 1 1\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Precipitation_Key]"
+                      lineageId="Package\Fact_Accidents 1 1\Lookup Precip.Outputs[Sortie de recherche avec correspondance].Columns[Precipitation_Key]" />
+                    <inputColumn
+                      refId="Package\Fact_Accidents 1 1\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Infrastructure_Key]"
+                      cachedDataType="i4"
+                      cachedName="Infrastructure_Key"
+                      externalMetadataColumnId="Package\Fact_Accidents 1 1\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Infrastructure_Key]"
+                      lineageId="Package\Fact_Accidents 1 1\Lookup DimInfra.Outputs[Sortie de recherche avec correspondance].Columns[Infrastructure_Key]" />
+                    <inputColumn
+                      refId="Package\Fact_Accidents 1 1\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Distance_Propre]"
+                      cachedDataType="numeric"
+                      cachedName="Distance_Propre"
+                      cachedPrecision="5"
+                      cachedScale="1"
+                      externalMetadataColumnId="Package\Fact_Accidents 1 1\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Distance_mi]"
+                      lineageId="Package\Fact_Accidents 1 1\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Distance_Propre]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -4615,6 +4647,323 @@ FROM  vw_Fact_Accidents_Source</property>
                       refId="Package\Fact_Accidents 1 1\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
                       dataType="i4"
                       lineageId="Package\Fact_Accidents 1 1\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Fact_Accidents 1 1\Lookup DimInfra"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Recherche;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;6"
+              description="Joint des colonnes supplémentaires au flux de données en recherchant des valeurs dans une table. Par exemple, joignez la colonne 'id employé' à la table des employés afin d'obtenir la 'date d'embauche' et le 'nom de l'employé'. Nous recommandons cette transformation lorsque la table de recherche peut être stockée en mémoire."
+              name="Lookup DimInfra"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SQL qui génère la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[Dim_Infrastructure]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[Dim_Infrastructure]) [refTable]
+where [refTable].[Junction] = ? and [refTable].[Traffic_Signal] = ? and [refTable].[Crossing] = ? and [refTable].[Amenity] = ? and [refTable].[Bump] = ? and [refTable].[Give_Way] = ? and [refTable].[No_Exit] = ? and [refTable].[Railway] = ? and [refTable].[Roundabout] = ? and [refTable].[Station] = ? and [refTable].[Traffic_Calming] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de cache de la table de correspondance."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie comment la transformation de recherche gère les lignes sans entrées correspondantes dans le jeu de données de référence."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le pourcentage du cache alloué aux lignes sans entrées correspondantes dans le dataset de référence."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indique si les métadonnées sont à référencer en format XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Infrastructure_Key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Amenity" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Bump" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Crossing" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Give_Way" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Junction" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="No_Exit" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Railway" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Roundabout" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Station" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Stop_Sign" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Traffic_Calming" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Traffic_Signal" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Spécifie la liste d'identificateurs de traçabilité se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
+                  name="ParameterMap">#{Package\Fact_Accidents 1 1\2502:invalid};#{Package\Fact_Accidents 1 1\2503:invalid};#{Package\Fact_Accidents 1 1\2499:invalid};#{Package\Fact_Accidents 1 1\2497:invalid};#{Package\Fact_Accidents 1 1\2498:invalid};#{Package\Fact_Accidents 1 1\2500:invalid};#{Package\Fact_Accidents 1 1\2501:invalid};#{Package\Fact_Accidents 1 1\2504:invalid};#{Package\Fact_Accidents 1 1\2505:invalid};#{Package\Fact_Accidents 1 1\2506:invalid};#{Package\Fact_Accidents 1 1\2507:invalid};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Détermine si les clés dupliquées dans les données de référence doivent être traitées en tant qu'erreurs lorsque le mode Cache complet est utilisé."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Connections[OleDbConnection]"
+                  connectionManagerID="{EE6A200C-1D73-4D4F-B9F8-B5C2FD8A0992}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[RANNOUM.US_Accidents_DW]"
+                  description="Gestionnaire de connexions utilisé pour accéder aux données de correspondance."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Inputs[Entrée de recherche]"
+                  name="Entrée de recherche">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Inputs[Entrée de recherche].Columns[Amenity_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Amenity_BIT"
+                      lineageId="Package\Fact_Accidents 1 1\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Amenity_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Amenity</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Inputs[Entrée de recherche].Columns[Bump_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Bump_BIT"
+                      lineageId="Package\Fact_Accidents 1 1\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Bump_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Bump</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Inputs[Entrée de recherche].Columns[Crossing_Bit]"
+                      cachedDataType="bool"
+                      cachedName="Crossing_Bit"
+                      lineageId="Package\Fact_Accidents 1 1\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Crossing_Bit]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Crossing</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Inputs[Entrée de recherche].Columns[Give_Way_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Give_Way_BIT"
+                      lineageId="Package\Fact_Accidents 1 1\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Give_Way_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Give_Way</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Inputs[Entrée de recherche].Columns[No_Exit_BIT]"
+                      cachedDataType="bool"
+                      cachedName="No_Exit_BIT"
+                      lineageId="Package\Fact_Accidents 1 1\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[No_Exit_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">No_Exit</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Inputs[Entrée de recherche].Columns[Junction_Bit]"
+                      cachedDataType="bool"
+                      cachedName="Junction_Bit"
+                      lineageId="Package\Fact_Accidents 1 1\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Junction_Bit]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Junction</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Inputs[Entrée de recherche].Columns[Traffic_Signal_Bit]"
+                      cachedDataType="bool"
+                      cachedName="Traffic_Signal_Bit"
+                      lineageId="Package\Fact_Accidents 1 1\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Traffic_Signal_Bit]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Traffic_Signal</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Inputs[Entrée de recherche].Columns[Railway_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Railway_BIT"
+                      lineageId="Package\Fact_Accidents 1 1\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Railway_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Railway</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Inputs[Entrée de recherche].Columns[Roundabout_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Roundabout_BIT"
+                      lineageId="Package\Fact_Accidents 1 1\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Roundabout_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Roundabout</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Inputs[Entrée de recherche].Columns[Station_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Station_BIT"
+                      lineageId="Package\Fact_Accidents 1 1\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Station_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Station</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Inputs[Entrée de recherche].Columns[Traffic_Calming_BIT]"
+                      cachedDataType="bool"
+                      cachedName="Traffic_Calming_BIT"
+                      lineageId="Package\Fact_Accidents 1 1\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Traffic_Calming_BIT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Traffic_Calming</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Outputs[Sortie de recherche avec correspondance]"
+                  errorOrTruncationOperation="Recherche"
+                  exclusionGroup="1"
+                  name="Sortie de recherche avec correspondance"
+                  synchronousInputId="Package\Fact_Accidents 1 1\Lookup DimInfra.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Outputs[Sortie de recherche avec correspondance].Columns[Infrastructure_Key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copie de colonnes"
+                      lineageId="Package\Fact_Accidents 1 1\Lookup DimInfra.Outputs[Sortie de recherche avec correspondance].Columns[Infrastructure_Key]"
+                      name="Infrastructure_Key"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn">Infrastructure_Key</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Outputs[Sortie de recherche sans correspondance]"
+                  description="Sortie de recherche gérant les lignes sans entrées correspondantes dans le dataset de référence. Utilisez cette sortie lorsque la propriété NoMatchBehavior a la valeur « Envoyez les lignes sans entrées correspondantes dans la sortie sans correspondance »."
+                  exclusionGroup="1"
+                  name="Sortie de recherche sans correspondance"
+                  synchronousInputId="Package\Fact_Accidents 1 1\Lookup DimInfra.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Outputs[Sortie d'erreur de recherche]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de recherche"
+                  synchronousInputId="Package\Fact_Accidents 1 1\Lookup DimInfra.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Fact_Accidents 1 1\Lookup DimInfra.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Fact_Accidents 1 1\Lookup DimInfra.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Fact_Accidents 1 1\Lookup DimInfra.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -5108,6 +5457,165 @@ where [refTable].[City] = ? and [refTable].[State] = ?</property>
                       refId="Package\Fact_Accidents 1 1\Lookup Geo.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
                       dataType="i4"
                       lineageId="Package\Fact_Accidents 1 1\Lookup Geo.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Fact_Accidents 1 1\Lookup Precip"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Recherche;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;6"
+              description="Joint des colonnes supplémentaires au flux de données en recherchant des valeurs dans une table. Par exemple, joignez la colonne 'id employé' à la table des employés afin d'obtenir la 'date d'embauche' et le 'nom de l'employé'. Nous recommandons cette transformation lorsque la table de recherche peut être stockée en mémoire."
+              name="Lookup Precip"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SQL qui génère la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[Dim_Precipitation]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[Dim_Precipitation]) [refTable]
+where [refTable].[Original_Value] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de cache de la table de correspondance."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie comment la transformation de recherche gère les lignes sans entrées correspondantes dans le jeu de données de référence."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le pourcentage du cache alloué aux lignes sans entrées correspondantes dans le dataset de référence."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indique si les métadonnées sont à référencer en format XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Precipitation_Key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Original_Value" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Precipitation_Category" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Spécifie la liste d'identificateurs de traçabilité se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
+                  name="ParameterMap">#{Package\Fact_Accidents 1 1\2470:invalid};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Détermine si les clés dupliquées dans les données de référence doivent être traitées en tant qu'erreurs lorsque le mode Cache complet est utilisé."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Fact_Accidents 1 1\Lookup Precip.Connections[OleDbConnection]"
+                  connectionManagerID="{EE6A200C-1D73-4D4F-B9F8-B5C2FD8A0992}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[RANNOUM.US_Accidents_DW]"
+                  description="Gestionnaire de connexions utilisé pour accéder aux données de correspondance."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Fact_Accidents 1 1\Lookup Precip.Inputs[Entrée de recherche]"
+                  name="Entrée de recherche">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Fact_Accidents 1 1\Lookup Precip.Inputs[Entrée de recherche].Columns[Precip_Propre]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Precip_Propre"
+                      lineageId="Package\Fact_Accidents 1 1\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Precip_Propre]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Original_Value</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Fact_Accidents 1 1\Lookup Precip.Outputs[Sortie de recherche avec correspondance]"
+                  errorOrTruncationOperation="Recherche"
+                  exclusionGroup="1"
+                  name="Sortie de recherche avec correspondance"
+                  synchronousInputId="Package\Fact_Accidents 1 1\Lookup Precip.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Fact_Accidents 1 1\Lookup Precip.Outputs[Sortie de recherche avec correspondance].Columns[Precipitation_Key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copie de colonnes"
+                      lineageId="Package\Fact_Accidents 1 1\Lookup Precip.Outputs[Sortie de recherche avec correspondance].Columns[Precipitation_Key]"
+                      name="Precipitation_Key"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn">Precipitation_Key</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Fact_Accidents 1 1\Lookup Precip.Outputs[Sortie de recherche sans correspondance]"
+                  description="Sortie de recherche gérant les lignes sans entrées correspondantes dans le dataset de référence. Utilisez cette sortie lorsque la propriété NoMatchBehavior a la valeur « Envoyez les lignes sans entrées correspondantes dans la sortie sans correspondance »."
+                  exclusionGroup="1"
+                  name="Sortie de recherche sans correspondance"
+                  synchronousInputId="Package\Fact_Accidents 1 1\Lookup Precip.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Fact_Accidents 1 1\Lookup Precip.Outputs[Sortie d'erreur de recherche]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de recherche"
+                  synchronousInputId="Package\Fact_Accidents 1 1\Lookup Precip.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Fact_Accidents 1 1\Lookup Precip.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Fact_Accidents 1 1\Lookup Precip.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Fact_Accidents 1 1\Lookup Precip.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Fact_Accidents 1 1\Lookup Precip.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -6146,9 +6654,19 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
               startId="Package\Fact_Accidents 1 1\Lookup Temp.Outputs[Sortie de recherche avec correspondance]" />
             <path
               refId="Package\Fact_Accidents 1 1.Paths[Sortie de recherche avec correspondance4]"
-              endId="Package\Fact_Accidents 1 1\Destination OLE DB.Inputs[Entrée de destination OLE DB]"
+              endId="Package\Fact_Accidents 1 1\Lookup Precip.Inputs[Entrée de recherche]"
               name="Sortie de recherche avec correspondance"
               startId="Package\Fact_Accidents 1 1\Lookup visibility.Outputs[Sortie de recherche avec correspondance]" />
+            <path
+              refId="Package\Fact_Accidents 1 1.Paths[Sortie de recherche avec correspondance5]"
+              endId="Package\Fact_Accidents 1 1\Lookup DimInfra.Inputs[Entrée de recherche]"
+              name="Sortie de recherche avec correspondance"
+              startId="Package\Fact_Accidents 1 1\Lookup Precip.Outputs[Sortie de recherche avec correspondance]" />
+            <path
+              refId="Package\Fact_Accidents 1 1.Paths[Sortie de recherche avec correspondance6]"
+              endId="Package\Fact_Accidents 1 1\Destination OLE DB.Inputs[Entrée de destination OLE DB]"
+              name="Sortie de recherche avec correspondance"
+              startId="Package\Fact_Accidents 1 1\Lookup DimInfra.Outputs[Sortie de recherche avec correspondance]" />
             <path
               refId="Package\Fact_Accidents 1 1.Paths[Sortie de source OLE DB]"
               endId="Package\Fact_Accidents 1 1\Colonne dérivée.Inputs[Entrée de colonne dérivée]"
@@ -6700,53 +7218,41 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
     design-time-name="Package\Fact_Accidents 1 1">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="172,41.6"
           Id="Package\Fact_Accidents 1 1\Lookup Dim_Temps"
-          TopLeft="132.028570068156,115.249347339225" />
+          TopLeft="342.937657834457,39.7948030090399" />
         <NodeLayout
           Size="134.4,41.6"
           Id="Package\Fact_Accidents 1 1\Lookup Geo"
-          TopLeft="144.999997839332,205.616990465573" />
+          TopLeft="548.636355461045,41.2533574614711" />
         <NodeLayout
           Size="216.8,41.6"
           Id="Package\Fact_Accidents 1 1\Lookup dimWeatherCondition"
-          TopLeft="20.9999996870752,291.999995648861" />
+          TopLeft="502.818174325607,114.727271017703" />
         <NodeLayout
           Size="154.4,41.6"
           Id="Package\Fact_Accidents 1 1\Colonne dérivée"
-          TopLeft="135.249998385885,36.7728769032239" />
+          TopLeft="162.522725252217,32.2274224255019" />
         <NodeLayout
           Size="110.4,41.6"
           Id="Package\Fact_Accidents 1 1\Source"
           TopLeft="15.3571433549632,28" />
         <EdgeLayout
           Id="Package\Fact_Accidents 1 1.Paths[Sortie de source OLE DB]"
-          TopLeft="70.5571433549632,28">
+          TopLeft="125.757143354963,50.913711212751">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="141.892855030922,8.77287690322393"
+              EndConnector="36.7655818972538,0"
               Start="0,0"
-              End="141.892855030922,1.27287690322393">
+              End="29.2655818972538,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,-18.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,-18.5"
-                    Point2="0,-22.5"
-                    Point3="4,-22.5" />
-                  <mssgle:LineSegment
-                    End="137.892855030922,-22.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="137.892855030922,-22.5"
-                    Point2="141.892855030922,-22.5"
-                    Point3="141.892855030922,-18.5" />
-                  <mssgle:LineSegment
-                    End="141.892855030922,1.27287690322393" />
+                    End="29.2655818972538,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6757,18 +7263,18 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Fact_Accidents 1 1.Paths[Sortie de colonne dérivée]"
-          TopLeft="215.239284227021,78.3728769032239">
+          TopLeft="316.922725252217,56.8111127172709">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,36.8764704360009"
+              EndConnector="26.0149325822395,0"
               Start="0,0"
-              End="0,29.3764704360009">
+              End="18.5149325822395,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,29.3764704360009" />
+                    End="18.5149325822395,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6779,157 +7285,189 @@ FROM [US_Accidents_STAGING].[dbo].[Accidents_Data]</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Fact_Accidents 1 1.Paths[Sortie de recherche avec correspondance]"
-          TopLeft="215.114283953744,156.849347339225">
+          TopLeft="514.937657834457,61.3240802352555">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,48.7676431263483"
+              EndConnector="33.6986976265888,0"
               Start="0,0"
-              End="0,41.2676431263483">
+              End="26.1986976265888,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,41.2676431263483" />
+                    End="26.1986976265888,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-91.67701171875,14.8291340631741,183.3540234375,11.609375"
+              BoundingBox="-78.5776629054556,5,183.3540234375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Fact_Accidents 1 1.Paths[Sortie de recherche avec correspondance1]"
-          TopLeft="212.199997839332,247.216990465573">
+          TopLeft="613.527264893326,82.8533574614711">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-82.7999981522568,44.7830051832884"
+              EndConnector="0,31.8739135562321"
               Start="0,0"
-              End="-82.7999981522568,37.2830051832884">
+              End="0,24.3739135562321">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,18.3915025916442" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,18.3915025916442"
-                    Point2="0,22.3915025916442"
-                    Point3="-4,22.3915025916442" />
-                  <mssgle:LineSegment
-                    End="-78.7999981522568,22.3915025916442" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-78.7999981522568,22.3915025916442"
-                    Point2="-82.7999981522568,22.3915025916442"
-                    Point3="-82.7999981522568,26.3915025916442" />
-                  <mssgle:LineSegment
-                    End="-82.7999981522568,37.2830051832884" />
+                    End="0,24.3739135562321" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-133.077010794878,27.3915025916442,183.3540234375,11.609375"
+              BoundingBox="-91.67701171875,6.38226927811606,183.3540234375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
           Size="170.4,41.6"
           Id="Package\Fact_Accidents 1 1\Destination OLE DB"
-          TopLeft="707.499989539385,238.499996528029" />
+          TopLeft="732.954534614628,374.863630859689" />
         <NodeLayout
           Size="142.4,41.6"
           Id="Package\Fact_Accidents 1 1\Lookup Temp"
-          TopLeft="278.999995842576,290.999995663762" />
+          TopLeft="545.363628237085,180.090906407345" />
         <EdgeLayout
           Id="Package\Fact_Accidents 1 1.Paths[Sortie de recherche avec correspondance2]"
-          TopLeft="237.799999687075,312.299995656312">
+          TopLeft="613.890901281346,156.327271017703">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="41.1999961555009,0"
+              EndConnector="0,23.7636353896414"
               Start="0,0"
-              End="33.6999961555009,0">
+              End="0,16.2636353896414">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="33.6999961555009,0" />
+                    End="0,16.2636353896414" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-74.8270136409996,5,183.3540234375,11.609375"
+              BoundingBox="-91.67701171875,2.32713019482071,183.3540234375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
           Size="152.8,41.6"
           Id="Package\Fact_Accidents 1 1\Lookup visibility"
-          TopLeft="488.999992713332,294.999995604158" />
+          TopLeft="546.27271913263,248.636359931393" />
         <EdgeLayout
           Id="Package\Fact_Accidents 1 1.Paths[Sortie de recherche avec correspondance3]"
-          TopLeft="421.399995842576,313.79999563396">
+          TopLeft="619.618173684858,221.690906407345">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="67.5999968707563,0"
+              EndConnector="0,26.945453524048"
               Start="0,0"
-              End="60.0999968707563,0">
+              End="0,19.445453524048">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="60.0999968707563,0" />
+                    End="0,19.445453524048" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-61.6270132833719,5,183.3540234375,11.609375"
+              BoundingBox="-91.67701171875,3.91803926202401,183.3540234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="144,41.6"
+          Id="Package\Fact_Accidents 1 1\Lookup Precip"
+          TopLeft="545.454537326639,314.181814388795" />
+        <EdgeLayout
+          Id="Package\Fact_Accidents 1 1.Paths[Sortie de recherche avec correspondance4]"
+          TopLeft="620.063628229635,290.236359931393">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,23.9454544574024"
+              Start="0,0"
+              End="0,16.4454544574024">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.4454544574024" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-91.67701171875,2.41803972870122,183.3540234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="156.8,41.6"
+          Id="Package\Fact_Accidents 1 1\Lookup DimInfra"
+          TopLeft="540.909082848917,378.727270844308" />
+        <EdgeLayout
+          Id="Package\Fact_Accidents 1 1.Paths[Sortie de recherche avec correspondance5]"
+          TopLeft="618.381810087778,355.781814388795">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,22.9454564555127"
+              Start="0,0"
+              End="0,15.4454564555127">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.4454564555127" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-91.67701171875,1.91804072775636,183.3540234375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Fact_Accidents 1 1.Paths[Sortie de recherche avec correspondance4]"
-          TopLeft="641.799992713332,315.799995604158">
+          Id="Package\Fact_Accidents 1 1.Paths[Sortie de recherche avec correspondance6]"
+          TopLeft="697.709082848917,397.595450851999">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="65.6999968260528,-56.4999990761281"
+              EndConnector="35.245451765711,0"
               Start="0,0"
-              End="58.1999968260528,-56.4999990761281">
+              End="27.745451765711,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="28.8499984130264,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="28.8499984130264,0"
-                    Point2="32.8499984130264,0"
-                    Point3="32.8499984130264,-4" />
-                  <mssgle:LineSegment
-                    End="32.8499984130264,-52.4999990761281" />
-                  <mssgle:CubicBezierSegment
-                    Point1="32.8499984130264,-52.4999990761281"
-                    Point2="32.8499984130264,-56.4999990761281"
-                    Point3="36.8499984130264,-56.4999990761281" />
-                  <mssgle:LineSegment
-                    End="58.1999968260528,-56.4999990761281" />
+                    End="27.745451765711,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-58.8270133057236,1,183.3540234375,11.609375"
+              BoundingBox="-77.8042858358945,5,183.3540234375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
