@@ -11,8 +11,8 @@
   DTS:LocaleID="1036"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="84"
-  DTS:VersionGUID="{B2257ECE-9071-432F-8204-E2FD7C1CB086}">
+  DTS:VersionBuild="98"
+  DTS:VersionGUID="{D089290E-CF0A-450F-A143-4F3D3563E572}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -509,6 +509,12 @@
                       refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Is_Current]"
                       dataType="bool"
                       name="Is_Current" />
+                    <externalMetadataColumn
+                      refId="Package\Dim_Geographie\Destination d'insertion.Inputs[Entrée de destination OLE DB].ExternalColumns[Geo_Join_Key]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Geo_Join_Key" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -1475,6 +1481,93 @@
           version="1">
           <components>
             <component
+              refId="Package\Dim_Precipitation\Colonne dérivée"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Colonne dérivée;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;0"
+              description="Crée de nouvelles valeurs de colonne en appliquant des expressions aux colonnes d'entrée de transformation. Créez de nouvelles colonnes ou remplacez celles qui existent déjà. Par exemple, concaténez les valeurs de la colonne 'prénom' et de la colonne 'nom' pour créer une colonne 'nom complet'."
+              name="Colonne dérivée"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Dim_Precipitation\Colonne dérivée.Inputs[Entrée de colonne dérivée]"
+                  description="Entrée de la transformation de colonnes dérivées"
+                  name="Entrée de colonne dérivée">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Dim_Precipitation\Colonne dérivée.Inputs[Entrée de colonne dérivée].Columns[Precipitation(in)]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Precipitation(in)"
+                      lineageId="Package\Dim_Precipitation\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Precipitation(in)]" />
+                    <inputColumn
+                      refId="Package\Dim_Precipitation\Colonne dérivée.Inputs[Entrée de colonne dérivée].Columns[Precip_IsNull]"
+                      cachedDataType="bool"
+                      cachedName="Precip_IsNull"
+                      lineageId="Package\Dim_Precipitation\Conversion du texte en nombre.Outputs[Sortie de colonne dérivée].Columns[Precip_IsNull]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Dim_Precipitation\Colonne dérivée.Outputs[Sortie de colonne dérivée]"
+                  description="Sortie par défaut de la transformation de colonnes dérivées"
+                  exclusionGroup="1"
+                  name="Sortie de colonne dérivée"
+                  synchronousInputId="Package\Dim_Precipitation\Colonne dérivée.Inputs[Entrée de colonne dérivée]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Precipitation\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Precip_Internal]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Dim_Precipitation\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Precip_Internal]"
+                      name="Precip_Internal"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">(#{Package\Dim_Precipitation\Conversion du texte en nombre.Outputs[Sortie de colonne dérivée].Columns[Precip_IsNull]} ==  TRUE ) ? (DT_R8)0.0 : (DT_R8)[REPLACE](#{Package\Dim_Precipitation\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Precipitation(in)]},".",",")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(Precip_IsNull ==  TRUE ) ? (DT_R8)0.0 : (DT_R8)REPLACE([Precipitation(in)],".",",")</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Dim_Precipitation\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée]"
+                  description="Sortie d'erreur de la transformation de colonnes dérivées"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de colonne dérivée"
+                  synchronousInputId="Package\Dim_Precipitation\Colonne dérivée.Inputs[Entrée de colonne dérivée]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Dim_Precipitation\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Precipitation\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Dim_Precipitation\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Dim_Precipitation\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
               refId="Package\Dim_Precipitation\Conversion de données"
               componentClassID="Microsoft.DataConvert"
               contactInfo="Conversion de données;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;0"
@@ -1614,25 +1707,25 @@
                   synchronousInputId="Package\Dim_Precipitation\Conversion du texte en nombre.Inputs[Entrée de colonne dérivée]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Dim_Precipitation\Conversion du texte en nombre.Outputs[Sortie de colonne dérivée].Columns[Precip_Internal]"
-                      dataType="r8"
+                      refId="Package\Dim_Precipitation\Conversion du texte en nombre.Outputs[Sortie de colonne dérivée].Columns[Precip_IsNull]"
+                      dataType="bool"
                       errorOrTruncationOperation="Calcul"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Dim_Precipitation\Conversion du texte en nombre.Outputs[Sortie de colonne dérivée].Columns[Precip_Internal]"
-                      name="Precip_Internal"
+                      lineageId="Package\Dim_Precipitation\Conversion du texte en nombre.Outputs[Sortie de colonne dérivée].Columns[Precip_IsNull]"
+                      name="Precip_IsNull"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
                           containsID="true"
                           dataType="System.String"
                           description="Expression de colonne dérivée"
-                          name="Expression">([ISNULL](#{Package\Dim_Precipitation\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Precipitation(in)]}) || [TRIM](#{Package\Dim_Precipitation\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Precipitation(in)]}) == "" || #{Package\Dim_Precipitation\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Precipitation(in)]} == "N/A") ? 0.0 : (DT_R8)[REPLACE](#{Package\Dim_Precipitation\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Precipitation(in)]},".",",")</property>
+                          name="Expression">[ISNULL](#{Package\Dim_Precipitation\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Precipitation(in)]}) || [TRIM](#{Package\Dim_Precipitation\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Precipitation(in)]}) == "" || #{Package\Dim_Precipitation\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Precipitation(in)]} == "N/A"</property>
                         <property
                           containsID="true"
                           dataType="System.String"
                           description="Expression claire de colonne dérivée"
                           expressionType="Notify"
-                          name="FriendlyExpression">(ISNULL([Precipitation(in)]) || TRIM([Precipitation(in)]) == "" || [Precipitation(in)] == "N/A") ? 0.0 : (DT_R8)REPLACE([Precipitation(in)],".",",")</property>
+                          name="FriendlyExpression">ISNULL([Precipitation(in)]) || TRIM([Precipitation(in)]) == "" || [Precipitation(in)] == "N/A"</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -1815,7 +1908,7 @@
                       refId="Package\Dim_Precipitation\Precipitation_Category.Inputs[Entrée de colonne dérivée].Columns[Precip_Internal]"
                       cachedDataType="r8"
                       cachedName="Precip_Internal"
-                      lineageId="Package\Dim_Precipitation\Conversion du texte en nombre.Outputs[Sortie de colonne dérivée].Columns[Precip_Internal]" />
+                      lineageId="Package\Dim_Precipitation\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Precip_Internal]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -1842,13 +1935,13 @@
                           containsID="true"
                           dataType="System.String"
                           description="Expression de colonne dérivée"
-                          name="Expression">#{Package\Dim_Precipitation\Conversion du texte en nombre.Outputs[Sortie de colonne dérivée].Columns[Precip_Internal]} == 0 ? "Aucune" : (#{Package\Dim_Precipitation\Conversion du texte en nombre.Outputs[Sortie de colonne dérivée].Columns[Precip_Internal]} &lt;= 0.1 ? "Légère" : (#{Package\Dim_Precipitation\Conversion du texte en nombre.Outputs[Sortie de colonne dérivée].Columns[Precip_Internal]} &lt;= 0.3 ? "Normale" : (#{Package\Dim_Precipitation\Conversion du texte en nombre.Outputs[Sortie de colonne dérivée].Columns[Precip_Internal]} &lt;= 1.0 ? "Forte" : "Extrême")))</property>
+                          name="Expression">#{Package\Dim_Precipitation\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Precip_Internal]} == (DT_R8)0.0 ? "Aucune" : (#{Package\Dim_Precipitation\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Precip_Internal]} &lt;= (DT_R8)0.1 ? "Légère" : (#{Package\Dim_Precipitation\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Precip_Internal]} &lt;= (DT_R8)0.3 ? "Normale" : (#{Package\Dim_Precipitation\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Precip_Internal]} &lt;= (DT_R8)1.0 ? "Forte" : "Extrême")))</property>
                         <property
                           containsID="true"
                           dataType="System.String"
                           description="Expression claire de colonne dérivée"
                           expressionType="Notify"
-                          name="FriendlyExpression">Precip_Internal == 0 ? "Aucune" : (Precip_Internal &lt;= 0.1 ? "Légère" : (Precip_Internal &lt;= 0.3 ? "Normale" : (Precip_Internal &lt;= 1.0 ? "Forte" : "Extrême")))</property>
+                          name="FriendlyExpression">Precip_Internal == (DT_R8)0.0 ? "Aucune" : (Precip_Internal &lt;= (DT_R8)0.1 ? "Légère" : (Precip_Internal &lt;= (DT_R8)0.3 ? "Normale" : (Precip_Internal &lt;= (DT_R8)1.0 ? "Forte" : "Extrême")))</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -2138,14 +2231,19 @@ where [refTable].[Original_Value] = ?</property>
           <paths>
             <path
               refId="Package\Dim_Precipitation.Paths[Sortie de colonne dérivée]"
-              endId="Package\Dim_Precipitation\Precipitation_Category.Inputs[Entrée de colonne dérivée]"
-              name="Sortie de colonne dérivée"
-              startId="Package\Dim_Precipitation\Conversion du texte en nombre.Outputs[Sortie de colonne dérivée]" />
-            <path
-              refId="Package\Dim_Precipitation.Paths[Sortie de colonne dérivée1]"
               endId="Package\Dim_Precipitation\Conversion de données.Inputs[Entrée de conversion de données]"
               name="Sortie de colonne dérivée"
               startId="Package\Dim_Precipitation\Precipitation_Category.Outputs[Sortie de colonne dérivée]" />
+            <path
+              refId="Package\Dim_Precipitation.Paths[Sortie de colonne dérivée1]"
+              endId="Package\Dim_Precipitation\Colonne dérivée.Inputs[Entrée de colonne dérivée]"
+              name="Sortie de colonne dérivée"
+              startId="Package\Dim_Precipitation\Conversion du texte en nombre.Outputs[Sortie de colonne dérivée]" />
+            <path
+              refId="Package\Dim_Precipitation.Paths[Sortie de colonne dérivée2]"
+              endId="Package\Dim_Precipitation\Precipitation_Category.Inputs[Entrée de colonne dérivée]"
+              name="Sortie de colonne dérivée"
+              startId="Package\Dim_Precipitation\Colonne dérivée.Outputs[Sortie de colonne dérivée]" />
             <path
               refId="Package\Dim_Precipitation.Paths[Sortie de conversion de données]"
               endId="Package\Dim_Precipitation\Recherche.Inputs[Entrée de recherche]"
@@ -2299,7 +2397,7 @@ where [refTable].[Original_Value] = ?</property>
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      length="7"
+                      length="50"
                       lineageId="Package\Dim_Temperature\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Temperature_Category]"
                       name="Copy of Temperature_Category"
                       truncationRowDisposition="FailComponent">
@@ -2322,8 +2420,8 @@ where [refTable].[Original_Value] = ?</property>
                       errorRowDisposition="FailComponent"
                       lineageId="Package\Dim_Temperature\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Temp_Value_Clean]"
                       name="Copy of Temp_Value_Clean"
-                      precision="5"
-                      scale="1"
+                      precision="10"
+                      scale="2"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
@@ -2440,15 +2538,15 @@ where [refTable].[Original_Value] = ?</property>
                       refId="Package\Dim_Temperature\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Copy of Temp_Value_Clean]"
                       cachedDataType="numeric"
                       cachedName="Copy of Temp_Value_Clean"
-                      cachedPrecision="5"
-                      cachedScale="1"
+                      cachedPrecision="10"
+                      cachedScale="2"
                       externalMetadataColumnId="Package\Dim_Temperature\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Temperature_Value]"
                       lineageId="Package\Dim_Temperature\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Temp_Value_Clean]" />
                     <inputColumn
                       refId="Package\Dim_Temperature\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Copy of Temperature_Category]"
                       cachedCodepage="1252"
                       cachedDataType="str"
-                      cachedLength="7"
+                      cachedLength="50"
                       cachedName="Copy of Temperature_Category"
                       externalMetadataColumnId="Package\Dim_Temperature\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Temperature_Category]"
                       lineageId="Package\Dim_Temperature\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Temperature_Category]" />
@@ -2583,7 +2681,7 @@ where [refTable].[Temperature_Category] = ? and [refTable].[Temperature_Value] =
                       refId="Package\Dim_Temperature\Recherche.Inputs[Entrée de recherche].Columns[Copy of Temperature_Category]"
                       cachedCodepage="1252"
                       cachedDataType="str"
-                      cachedLength="7"
+                      cachedLength="50"
                       cachedName="Copy of Temperature_Category"
                       lineageId="Package\Dim_Temperature\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Temperature_Category]">
                       <properties>
@@ -2601,8 +2699,8 @@ where [refTable].[Temperature_Category] = ? and [refTable].[Temperature_Value] =
                       refId="Package\Dim_Temperature\Recherche.Inputs[Entrée de recherche].Columns[Copy of Temp_Value_Clean]"
                       cachedDataType="numeric"
                       cachedName="Copy of Temp_Value_Clean"
-                      cachedPrecision="5"
-                      cachedScale="1"
+                      cachedPrecision="10"
+                      cachedScale="2"
                       lineageId="Package\Dim_Temperature\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Temp_Value_Clean]">
                       <properties>
                         <property
@@ -3088,7 +3186,7 @@ where [refTable].[Temperature_Category] = ? and [refTable].[Temperature_Value] =
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      length="18"
+                      length="50"
                       lineageId="Package\Dim_Visibility\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Visibility_Category]"
                       name="Copy of Visibility_Category"
                       truncationRowDisposition="FailComponent">
@@ -3207,7 +3305,7 @@ where [refTable].[Temperature_Category] = ? and [refTable].[Temperature_Value] =
                       refId="Package\Dim_Visibility\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Copy of Visibility_Category]"
                       cachedCodepage="1252"
                       cachedDataType="str"
-                      cachedLength="18"
+                      cachedLength="50"
                       cachedName="Copy of Visibility_Category"
                       externalMetadataColumnId="Package\Dim_Visibility\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Visibility_Category]"
                       lineageId="Package\Dim_Visibility\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Visibility_Category]" />
@@ -3246,7 +3344,7 @@ where [refTable].[Temperature_Category] = ? and [refTable].[Temperature_Value] =
                       refId="Package\Dim_Visibility\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Original_Value]"
                       codePage="1252"
                       dataType="str"
-                      length="1"
+                      length="50"
                       name="Original_Value" />
                   </externalMetadataColumns>
                 </input>
@@ -3360,7 +3458,7 @@ where [refTable].[Original_Value] = ? and [refTable].[Visibility_Category] = ?</
                       refId="Package\Dim_Visibility\Recherche.Inputs[Entrée de recherche].Columns[Copy of Visibility_Category]"
                       cachedCodepage="1252"
                       cachedDataType="str"
-                      cachedLength="18"
+                      cachedLength="50"
                       cachedName="Copy of Visibility_Category"
                       lineageId="Package\Dim_Visibility\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Visibility_Category]">
                       <properties>
@@ -3787,7 +3885,7 @@ WHERE [Visibility(mi)] IS NOT NULL</property>
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      length="5"
+                      length="100"
                       lineageId="Package\Dim_Weather\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Type]"
                       name="Copy of Weather_Type"
                       truncationRowDisposition="FailComponent">
@@ -3809,7 +3907,7 @@ WHERE [Visibility(mi)] IS NOT NULL</property>
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      length="7"
+                      length="50"
                       lineageId="Package\Dim_Weather\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Intensity]"
                       name="Copy of Weather_Intensity"
                       truncationRowDisposition="FailComponent">
@@ -3928,7 +4026,7 @@ WHERE [Visibility(mi)] IS NOT NULL</property>
                       refId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Copy of Weather_Type]"
                       cachedCodepage="1252"
                       cachedDataType="str"
-                      cachedLength="5"
+                      cachedLength="100"
                       cachedName="Copy of Weather_Type"
                       externalMetadataColumnId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Weather_Type]"
                       lineageId="Package\Dim_Weather\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Type]" />
@@ -3936,7 +4034,7 @@ WHERE [Visibility(mi)] IS NOT NULL</property>
                       refId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Copy of Weather_Intensity]"
                       cachedCodepage="1252"
                       cachedDataType="str"
-                      cachedLength="7"
+                      cachedLength="50"
                       cachedName="Copy of Weather_Intensity"
                       externalMetadataColumnId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Weather_Intensity]"
                       lineageId="Package\Dim_Weather\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Intensity]" />
@@ -3959,7 +4057,7 @@ WHERE [Visibility(mi)] IS NOT NULL</property>
                       refId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Weather_Type]"
                       codePage="1252"
                       dataType="str"
-                      length="50"
+                      length="100"
                       name="Weather_Type" />
                     <externalMetadataColumn
                       refId="Package\Dim_Weather\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Weather_Intensity]"
@@ -4103,7 +4201,7 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
                       refId="Package\Dim_Weather\Recherche.Inputs[Entrée de recherche].Columns[Copy of Weather_Intensity]"
                       cachedCodepage="1252"
                       cachedDataType="str"
-                      cachedLength="7"
+                      cachedLength="50"
                       cachedName="Copy of Weather_Intensity"
                       lineageId="Package\Dim_Weather\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Intensity]">
                       <properties>
@@ -4121,7 +4219,7 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
                       refId="Package\Dim_Weather\Recherche.Inputs[Entrée de recherche].Columns[Copy of Weather_Type]"
                       cachedCodepage="1252"
                       cachedDataType="str"
-                      cachedLength="5"
+                      cachedLength="100"
                       cachedName="Copy of Weather_Type"
                       lineageId="Package\Dim_Weather\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Type]">
                       <properties>
@@ -4347,7 +4445,7 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{EE6A200C-1D73-4D4F-B9F8-B5C2FD8A0992}"
-          SQLTask:SqlStatementSource="Truncate Table Dim_Visibility;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="Delete from  Dim_Visibility;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -4379,7 +4477,7 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{EE6A200C-1D73-4D4F-B9F8-B5C2FD8A0992}"
-          SQLTask:SqlStatementSource="TRUNCATE TABLE Dim_Temperature;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="Delete from Dim_Temperature;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
@@ -4767,7 +4865,7 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-150.075345052083,29.5806451612903,177.0840234375,11.609375"
+              BoundingBox="-150.075345052084,29.5806451612903,177.0840234375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -4803,7 +4901,7 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="29.4862715405707,32.156793239591,66.2726953125,9.7490234375"
+              BoundingBox="29.4862715405705,32.156793239591,66.2726953125,9.7490234375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -4924,98 +5022,32 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="149.6,41.6"
-          Id="Package\Dim_Precipitation\Source OLE DB"
-          TopLeft="13.3571427400623,24.0714282946927" />
-        <NodeLayout
           Size="226.4,41.6"
           Id="Package\Dim_Precipitation\Conversion du texte en nombre"
-          TopLeft="194.071425761495,18.3571426655565" />
-        <NodeLayout
-          Size="170.4,41.6"
-          Id="Package\Dim_Precipitation\Destination OLE DB"
-          TopLeft="474.785707739847,221.928568650569" />
-        <EdgeLayout
-          Id="Package\Dim_Precipitation.Paths[Sortie de source OLE DB]"
-          TopLeft="162.957142740062,42.0142854801246">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="31.1142830214332,0"
-              Start="0,0"
-              End="23.6142830214332,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="23.6142830214332,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          TopLeft="228.071425254855,35.9999998807907" />
         <NodeLayout
           Size="184,41.6"
           Id="Package\Dim_Precipitation\Precipitation_Category"
-          TopLeft="456.928565595832,24.7857148924045" />
-        <EdgeLayout
-          Id="Package\Dim_Precipitation.Paths[Sortie de colonne dérivée]"
-          TopLeft="420.471425761495,42.3714287789805">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="36.4571398343362,0"
-              Start="0,0"
-              End="28.9571398343362,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="28.9571398343362,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          TopLeft="691.928562094059,39.4285721523422" />
         <NodeLayout
-          Size="188,41.6"
-          Id="Package\Dim_Precipitation\Conversion de données"
-          TopLeft="460.499994561076,89.0714286672218" />
-        <EdgeLayout
-          Id="Package\Dim_Precipitation.Paths[Sortie de colonne dérivée1]"
-          TopLeft="551.714280078454,66.3857148924045">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,22.6857137748173"
-              Start="0,0"
-              End="0,15.1857137748173">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,15.1857137748173" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          Size="149.6,41.6"
+          Id="Package\Dim_Precipitation\Source OLE DB"
+          TopLeft="13.3571427400623,33.7142856291362" />
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Dim_Precipitation\Destination OLE DB"
+          TopLeft="704.78570431258,259.57142556778" />
         <NodeLayout
           Size="127.2,41.6"
           Id="Package\Dim_Precipitation\Recherche"
-          TopLeft="492.642849883863,154.463839115815" />
+          TopLeft="722.642846456596,192.106696033026" />
+        <NodeLayout
+          Size="188,41.6"
+          Id="Package\Dim_Precipitation\Conversion de données"
+          TopLeft="690.499991133809,126.714285584433" />
         <EdgeLayout
           Id="Package\Dim_Precipitation.Paths[Sortie de conversion de données]"
-          TopLeft="555.37142222247,130.671428667222">
+          TopLeft="785.371418795203,168.314285584433">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -5036,8 +5068,52 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
+          Id="Package\Dim_Precipitation.Paths[Sortie de colonne dérivée]"
+          TopLeft="784.214276613934,81.0285721523422">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,45.6857134320906"
+              Start="0,0"
+              End="0,38.1857134320906">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.1857134320906" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dim_Precipitation.Paths[Sortie de source OLE DB]"
+          TopLeft="162.957142740062,55.6571427549635">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="65.1142825147932,0"
+              Start="0,0"
+              End="57.6142825147932,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="57.6142825147932,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
           Id="Package\Dim_Precipitation.Paths[Sortie de recherche sans correspondance]"
-          TopLeft="558.114278811855,196.063839115815">
+          TopLeft="788.114275384588,233.706696033026">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -5057,6 +5133,54 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
             <mssgm:EdgeLabel
               BoundingBox="-91.50201171875,3.37767726737729,183.0040234375,11.609375"
               RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="154.4,41.6"
+          Id="Package\Dim_Precipitation\Colonne dérivée"
+          TopLeft="489.499992787838,36.1428570215191" />
+        <EdgeLayout
+          Id="Package\Dim_Precipitation.Paths[Sortie de colonne dérivée1]"
+          TopLeft="454.471425254855,56.8714284511549">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="35.0285675329827,0"
+              Start="0,0"
+              End="27.5285675329827,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="27.5285675329827,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dim_Precipitation.Paths[Sortie de colonne dérivée2]"
+          TopLeft="643.899992787838,58.5857145869307">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="48.0285693062207,0"
+              Start="0,0"
+              End="40.5285693062207,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="40.5285693062207,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -5117,65 +5241,67 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="149.6,41.6"
-          Id="Package\Dim_Temperature\Source OLE DB"
-          TopLeft="5.5,5.5" />
+          Size="127.2,41.6"
+          Id="Package\Dim_Temperature\Recherche"
+          TopLeft="500.499993965029,246.99999807775" />
         <NodeLayout
           Size="188,41.6"
           Id="Package\Dim_Temperature\Conversion de données"
-          TopLeft="612.49999140203,11.5000003576278" />
+          TopLeft="475.499993443489,178.999998196959" />
         <NodeLayout
           Size="170.4,41.6"
           Id="Package\Dim_Temperature\Destination OLE DB"
-          TopLeft="628.499991610646,201.499997973442" />
+          TopLeft="750.499989792704,254.999997511506" />
         <NodeLayout
-          Size="127.2,41.6"
-          Id="Package\Dim_Temperature\Recherche"
-          TopLeft="648.499991759658,92.5000000447035" />
+          Size="187.2,41.6"
+          Id="Package\Dim_Temperature\Temperature_Category"
+          TopLeft="480.499995157122,106.000001072884" />
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Dim_Temperature\Source OLE DB"
+          TopLeft="44.4999994188547,28.9999999850988" />
         <NodeLayout
           Size="154.4,41.6"
           Id="Package\Dim_Temperature\Colonne dérivée"
-          TopLeft="192.499999001622,10.5000017136335" />
+          TopLeft="491.499994546175,29.0000017732381" />
         <EdgeLayout
-          Id="Package\Dim_Temperature.Paths[Sortie de source OLE DB]"
-          TopLeft="155.1,28.8000008568168">
+          Id="Package\Dim_Temperature.Paths[Sortie de recherche sans correspondance]"
+          TopLeft="627.69999396503,271.799997794628">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="37.3999990016222,0"
+              EndConnector="122.799995827675,0"
               Start="0,0"
-              End="29.8999990016222,0">
+              End="115.299995827675,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="29.8999990016222,0" />
+                    End="115.299995827675,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="-33.8520138049125,5,183.0040234375,11.609375"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="187.2,41.6"
-          Id="Package\Dim_Temperature\Temperature_Category"
-          TopLeft="390.499996498227,8.50000219047069" />
         <EdgeLayout
-          Id="Package\Dim_Temperature.Paths[Sortie de colonne dérivée]"
-          TopLeft="346.899999001622,30.3000019520521">
+          Id="Package\Dim_Temperature.Paths[Sortie de conversion de données]"
+          TopLeft="566.799993704259,220.599998196959">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="43.5999974966048,0"
+              EndConnector="0,26.3999998807908"
               Start="0,0"
-              End="36.0999974966048,0">
+              End="0,18.8999998807908">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="36.0999974966048,0" />
+                    End="0,18.8999998807908" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5186,18 +5312,18 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Dim_Temperature.Paths[Sortie de colonne dérivée1]"
-          TopLeft="577.699996498227,30.8000012740493">
+          TopLeft="571.799994300305,147.600001072884">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="34.7999949038031,0"
+              EndConnector="0,31.3999971240759"
               Start="0,0"
-              End="27.2999949038031,0">
+              End="0,23.8999971240759">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="27.2999949038031,0" />
+                    End="0,23.8999971240759" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5207,19 +5333,19 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Dim_Temperature.Paths[Sortie de conversion de données]"
-          TopLeft="709.299991580844,53.1000003576278">
+          Id="Package\Dim_Temperature.Paths[Sortie de colonne dérivée]"
+          TopLeft="571.399994851648,70.6000017732381">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,39.3999996870757"
+              EndConnector="0,35.3999992996454"
               Start="0,0"
-              End="0,31.8999996870757">
+              End="0,27.8999992996454">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,31.8999996870757" />
+                    End="0,27.8999992996454" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5229,27 +5355,25 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Dim_Temperature.Paths[Sortie de recherche sans correspondance]"
-          TopLeft="712.899991685152,134.100000044704">
+          Id="Package\Dim_Temperature.Paths[Sortie de source OLE DB]"
+          TopLeft="194.099999418855,49.8000008791685">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,67.3999979287385"
+              EndConnector="297.39999512732,0"
               Start="0,0"
-              End="0,59.8999979287385">
+              End="289.89999512732,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,59.8999979287385" />
+                    End="289.89999512732,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-91.50201171875,24.1453114643692,183.0040234375,11.609375"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -5310,95 +5434,75 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="129.6,41.6"
-          Id="Package\Dim_Visibility\Source Stg"
-          TopLeft="15.4999998509884,28" />
-        <NodeLayout
-          Size="154.4,41.6"
-          Id="Package\Dim_Visibility\Colonne dérivée"
-          TopLeft="177.807689740108,33.3846153043783" />
-        <EdgeLayout
-          Id="Package\Dim_Visibility.Paths[Sortie de source OLE DB]"
-          TopLeft="145.099999850988,51.4923076521892">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="32.7076898891193,0"
-              Start="0,0"
-              End="25.2076898891193,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="25.2076898891193,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="163.2,41.6"
-          Id="Package\Dim_Visibility\Colonne dérivée 1"
-          TopLeft="366.269225840385,34.1538465091815" />
-        <EdgeLayout
-          Id="Package\Dim_Visibility.Paths[Sortie de colonne dérivée]"
-          TopLeft="332.207689740108,54.5692309067799">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="34.0615361002773,0"
-              Start="0,0"
-              End="26.5615361002773,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="26.5615361002773,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="188,41.6"
-          Id="Package\Dim_Visibility\Conversion de données"
-          TopLeft="354.730764920895,103.961537888417" />
-        <EdgeLayout
-          Id="Package\Dim_Visibility.Paths[Sortie de colonne dérivée1]"
-          TopLeft="448.29999538064,75.7538465091815">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,28.2076913792354"
-              Start="0,0"
-              End="0,20.7076913792354">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,20.7076913792354" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
           Size="170.4,41.6"
           Id="Package\Dim_Visibility\Destination OLE DB"
           TopLeft="590.115377245041,172.423075776834" />
         <NodeLayout
+          Size="129.6,41.6"
+          Id="Package\Dim_Visibility\Source Stg"
+          TopLeft="15.4999998509884,28" />
+        <NodeLayout
+          Size="163.2,41.6"
+          Id="Package\Dim_Visibility\Colonne dérivée 1"
+          TopLeft="366.269225840385,34.1538465091815" />
+        <NodeLayout
           Size="127.2,41.6"
           Id="Package\Dim_Visibility\Recherche"
           TopLeft="260.884613367227,176.26923001271" />
+        <NodeLayout
+          Size="188,41.6"
+          Id="Package\Dim_Visibility\Conversion de données"
+          TopLeft="354.730764920895,103.961537888417" />
+        <NodeLayout
+          Size="154.4,41.6"
+          Id="Package\Dim_Visibility\Colonne dérivée"
+          TopLeft="178.641023061024,34.217948625294" />
+        <EdgeLayout
+          Id="Package\Dim_Visibility.Paths[Sortie de source OLE DB]"
+          TopLeft="145.099999850988,51.908974312647">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="33.5410232100353,0"
+              Start="0,0"
+              End="26.0410232100353,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="26.0410232100353,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dim_Visibility.Paths[Sortie de recherche sans correspondance]"
+          TopLeft="388.084613367227,195.146152894772">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="202.030763877814,0"
+              Start="0,0"
+              End="194.530763877814,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="194.530763877814,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="5.76337022015692,5,183.0040234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\Dim_Visibility.Paths[Sortie de conversion de données]"
           TopLeft="448.730764920895,145.561537888417">
@@ -5434,27 +5538,47 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Dim_Visibility.Paths[Sortie de recherche sans correspondance]"
-          TopLeft="388.084613367227,195.146152894772">
+          Id="Package\Dim_Visibility.Paths[Sortie de colonne dérivée1]"
+          TopLeft="448.29999538064,75.7538465091815">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="202.030763877814,0"
+              EndConnector="0,28.2076913792354"
               Start="0,0"
-              End="194.530763877814,0">
+              End="0,20.7076913792354">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="194.530763877814,0" />
+                    End="0,20.7076913792354" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="5.76337022015692,5,183.0040234375,11.609375"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dim_Visibility.Paths[Sortie de colonne dérivée]"
+          TopLeft="333.041023061024,54.9858975672377">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="33.2282027793613,0"
+              Start="0,0"
+              End="25.7282027793613,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="25.7282027793613,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -5515,69 +5639,25 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="149.6,41.6"
-          Id="Package\Dim_Weather\Source OLE DB"
-          TopLeft="5.5,5.5" />
-        <NodeLayout
-          Size="154.4,41.6"
-          Id="Package\Dim_Weather\Colonne dérivée"
-          TopLeft="197.999997131526,9.66666660457849" />
-        <EdgeLayout
-          Id="Package\Dim_Weather.Paths[Sortie de source OLE DB]"
-          TopLeft="155.1,28.3833333022892">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="42.8999971315265,0"
-              Start="0,0"
-              End="35.3999971315265,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="35.3999971315265,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
           Size="170.4,41.6"
           Id="Package\Dim_Weather\Destination OLE DB"
-          TopLeft="410.948712354096,190.307690000878" />
-        <NodeLayout
-          Size="188,41.6"
-          Id="Package\Dim_Weather\Conversion de données"
-          TopLeft="394.666661761701,14.6666674241424" />
-        <EdgeLayout
-          Id="Package\Dim_Weather.Paths[Sortie de colonne dérivée]"
-          TopLeft="352.399997131526,32.9666670143604">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="42.2666646301748,0"
-              Start="0,0"
-              End="34.7666646301748,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="34.7666646301748,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          TopLeft="411.948712339195,191.307689985977" />
         <NodeLayout
           Size="127.2,41.6"
           Id="Package\Dim_Weather\Recherche"
           TopLeft="430.884609045891,87.8076910812121" />
+        <NodeLayout
+          Size="154.4,41.6"
+          Id="Package\Dim_Weather\Colonne dérivée"
+          TopLeft="197.999997131526,9.66666660457849" />
+        <NodeLayout
+          Size="188,41.6"
+          Id="Package\Dim_Weather\Conversion de données"
+          TopLeft="394.666661761701,14.6666674241424" />
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Dim_Weather\Source OLE DB"
+          TopLeft="5.5,5.5" />
         <EdgeLayout
           Id="Package\Dim_Weather.Paths[Sortie de conversion de données]"
           TopLeft="491.575635403796,56.2666674241424">
@@ -5601,26 +5681,70 @@ where [refTable].[Original_Value] = ? and [refTable].[Weather_Type] = ? and [ref
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Dim_Weather.Paths[Sortie de recherche sans correspondance]"
-          TopLeft="495.316660699993,129.407691081212">
+          Id="Package\Dim_Weather.Paths[Sortie de colonne dérivée]"
+          TopLeft="352.399997131526,32.9666670143604">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,60.8999989196658"
+              EndConnector="42.2666646301748,0"
               Start="0,0"
-              End="0,53.3999989196658">
+              End="34.7666646301748,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,53.3999989196658" />
+                    End="34.7666646301748,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dim_Weather.Paths[Sortie de source OLE DB]"
+          TopLeft="155.1,28.3833333022892">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="42.8999971315265,0"
+              Start="0,0"
+              End="35.3999971315265,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="35.3999971315265,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dim_Weather.Paths[Sortie de recherche sans correspondance]"
+          TopLeft="495.816660692543,129.407691081212">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,61.8999989047647"
+              Start="0,0"
+              End="0,54.3999989047647">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54.3999989047647" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-91.50201171875,20.8953119598329,183.0040234375,11.609375"
+              BoundingBox="-91.50201171875,21.3953119523824,183.0040234375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>

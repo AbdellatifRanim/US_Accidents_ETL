@@ -11,8 +11,8 @@
   DTS:LocaleID="1036"
   DTS:ObjectName="Load_Fact_Table"
   DTS:PackageType="5"
-  DTS:VersionBuild="25"
-  DTS:VersionGUID="{B8250075-A061-4495-B08F-2770D6BB23D8}">
+  DTS:VersionBuild="41"
+  DTS:VersionGUID="{3DF55817-5A26-4C05-BBFC-B4DD7B264B4E}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -170,6 +170,34 @@
                       cachedLength="50"
                       cachedName="Start_Lng"
                       lineageId="Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Start_Lng]" />
+                    <inputColumn
+                      refId="Package\Fact_Accidents\Colonne dérivée.Inputs[Entrée de colonne dérivée].Columns[Temperature(F)]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Temperature(F)"
+                      lineageId="Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Temperature(F)]" />
+                    <inputColumn
+                      refId="Package\Fact_Accidents\Colonne dérivée.Inputs[Entrée de colonne dérivée].Columns[Visibility(mi)]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Visibility(mi)"
+                      lineageId="Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Visibility(mi)]" />
+                    <inputColumn
+                      refId="Package\Fact_Accidents\Colonne dérivée.Inputs[Entrée de colonne dérivée].Columns[Precipitation(in)]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Precipitation(in)"
+                      lineageId="Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Precipitation(in)]" />
+                    <inputColumn
+                      refId="Package\Fact_Accidents\Colonne dérivée.Inputs[Entrée de colonne dérivée].Columns[Weather_Condition]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Weather_Condition"
+                      lineageId="Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -305,13 +333,13 @@
                           containsID="true"
                           dataType="System.String"
                           description="Expression de colonne dérivée"
-                          name="Expression">(DT_R8)#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Distance(mi)]}</property>
+                          name="Expression">([ISNULL](#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Distance(mi)]}) || [TRIM](#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Distance(mi)]}) == "") ? 0.0 : (DT_R8)[REPLACE](#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Distance(mi)]},".",",")</property>
                         <property
                           containsID="true"
                           dataType="System.String"
                           description="Expression claire de colonne dérivée"
                           expressionType="Notify"
-                          name="FriendlyExpression">(DT_R8)[Distance(mi)]</property>
+                          name="FriendlyExpression">(ISNULL([Distance(mi)]) || TRIM([Distance(mi)]) == "") ? 0.0 : (DT_R8)REPLACE([Distance(mi)],".",",")</property>
                       </properties>
                     </outputColumn>
                     <outputColumn
@@ -614,13 +642,179 @@
                           containsID="true"
                           dataType="System.String"
                           description="Expression de colonne dérivée"
-                          name="Expression">(DT_WSTR,50)#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Start_Lat]} + "_" + (DT_WSTR,50)#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Start_Lng]}</property>
+                          name="Expression">(DT_STR,50,1252)#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Start_Lat]} + "_" + (DT_STR,50,1252)#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Start_Lng]}</property>
                         <property
                           containsID="true"
                           dataType="System.String"
                           description="Expression claire de colonne dérivée"
                           expressionType="Notify"
-                          name="FriendlyExpression">(DT_WSTR,50)Start_Lat + "_" + (DT_WSTR,50)Start_Lng</property>
+                          name="FriendlyExpression">(DT_STR,50,1252)Start_Lat + "_" + (DT_STR,50,1252)Start_Lng</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Lat_Fix]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Lat_Fix]"
+                      name="Lat_Fix"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">(DT_WSTR,50)#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Start_Lat]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_WSTR,50)Start_Lat</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Lng_Fix]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Lng_Fix]"
+                      name="Lng_Fix"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">(DT_WSTR,50)#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Start_Lng]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_WSTR,50)Start_Lng</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Temp_Propre]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Temp_Propre]"
+                      name="Temp_Propre"
+                      precision="5"
+                      scale="1"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">([ISNULL](#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Temperature(F)]}) || [TRIM](#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Temperature(F)]}) == "") ? (DT_NUMERIC,5,1)0.0 : (DT_NUMERIC,5,1)[REPLACE](#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Temperature(F)]},".",",")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(ISNULL([Temperature(F)]) || TRIM([Temperature(F)]) == "") ? (DT_NUMERIC,5,1)0.0 : (DT_NUMERIC,5,1)REPLACE([Temperature(F)],".",",")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Distance_Propre]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Distance_Propre]"
+                      name="Distance_Propre"
+                      precision="5"
+                      scale="1"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">([ISNULL](#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Distance(mi)]}) || [TRIM](#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Distance(mi)]}) == "") ? (DT_NUMERIC,5,1)0.0 : (DT_NUMERIC,5,1)[REPLACE](#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Distance(mi)]},".",",")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(ISNULL([Distance(mi)]) || TRIM([Distance(mi)]) == "") ? (DT_NUMERIC,5,1)0.0 : (DT_NUMERIC,5,1)REPLACE([Distance(mi)],".",",")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Visib_Propre]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Visib_Propre]"
+                      name="Visib_Propre"
+                      precision="5"
+                      scale="1"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">([ISNULL](#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Visibility(mi)]}) || [TRIM](#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Visibility(mi)]}) == "") ? (DT_NUMERIC,5,1)0.0 : (DT_NUMERIC,5,1)[REPLACE](#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Visibility(mi)]},".",",")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(ISNULL([Visibility(mi)]) || TRIM([Visibility(mi)]) == "") ? (DT_NUMERIC,5,1)0.0 : (DT_NUMERIC,5,1)REPLACE([Visibility(mi)],".",",")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Precip_Propre]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Precip_Propre]"
+                      name="Precip_Propre"
+                      precision="5"
+                      scale="1"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">([ISNULL](#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Precipitation(in)]}) || [TRIM](#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Precipitation(in)]}) == "") ? (DT_NUMERIC,5,1)0.0 : (DT_NUMERIC,5,1)[REPLACE](#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Precipitation(in)]},".",",")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(ISNULL([Precipitation(in)]) || TRIM([Precipitation(in)]) == "") ? (DT_NUMERIC,5,1)0.0 : (DT_NUMERIC,5,1)REPLACE([Precipitation(in)],".",",")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Weather_Propre]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Calcul"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Weather_Propre]"
+                      name="Weather_Propre"
+                      precision="5"
+                      scale="1"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression de colonne dérivée"
+                          name="Expression">([ISNULL](#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]}) || [TRIM](#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]}) == "") ? (DT_NUMERIC,5,1)0.0 : (DT_NUMERIC,5,1)[REPLACE](#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]},".",",")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expression claire de colonne dérivée"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(ISNULL(Weather_Condition) || TRIM(Weather_Condition) == "") ? (DT_NUMERIC,5,1)0.0 : (DT_NUMERIC,5,1)REPLACE(Weather_Condition,".",",")</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -644,230 +838,6 @@
                       refId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
                       dataType="i4"
                       lineageId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie d'erreur de colonne dérivée].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
-              refId="Package\Fact_Accidents\Conversion de données"
-              componentClassID="Microsoft.DataConvert"
-              contactInfo="Conversion de données;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;0"
-              description="Conversion de données"
-              name="Conversion de données"
-              usesDispositions="true">
-              <inputs>
-                <input
-                  refId="Package\Fact_Accidents\Conversion de données.Inputs[Entrée de conversion de données]"
-                  name="Entrée de conversion de données">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\Fact_Accidents\Conversion de données.Inputs[Entrée de conversion de données].Columns[Start_Lat]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Start_Lat"
-                      lineageId="Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Start_Lat]" />
-                    <inputColumn
-                      refId="Package\Fact_Accidents\Conversion de données.Inputs[Entrée de conversion de données].Columns[Start_Lng]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Start_Lng"
-                      lineageId="Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Start_Lng]" />
-                    <inputColumn
-                      refId="Package\Fact_Accidents\Conversion de données.Inputs[Entrée de conversion de données].Columns[Temperature(F)]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Temperature(F)"
-                      lineageId="Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Temperature(F)]" />
-                    <inputColumn
-                      refId="Package\Fact_Accidents\Conversion de données.Inputs[Entrée de conversion de données].Columns[Precipitation(in)]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Precipitation(in)"
-                      lineageId="Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Precipitation(in)]" />
-                    <inputColumn
-                      refId="Package\Fact_Accidents\Conversion de données.Inputs[Entrée de conversion de données].Columns[Visibility(mi)]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Visibility(mi)"
-                      lineageId="Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Visibility(mi)]" />
-                    <inputColumn
-                      refId="Package\Fact_Accidents\Conversion de données.Inputs[Entrée de conversion de données].Columns[Weather_Condition]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Weather_Condition"
-                      lineageId="Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]" />
-                  </inputColumns>
-                  <externalMetadataColumns />
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données]"
-                  exclusionGroup="1"
-                  name="Sortie de conversion de données"
-                  synchronousInputId="Package\Fact_Accidents\Conversion de données.Inputs[Entrée de conversion de données]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Start_Lat]"
-                      dataType="numeric"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Start_Lat]"
-                      name="Copy of Start_Lat"
-                      precision="18"
-                      scale="2"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Spécifie la colonne d'entrée utilisée comme source de données pour la conversion."
-                          name="SourceInputColumnLineageID">#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Start_Lat]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Start_Lng]"
-                      dataType="numeric"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Start_Lng]"
-                      name="Copy of Start_Lng"
-                      precision="18"
-                      scale="2"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Spécifie la colonne d'entrée utilisée comme source de données pour la conversion."
-                          name="SourceInputColumnLineageID">#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Start_Lng]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Temperature(F)]"
-                      dataType="numeric"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Temperature(F)]"
-                      name="Copy of Temperature(F)"
-                      precision="5"
-                      scale="1"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Spécifie la colonne d'entrée utilisée comme source de données pour la conversion."
-                          name="SourceInputColumnLineageID">#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Temperature(F)]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Precipitation(in)]"
-                      codePage="1252"
-                      dataType="str"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      length="50"
-                      lineageId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Precipitation(in)]"
-                      name="Copy of Precipitation(in)"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Spécifie la colonne d'entrée utilisée comme source de données pour la conversion."
-                          name="SourceInputColumnLineageID">#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Precipitation(in)]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Visibility(mi)]"
-                      codePage="1252"
-                      dataType="str"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      length="50"
-                      lineageId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Visibility(mi)]"
-                      name="Copy of Visibility(mi)"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Spécifie la colonne d'entrée utilisée comme source de données pour la conversion."
-                          name="SourceInputColumnLineageID">#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Visibility(mi)]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Condition]"
-                      codePage="1252"
-                      dataType="str"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      length="50"
-                      lineageId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Condition]"
-                      name="Copy of Weather_Condition"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Spécifie la colonne d'entrée utilisée comme source de données pour la conversion."
-                          name="SourceInputColumnLineageID">#{Package\Fact_Accidents\Source.Outputs[Sortie de source OLE DB].Columns[Weather_Condition]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indique si la colonne utilise les routines d'analyse les plus rapides, avec des paramètres régionaux neutres."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie d'erreur de conversion de données]"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="Sortie d'erreur de conversion de données"
-                  synchronousInputId="Package\Fact_Accidents\Conversion de données.Inputs[Entrée de conversion de données]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie d'erreur de conversion de données].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie d'erreur de conversion de données].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie d'erreur de conversion de données].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie d'erreur de conversion de données].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -1472,7 +1442,7 @@ where [refTable].[Original_Value] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Spécifie la liste d'identificateurs de traçabilité se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
-                  name="ParameterMap">#{Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Condition]};</property>
+                  name="ParameterMap">#{Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Weather_Propre]};</property>
                 <property
                   dataType="System.Int32"
                   description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
@@ -1496,12 +1466,12 @@ where [refTable].[Original_Value] = ?</property>
                   name="Entrée de recherche">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Fact_Accidents\Lookup dimWeatherCondition.Inputs[Entrée de recherche].Columns[Copy of Weather_Condition]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Copy of Weather_Condition"
-                      lineageId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Weather_Condition]">
+                      refId="Package\Fact_Accidents\Lookup dimWeatherCondition.Inputs[Entrée de recherche].Columns[Weather_Propre]"
+                      cachedDataType="numeric"
+                      cachedName="Weather_Propre"
+                      cachedPrecision="5"
+                      cachedScale="1"
+                      lineageId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Weather_Propre]">
                       <properties>
                         <property
                           dataType="System.String"
@@ -1731,7 +1701,8 @@ where [refTable].[DateKey] = ?</property>
                   name="SqlCommand"
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
     Geo_Key, 
-    CAST(Geo_Join_Key AS NVARCHAR(100)) AS Geo_Join_Key 
+    CAST(Latitude AS NVARCHAR(50)) as Latitude, 
+    CAST(Longitude AS NVARCHAR(50)) as Longitude 
 FROM Dim_Geographie</property>
                 <property
                   dataType="System.String"
@@ -1740,9 +1711,10 @@ FROM Dim_Geographie</property>
                   name="SqlCommandParam"
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT 
     Geo_Key, 
-    CAST(Geo_Join_Key AS NVARCHAR(100)) AS Geo_Join_Key 
+    CAST(Latitude AS NVARCHAR(50)) as Latitude, 
+    CAST(Longitude AS NVARCHAR(50)) as Longitude 
 FROM Dim_Geographie) [refTable]
-where [refTable].[Geo_Join_Key] = ?</property>
+where [refTable].[Latitude] = ? and [refTable].[Longitude] = ?</property>
                 <property
                   dataType="System.Int32"
                   description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
@@ -1773,12 +1745,12 @@ where [refTable].[Geo_Join_Key] = ?</property>
                 <property
                   dataType="System.String"
                   description="Indique si les métadonnées sont à référencer en format XML."
-                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Geo_Key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Geo_Join_Key" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Geo_Key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Latitude" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Longitude" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
                 <property
                   containsID="true"
                   dataType="System.String"
                   description="Spécifie la liste d'identificateurs de traçabilité se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
-                  name="ParameterMap">#{Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Accident_Join_Key]};</property>
+                  name="ParameterMap">#{Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Lat_Fix]};#{Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Lng_Fix]};</property>
                 <property
                   dataType="System.Int32"
                   description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
@@ -1802,16 +1774,33 @@ where [refTable].[Geo_Join_Key] = ?</property>
                   name="Entrée de recherche">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Fact_Accidents\Lookup Geo.Inputs[Entrée de recherche].Columns[Accident_Join_Key]"
+                      refId="Package\Fact_Accidents\Lookup Geo.Inputs[Entrée de recherche].Columns[Lat_Fix]"
                       cachedDataType="wstr"
-                      cachedLength="101"
-                      cachedName="Accident_Join_Key"
-                      lineageId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Accident_Join_Key]">
+                      cachedLength="50"
+                      cachedName="Lat_Fix"
+                      lineageId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Lat_Fix]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
-                          name="JoinToReferenceColumn">Geo_Join_Key</property>
+                          name="JoinToReferenceColumn">Latitude</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Fact_Accidents\Lookup Geo.Inputs[Entrée de recherche].Columns[Lng_Fix]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Lng_Fix"
+                      lineageId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Lng_Fix]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Longitude</property>
                         <property
                           dataType="System.Null"
                           description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
@@ -1936,7 +1925,7 @@ where [refTable].[Original_Value] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Spécifie la liste d'identificateurs de traçabilité se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
-                  name="ParameterMap">#{Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Precipitation(in)]};</property>
+                  name="ParameterMap">#{Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Precip_Propre]};</property>
                 <property
                   dataType="System.Int32"
                   description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
@@ -1960,12 +1949,12 @@ where [refTable].[Original_Value] = ?</property>
                   name="Entrée de recherche">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Fact_Accidents\Lookup Precip.Inputs[Entrée de recherche].Columns[Copy of Precipitation(in)]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Copy of Precipitation(in)"
-                      lineageId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Precipitation(in)]">
+                      refId="Package\Fact_Accidents\Lookup Precip.Inputs[Entrée de recherche].Columns[Precip_Propre]"
+                      cachedDataType="numeric"
+                      cachedName="Precip_Propre"
+                      cachedPrecision="5"
+                      cachedScale="1"
+                      lineageId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Precip_Propre]">
                       <properties>
                         <property
                           dataType="System.String"
@@ -2095,7 +2084,7 @@ where [refTable].[Temperature_Value] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Spécifie la liste d'identificateurs de traçabilité se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
-                  name="ParameterMap">#{Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Temperature(F)]};</property>
+                  name="ParameterMap">#{Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Temp_Propre]};</property>
                 <property
                   dataType="System.Int32"
                   description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
@@ -2119,12 +2108,12 @@ where [refTable].[Temperature_Value] = ?</property>
                   name="Entrée de recherche">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Fact_Accidents\Lookup Temp.Inputs[Entrée de recherche].Columns[Copy of Temperature(F)]"
+                      refId="Package\Fact_Accidents\Lookup Temp.Inputs[Entrée de recherche].Columns[Temp_Propre]"
                       cachedDataType="numeric"
-                      cachedName="Copy of Temperature(F)"
+                      cachedName="Temp_Propre"
                       cachedPrecision="5"
                       cachedScale="1"
-                      lineageId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Temperature(F)]">
+                      lineageId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Temp_Propre]">
                       <properties>
                         <property
                           dataType="System.String"
@@ -2254,7 +2243,7 @@ where [refTable].[Original_Value] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Spécifie la liste d'identificateurs de traçabilité se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
-                  name="ParameterMap">#{Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Visibility(mi)]};</property>
+                  name="ParameterMap">#{Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Visib_Propre]};</property>
                 <property
                   dataType="System.Int32"
                   description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
@@ -2278,12 +2267,12 @@ where [refTable].[Original_Value] = ?</property>
                   name="Entrée de recherche">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Fact_Accidents\Lookup visibility.Inputs[Entrée de recherche].Columns[Copy of Visibility(mi)]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Copy of Visibility(mi)"
-                      lineageId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données].Columns[Copy of Visibility(mi)]">
+                      refId="Package\Fact_Accidents\Lookup visibility.Inputs[Entrée de recherche].Columns[Visib_Propre]"
+                      cachedDataType="numeric"
+                      cachedName="Visib_Propre"
+                      cachedPrecision="5"
+                      cachedScale="1"
+                      lineageId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée].Columns[Visib_Propre]">
                       <properties>
                         <property
                           dataType="System.String"
@@ -3517,14 +3506,9 @@ FROM  vw_Fact_Accidents_Source</property>
           <paths>
             <path
               refId="Package\Fact_Accidents.Paths[Sortie de colonne dérivée]"
-              endId="Package\Fact_Accidents\Conversion de données.Inputs[Entrée de conversion de données]"
+              endId="Package\Fact_Accidents\Lookup Dim_Temps.Inputs[Entrée de recherche]"
               name="Sortie de colonne dérivée"
               startId="Package\Fact_Accidents\Colonne dérivée.Outputs[Sortie de colonne dérivée]" />
-            <path
-              refId="Package\Fact_Accidents.Paths[Sortie de conversion de données]"
-              endId="Package\Fact_Accidents\Lookup Dim_Temps.Inputs[Entrée de recherche]"
-              name="Sortie de conversion de données"
-              startId="Package\Fact_Accidents\Conversion de données.Outputs[Sortie de conversion de données]" />
             <path
               refId="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance]"
               endId="Package\Fact_Accidents\Lookup Geo.Inputs[Entrée de recherche]"
@@ -3532,34 +3516,34 @@ FROM  vw_Fact_Accidents_Source</property>
               startId="Package\Fact_Accidents\Lookup Dim_Temps.Outputs[Sortie de recherche avec correspondance]" />
             <path
               refId="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance1]"
-              endId="Package\Fact_Accidents\Lookup dimWeatherCondition.Inputs[Entrée de recherche]"
-              name="Sortie de recherche avec correspondance"
-              startId="Package\Fact_Accidents\Lookup Geo.Outputs[Sortie de recherche avec correspondance]" />
-            <path
-              refId="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance2]"
               endId="Package\Fact_Accidents\Lookup Temp.Inputs[Entrée de recherche]"
               name="Sortie de recherche avec correspondance"
               startId="Package\Fact_Accidents\Lookup dimWeatherCondition.Outputs[Sortie de recherche avec correspondance]" />
             <path
-              refId="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance3]"
+              refId="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance2]"
               endId="Package\Fact_Accidents\Lookup visibility.Inputs[Entrée de recherche]"
               name="Sortie de recherche avec correspondance"
               startId="Package\Fact_Accidents\Lookup Temp.Outputs[Sortie de recherche avec correspondance]" />
             <path
-              refId="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance4]"
+              refId="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance3]"
               endId="Package\Fact_Accidents\Lookup Precip.Inputs[Entrée de recherche]"
               name="Sortie de recherche avec correspondance"
               startId="Package\Fact_Accidents\Lookup visibility.Outputs[Sortie de recherche avec correspondance]" />
             <path
-              refId="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance5]"
+              refId="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance4]"
               endId="Package\Fact_Accidents\Lookup DimInfra.Inputs[Entrée de recherche]"
               name="Sortie de recherche avec correspondance"
               startId="Package\Fact_Accidents\Lookup Precip.Outputs[Sortie de recherche avec correspondance]" />
             <path
-              refId="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance6]"
+              refId="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance5]"
               endId="Package\Fact_Accidents\Fact_Accidents.Inputs[Entrée de destination OLE DB]"
               name="Sortie de recherche avec correspondance"
               startId="Package\Fact_Accidents\Lookup DimInfra.Outputs[Sortie de recherche avec correspondance]" />
+            <path
+              refId="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance6]"
+              endId="Package\Fact_Accidents\Lookup dimWeatherCondition.Inputs[Entrée de recherche]"
+              name="Sortie de recherche avec correspondance"
+              startId="Package\Fact_Accidents\Lookup Geo.Outputs[Sortie de recherche avec correspondance]" />
             <path
               refId="Package\Fact_Accidents.Paths[Sortie de source OLE DB]"
               endId="Package\Fact_Accidents\Colonne dérivée.Inputs[Entrée de colonne dérivée]"
@@ -3651,75 +3635,27 @@ FROM  vw_Fact_Accidents_Source</property>
           Id="Package\Fact_Accidents\Source"
           TopLeft="43.3571429377307,39.3764705915868" />
         <NodeLayout
-          Size="172,42.4"
+          Size="172,41.6"
           Id="Package\Fact_Accidents\Lookup Dim_Temps"
-          TopLeft="404.100000819564,120.411764652929" />
+          TopLeft="37.1357143241077,180.632352835437" />
         <NodeLayout
           Size="154.4,41.6"
           Id="Package\Fact_Accidents\Colonne dérivée"
-          TopLeft="194.785714688654,43.2" />
+          TopLeft="23.3571428951561,109.155882295128" />
         <EdgeLayout
           Id="Package\Fact_Accidents.Paths[Sortie de source OLE DB]"
-          TopLeft="153.757142937731,62.0882352957934">
+          TopLeft="99.5571429164434,80.9764705915867">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="41.0285717509233,0"
+              EndConnector="0,28.1794117035415"
               Start="0,0"
-              End="33.5285717509233,0">
+              End="0,20.6794117035415">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="33.5285717509233,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="188,41.6"
-          Id="Package\Fact_Accidents\Conversion de données"
-          TopLeft="402.64285798827,47.1117646757192" />
-        <EdgeLayout
-          Id="Package\Fact_Accidents.Paths[Sortie de colonne dérivée]"
-          TopLeft="349.185714688654,65.9558823378596">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="53.4571432996158,0"
-              Start="0,0"
-              End="45.9571432996158,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="45.9571432996158,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Fact_Accidents.Paths[Sortie de conversion de données]"
-          TopLeft="493.371429403917,88.7117646757192">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,31.6999999772098"
-              Start="0,0"
-              End="0,24.1999999772098">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,24.1999999772098" />
+                    End="0,20.6794117035415" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3731,232 +3667,230 @@ FROM  vw_Fact_Accidents_Source</property>
         <NodeLayout
           Size="134.4,44"
           Id="Package\Fact_Accidents\Lookup Geo"
-          TopLeft="35.5000000000002,108.264705836102" />
+          TopLeft="55.1428571846714,257.382352764218" />
         <EdgeLayout
           Id="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance]"
-          TopLeft="404.100000819564,141.611764652929">
+          TopLeft="122.73928575439,222.232352835437">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-234.200000819564,-11.3470588168266"
+              EndConnector="0,35.1499999287811"
               Start="0,0"
-              End="-226.700000819564,-11.3470588168266">
+              End="0,27.6499999287811">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="-113.100000409782,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-113.100000409782,0"
-                    Point2="-117.100000409782,0"
-                    Point3="-117.100000409782,-4" />
-                  <mssgle:LineSegment
-                    End="-117.100000409782,-7.34705881682663" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-117.100000409782,-7.34705881682663"
-                    Point2="-117.100000409782,-11.3470588168266"
-                    Point3="-121.100000409782,-11.3470588168266" />
-                  <mssgle:LineSegment
-                    End="-226.700000819564,-11.3470588168266" />
+                    End="0,27.6499999287811" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-208.777012128532,1,183.3540234375,11.609375"
+              BoundingBox="-91.67701171875,8.02031246439056,183.3540234375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
           Size="216.8,41.6"
           Id="Package\Fact_Accidents\Lookup dimWeatherCondition"
-          TopLeft="13.3571428738684,199.088235233121" />
-        <EdgeLayout
-          Id="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance1]"
-          TopLeft="102.7,152.264705836102">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="19.0571428738682,46.8235293970185"
-              Start="0,0"
-              End="19.0571428738682,39.3235293970185">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,19.4117646985093" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,19.4117646985093"
-                    Point2="0,23.4117646985093"
-                    Point3="4,23.4117646985093" />
-                  <mssgle:LineSegment
-                    End="15.0571428738682,23.4117646985093" />
-                  <mssgle:CubicBezierSegment
-                    Point1="15.0571428738682,23.4117646985093"
-                    Point2="19.0571428738682,23.4117646985093"
-                    Point3="19.0571428738682,27.4117646985093" />
-                  <mssgle:LineSegment
-                    End="19.0571428738682,39.3235293970185" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-82.1484402818159,28.4117646985093,183.3540234375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          TopLeft="17.7142856359779,333.867646879687" />
         <NodeLayout
           Size="142.4,41.6"
           Id="Package\Fact_Accidents\Lookup Temp"
-          TopLeft="303.357143491202,195.935294049947" />
+          TopLeft="72.1071429989308,407.185293864778" />
         <EdgeLayout
-          Id="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance2]"
-          TopLeft="230.157142873868,218.311764641534">
+          Id="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance1]"
+          TopLeft="126.114285635978,375.467646879687">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="73.2000006173334,0"
+              EndConnector="17.1928573629529,31.7176469850909"
               Start="0,0"
-              End="65.7000006173334,0">
+              End="17.1928573629529,24.2176469850909">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="65.7000006173334,0" />
+                    End="0,11.8588234925454" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,11.8588234925454"
+                    Point2="0,15.8588234925454"
+                    Point3="4,15.8588234925454" />
+                  <mssgle:LineSegment
+                    End="13.1928573629529,15.8588234925454" />
+                  <mssgle:CubicBezierSegment
+                    Point1="13.1928573629529,15.8588234925454"
+                    Point2="17.1928573629529,15.8588234925454"
+                    Point3="17.1928573629529,19.8588234925454" />
+                  <mssgle:LineSegment
+                    End="17.1928573629529,24.2176469850909" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-58.8270114100833,5,183.3540234375,11.609375"
+              BoundingBox="-83.0805830372736,20.8588234925454,183.3540234375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
           Size="152.8,41.6"
           Id="Package\Fact_Accidents\Lookup visibility"
-          TopLeft="501.214286769531,196.82941166081" />
+          TopLeft="319.07142923894,413.814705588261" />
         <EdgeLayout
-          Id="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance3]"
-          TopLeft="445.757143491202,217.182352855379">
+          Id="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance2]"
+          TopLeft="214.507142998931,431.29999972652">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="55.4571432783296,0"
+              EndConnector="104.564286240009,0"
               Start="0,0"
-              End="47.9571432783296,0">
+              End="97.0642862400094,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="47.9571432783296,0" />
+                    End="97.0642862400094,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-67.6984400795852,5,183.3540234375,11.609375"
+              BoundingBox="-43.1448685987453,5,183.3540234375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
           Size="144,41.6"
           Id="Package\Fact_Accidents\Lookup Precip"
-          TopLeft="34.7857143480555,268.625596098622" />
+          TopLeft="328.535714973372,310.684419591167" />
         <EdgeLayout
-          Id="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance4]"
-          TopLeft="577.614286769531,238.42941166081">
+          Id="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance3]"
+          TopLeft="398.003572106156,413.814705588261">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-470.828572421476,30.1961844378119"
+              EndConnector="0,-61.5302859970935"
               Start="0,0"
-              End="-470.828572421476,22.6961844378119">
+              End="0,-54.0302859970935">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,11.0980922189059" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,11.0980922189059"
-                    Point2="0,15.0980922189059"
-                    Point3="-4,15.0980922189059" />
-                  <mssgle:LineSegment
-                    End="-466.828572421476,15.0980922189059" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-466.828572421476,15.0980922189059"
-                    Point2="-470.828572421476,15.0980922189059"
-                    Point3="-470.828572421476,19.0980922189059" />
-                  <mssgle:LineSegment
-                    End="-470.828572421476,22.6961844378119" />
+                    End="0,-54.0302859970935" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-327.091297929488,20.0980922189059,183.3540234375,11.609375"
+              BoundingBox="-91.67701171875,-32.8198304985467,183.3540234375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
           Size="156.8,41.6"
           Id="Package\Fact_Accidents\Lookup DimInfra"
-          TopLeft="249.785714805735,276.02941166081" />
+          TopLeft="340.85714357103,245.441176393504" />
         <EdgeLayout
-          Id="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance5]"
-          TopLeft="178.785714348055,293.127503879716">
+          Id="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance4]"
+          TopLeft="397.496429272201,310.684419591167">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="71.0000004576791,0"
+              EndConnector="0,-23.643243197663"
               Start="0,0"
-              End="63.5000004576791,0">
+              End="0,-16.143243197663">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="63.5000004576791,0" />
+                    End="0,-16.143243197663" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-59.9270114899105,5,183.3540234375,11.609375"
+              BoundingBox="-91.67701171875,-13.8763090988315,183.3540234375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
           Size="148,41.6"
           Id="Package\Fact_Accidents\Fact_Accidents"
-          TopLeft="709.964287213905,276.636324772081" />
+          TopLeft="654.607144238921,247.003971856878" />
         <EdgeLayout
-          Id="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance6]"
-          TopLeft="406.585714805735,297.132868216446">
+          Id="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance5]"
+          TopLeft="497.65714357103,267.022574125191">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="303.378572408171,0"
+              EndConnector="156.950000667891,0"
               Start="0,0"
-              End="295.878572408171,0">
+              End="149.450000667891,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="295.878572408171,0" />
+                    End="149.450000667891,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="56.2622744853353,5,183.3540234375,11.609375"
+              BoundingBox="-16.9520113848044,5,183.3540234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Fact_Accidents.Paths[Sortie de colonne dérivée]"
+          TopLeft="98.1797619429652,150.755882295128">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.8764705403091"
+              Start="0,0"
+              End="0,22.3764705403091">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.3764705403091" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Fact_Accidents.Paths[Sortie de recherche avec correspondance6]"
+          TopLeft="124.228571410325,301.382352764218">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32.4852941154689"
+              Start="0,0"
+              End="0,24.9852941154689">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.9852941154689" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-91.67701171875,6.68795955773447,183.3540234375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
